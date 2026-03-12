@@ -5,10 +5,10 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Pipeline } from '@/app/components/Pipeline'
-import { ventures } from '@/app/data/ventures'
+import { featuredVentures, ventures } from '@/app/data/ventures'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, Zap, Github } from 'lucide-react'
+import { ArrowRight, Zap, Github, ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 function Hero() {
@@ -169,6 +169,69 @@ function PipelineSection() {
   )
 }
 
+function VenturePortfolio() {
+  return (
+    <section className="py-24 px-6">
+      <div className="max-w-6xl mx-auto space-y-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center space-y-4"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold">Portfolio Snapshot</h2>
+          <p className="text-text-muted max-w-2xl mx-auto">
+            A mix of launched assets, active builds, and fresh bets moving through the factory right now.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {featuredVentures.map((venture, index) => (
+            <motion.div
+              key={venture.slug}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.06 }}
+            >
+              <Card className="bg-surface border-border-subtle h-full">
+                <CardContent className="pt-6 space-y-4 h-full flex flex-col">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <Link href={`/ventures/${venture.slug}`} className="text-lg font-semibold hover:text-accent-green transition-colors">
+                        {venture.name}
+                      </Link>
+                      <p className="text-sm text-text-muted">{venture.domain}</p>
+                    </div>
+                    <Badge variant="outline" className="border-border-subtle text-text-muted shrink-0">
+                      {venture.stage}
+                    </Badge>
+                  </div>
+
+                  <p className="text-sm text-text-muted leading-relaxed">{venture.description}</p>
+                  {venture.icp && <p className="text-xs text-text-muted"><span className="text-foreground font-medium">ICP:</span> {venture.icp}</p>}
+                  {venture.monetization && <p className="text-xs text-text-muted"><span className="text-foreground font-medium">Monetization:</span> {venture.monetization}</p>}
+
+                  <div className="mt-auto flex items-center justify-between gap-3 pt-2">
+                    <Link href={`/ventures/${venture.slug}`} className="text-sm text-accent-green hover:text-accent-green/80 inline-flex items-center gap-1">
+                      View venture <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    {venture.url && (
+                      <a href={venture.url} target="_blank" rel="noopener noreferrer" className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1">
+                        Live <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function PlaybookCTA() {
   return (
     <section className="py-24 px-6">
@@ -223,6 +286,8 @@ export default function Home() {
       <HowWeBuild />
       <Separator className="bg-border-subtle" />
       <PipelineSection />
+      <Separator className="bg-border-subtle" />
+      <VenturePortfolio />
       <Separator className="bg-border-subtle" />
       <PlaybookCTA />
       <Footer />
