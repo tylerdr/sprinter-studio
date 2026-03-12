@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic'
 import { openai } from '@ai-sdk/openai'
 import { google } from '@ai-sdk/google'
-import { streamText, createUIMessageStreamResponse } from 'ai'
+import { streamText, createUIMessageStreamResponse, convertToModelMessages } from 'ai'
 
 export const runtime = 'edge'
 export const maxDuration = 30
@@ -26,6 +26,7 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json()
     const model = resolveModel()
+    const modelMessages = await convertToModelMessages(messages)
 
     if (!model) {
       return new Response(
@@ -49,7 +50,7 @@ The studio is run by Tyler Dreher (founder) with AI agents handling execution.
 
 Answer questions about our methodology, ventures, and AI venture studio model.
 Be direct, confident, and genuinely helpful. Keep responses concise unless detail is needed.`,
-        messages,
+        messages: modelMessages,
         maxOutputTokens: 500,
       }).toUIMessageStream(),
     })
