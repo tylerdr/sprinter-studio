@@ -12,7 +12,7 @@ function resolveModel() {
   }
 
   if (process.env.OPENAI_API_KEY) {
-    return openai('gpt-4.1-mini')
+    return openai('gpt-5-mini')
   }
 
   if (process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY) {
