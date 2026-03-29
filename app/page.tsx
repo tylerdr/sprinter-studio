@@ -21,9 +21,10 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
+          <p className="text-sm md:text-base font-mono text-accent-green mb-4 tracking-wider uppercase">Sprinter Studio</p>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-            The AI{' '}
-            <span className="text-accent-green">Venture Factory</span>
+            We Build Companies{' '}
+            <span className="text-accent-green">While You Sleep</span>
           </h1>
         </motion.div>
 
@@ -33,7 +34,7 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg md:text-xl text-text-muted max-w-2xl mx-auto"
         >
-          One founder. An army of AI agents. A constellation of profitable software businesses.
+          One founder and autonomous AI agents running {ventures.length}+ software ventures 24/7. No team. No investors. Just the factory.
         </motion.p>
 
         <motion.div
@@ -43,7 +44,7 @@ function Hero() {
           className="flex flex-wrap items-center justify-center gap-4"
         >
           <Link href="#pipeline" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold')}>
-            See the Pipeline
+            See the Live Pipeline
           </Link>
           <Link href="/playbook" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'border-border-subtle hover:bg-surface')}>
             Read the Playbook
@@ -57,13 +58,13 @@ function Hero() {
           className="flex flex-wrap items-center justify-center gap-3 pt-4"
         >
           <Badge variant="outline" className="border-border-subtle text-text-muted px-4 py-1.5">
-            {ventures.length}+ ventures
+            {ventures.length}+ ventures in pipeline
           </Badge>
           <Badge variant="outline" className="border-border-subtle text-text-muted px-4 py-1.5">
-            AI-first execution
+            Agents ship 24/7
           </Badge>
           <Badge variant="outline" className="border-border-subtle text-text-muted px-4 py-1.5">
-            Zero-hustle philosophy
+            Built in public
           </Badge>
         </motion.div>
       </div>
@@ -243,10 +244,10 @@ function PlaybookCTA() {
           className="space-y-4"
         >
           <h2 className="text-3xl md:text-4xl font-bold">
-            Built in public. Methods shared freely.
+            The playbook is open source.
           </h2>
           <p className="text-text-muted max-w-lg mx-auto">
-            The Amble → Sprint → Sail methodology. How one founder and AI agents build a constellation of ventures.
+            Amble → Sprint → Sail. The exact methodology we use to go from raw idea to deployed, revenue-generating product in days — not months.
           </p>
           <Link href="/playbook" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2')}>
             Read the Playbook <ArrowRight className="w-4 h-4" />
