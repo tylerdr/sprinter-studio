@@ -279,6 +279,86 @@ function Footer() {
   )
 }
 
+const faqItems = [
+  {
+    question: 'What is an AI venture studio?',
+    answer:
+      'An AI venture studio uses autonomous AI agents to build, launch, and operate multiple software businesses simultaneously. Instead of hiring teams for each product, AI agents handle coding, content, SEO, outreach, and operations 24/7 — letting a single founder run dozens of ventures at once.',
+  },
+  {
+    question: 'How does the Amble → Sprint → Sail methodology work?',
+    answer:
+      'Amble is the ideation phase: exploring ideas, scoring them, and validating demand before writing any code. Sprint is focused build: shipping an MVP in days using AI agents. Sail is growth: deploying distribution playbooks (SEO, outreach, content) to drive revenue. Ventures only advance through stage gates with real data.',
+  },
+  {
+    question: 'How many ventures does Sprinter Studio run?',
+    answer:
+      'The pipeline currently tracks 19+ ventures across six archetypes: SEO/affiliate sites, productized services, SaaS tools, marketplaces, consumer apps, and infrastructure products. New ventures enter the pipeline weekly as the factory accelerates.',
+  },
+  {
+    question: 'Can I use the Sprinter Studio playbook for my own projects?',
+    answer:
+      'Yes. The playbook is published openly. It covers the full methodology — from idea scoring and ICP definition through MVP deployment and growth loops. Read it at /playbook.',
+  },
+]
+
+function FAQSection() {
+  return (
+    <section className="py-24 px-6">
+      <div className="max-w-3xl mx-auto space-y-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center space-y-4"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
+          <p className="text-text-muted">
+            How the factory works — in plain language.
+          </p>
+        </motion.div>
+
+        <div className="space-y-6">
+          {faqItems.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+            >
+              <Card className="bg-surface border-border-subtle">
+                <CardContent className="pt-6 space-y-2">
+                  <h3 className="text-lg font-semibold">{item.question}</h3>
+                  <p className="text-sm text-text-muted leading-relaxed">{item.answer}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqItems.map((item) => ({
+                '@type': 'Question',
+                name: item.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: item.answer,
+                },
+              })),
+            }),
+          }}
+        />
+      </div>
+    </section>
+  )
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen">
@@ -291,6 +371,8 @@ export default function Home() {
       <VenturePortfolio />
       <Separator className="bg-border-subtle" />
       <PlaybookCTA />
+      <Separator className="bg-border-subtle" />
+      <FAQSection />
       <Footer />
     </main>
   )
