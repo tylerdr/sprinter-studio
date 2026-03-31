@@ -72,6 +72,37 @@ function Hero() {
   )
 }
 
+function ByTheNumbers() {
+  const stats = [
+    { value: `${ventures.length}+`, label: 'Ventures in Pipeline' },
+    { value: '6', label: 'Business Archetypes' },
+    { value: '24/7', label: 'Agent Uptime' },
+    { value: '1', label: 'Human Founder' },
+  ]
+
+  return (
+    <section className="py-16 px-6 bg-surface/50">
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="text-center space-y-1"
+            >
+              <p className="text-3xl md:text-4xl font-bold text-accent-green">{stat.value}</p>
+              <p className="text-sm text-text-muted">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function HowWeBuild() {
   const phases = [
     {
@@ -363,6 +394,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Hero />
+      <ByTheNumbers />
       <Separator className="bg-border-subtle" />
       <HowWeBuild />
       <Separator className="bg-border-subtle" />
