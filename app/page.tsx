@@ -21,10 +21,12 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-sm md:text-base font-mono text-accent-green mb-4 tracking-wider uppercase">Sprinter Studio</p>
+          <p className="text-sm md:text-base font-mono text-accent-green mb-4 tracking-wider uppercase">The AI Venture Factory</p>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-            We Build Companies{' '}
-            <span className="text-accent-green">While You Sleep</span>
+            One Founder.{' '}
+            <span className="text-accent-green">{ventures.length} Ventures.</span>
+            <br />
+            <span className="text-text-muted text-4xl md:text-5xl">Zero Employees.</span>
           </h1>
         </motion.div>
 
@@ -34,7 +36,7 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg md:text-xl text-text-muted max-w-2xl mx-auto"
         >
-          One founder and autonomous AI agents running {ventures.length}+ software ventures 24/7. No team. No investors. Just the factory.
+          Sprinter Studio is a real venture factory where autonomous AI agents build, deploy, and grow software companies around the clock. Every venture below is live. Watch the factory work.
         </motion.p>
 
         <motion.div
@@ -44,10 +46,10 @@ function Hero() {
           className="flex flex-wrap items-center justify-center gap-4"
         >
           <Link href="#pipeline" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold')}>
-            See the Live Pipeline
+            See Every Venture Live
           </Link>
           <Link href="/playbook" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'border-border-subtle hover:bg-surface')}>
-            Read the Playbook
+            How We Build This Fast
           </Link>
         </motion.div>
 
@@ -58,13 +60,13 @@ function Hero() {
           className="flex flex-wrap items-center justify-center gap-3 pt-4"
         >
           <Badge variant="outline" className="border-border-subtle text-text-muted px-4 py-1.5">
-            {ventures.length}+ ventures in pipeline
+            SaaS · SEO · Services · Marketplaces
           </Badge>
           <Badge variant="outline" className="border-border-subtle text-text-muted px-4 py-1.5">
-            Agents ship 24/7
+            Shipping 24/7/365
           </Badge>
           <Badge variant="outline" className="border-border-subtle text-text-muted px-4 py-1.5">
-            Built in public
+            100% built in public
           </Badge>
         </motion.div>
       </div>
