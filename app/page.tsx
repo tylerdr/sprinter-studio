@@ -105,6 +105,74 @@ function ByTheNumbers() {
   )
 }
 
+function WhyAIAgents() {
+  const comparisons = [
+    {
+      traditional: 'Hire a team of 5–10 to launch one product',
+      studio: 'One founder + AI agents launch 19 products simultaneously',
+    },
+    {
+      traditional: '6–12 months from idea to MVP',
+      studio: 'Idea to deployed MVP in 1–3 days',
+    },
+    {
+      traditional: '$50K–$500K burn before first revenue signal',
+      studio: 'Near-zero marginal cost per venture',
+    },
+    {
+      traditional: 'Kill decisions based on gut feel',
+      studio: 'Stage-gate model: real market data before any kill',
+    },
+    {
+      traditional: 'One bet. Hope it works.',
+      studio: 'Portfolio of bets. Math works in your favor.',
+    },
+  ]
+
+  return (
+    <section className="py-24 px-6">
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12 space-y-4"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold">
+            Why AI Agents Change the Math
+          </h2>
+          <p className="text-text-muted max-w-2xl mx-auto">
+            Traditional startups bet everything on one idea with a big team and a long runway.
+            We run dozens of experiments simultaneously at near-zero cost — and only scale what works.
+          </p>
+        </motion.div>
+
+        <div className="space-y-3">
+          {comparisons.map((row, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-3"
+            >
+              <div className="bg-surface border border-border-subtle rounded-lg px-5 py-3 flex items-center gap-3">
+                <span className="text-red-400/70 text-lg shrink-0">✕</span>
+                <p className="text-sm text-text-muted">{row.traditional}</p>
+              </div>
+              <div className="bg-surface border border-accent-green/20 rounded-lg px-5 py-3 flex items-center gap-3">
+                <span className="text-accent-green text-lg shrink-0">✓</span>
+                <p className="text-sm text-foreground">{row.studio}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function HowWeBuild() {
   const phases = [
     {
@@ -397,6 +465,8 @@ export default function Home() {
     <main className="min-h-screen">
       <Hero />
       <ByTheNumbers />
+      <Separator className="bg-border-subtle" />
+      <WhyAIAgents />
       <Separator className="bg-border-subtle" />
       <HowWeBuild />
       <Separator className="bg-border-subtle" />
