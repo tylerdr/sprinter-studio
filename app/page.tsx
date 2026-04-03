@@ -403,6 +403,59 @@ const faqItems = [
   },
 ]
 
+function BuiltBySection() {
+  return (
+    <section className="py-24 px-6">
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-surface border border-border-subtle rounded-xl p-8 md:p-10 space-y-5"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-accent-green/10 flex items-center justify-center text-accent-green text-xl font-bold shrink-0">
+              T
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold">Tyler Driessen</h3>
+              <p className="text-sm text-text-muted">Founder &amp; Sole Operator</p>
+            </div>
+          </div>
+          <p className="text-sm text-text-muted leading-relaxed">
+            I&apos;m a full-stack builder who spent a decade in consulting and enterprise software before
+            asking a simple question: <span className="text-foreground font-medium">what if you treated a venture studio
+            like a factory — and staffed the floor with AI agents instead of people?</span>
+          </p>
+          <p className="text-sm text-text-muted leading-relaxed">
+            Sprinter Studio is the answer. Every venture in the portfolio is built, deployed, and operated
+            by autonomous AI agents that work 24/7. I set direction, make the hard calls, and let the
+            factory compound. The goal: 1,000+ small, profitable businesses — owned and operated forever.
+          </p>
+          <div className="flex items-center gap-4 pt-2">
+            <a
+              href="https://github.com/tylerdr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+            >
+              <Github className="w-4 h-4" /> GitHub
+            </a>
+            <a
+              href="https://github.com/tylerdr/sprinter-studio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" /> View source
+            </a>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
 function FAQSection() {
   return (
     <section className="py-24 px-6">
@@ -475,6 +528,8 @@ export default function Home() {
       <VenturePortfolio />
       <Separator className="bg-border-subtle" />
       <PlaybookCTA />
+      <Separator className="bg-border-subtle" />
+      <BuiltBySection />
       <Separator className="bg-border-subtle" />
       <FAQSection />
       <Footer />
