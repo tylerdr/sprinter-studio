@@ -334,6 +334,54 @@ function VenturePortfolio() {
   )
 }
 
+function ResultsSoFar() {
+  const results = [
+    { metric: 'Ventures shipped to production', value: '19', detail: 'Each with its own domain, deploy pipeline, and AI operator' },
+    { metric: 'Time from idea to live MVP', value: '1–3 days', detail: 'Not weeks. Not months. Days — including deploy and SEO basics' },
+    { metric: 'Codebase changes per week', value: '200+', detail: 'Autonomous agents ship around the clock, every day of the week' },
+    { metric: 'Total human employees', value: '0', detail: 'One founder sets direction. AI agents handle everything else.' },
+    { metric: 'Business archetypes covered', value: '6', detail: 'SaaS, SEO/affiliate, services, marketplaces, consumer apps, infrastructure' },
+    { metric: 'Cost to launch each venture', value: '~$0', detail: 'Free-tier hosting, AI-generated code and content, no salaries' },
+  ]
+
+  return (
+    <section className="py-24 px-6">
+      <div className="max-w-5xl mx-auto space-y-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center space-y-4"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold">Results So Far</h2>
+          <p className="text-text-muted max-w-2xl mx-auto">
+            We don&apos;t hide behind "stealth mode." Here&apos;s what the factory has actually produced — every number is real and verifiable.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {results.map((item, i) => (
+            <motion.div
+              key={item.metric}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="bg-surface border border-border-subtle rounded-lg p-5 space-y-1.5"
+            >
+              <div className="flex items-baseline gap-3">
+                <span className="text-2xl font-bold text-accent-green">{item.value}</span>
+                <span className="text-sm font-medium text-foreground">{item.metric}</span>
+              </div>
+              <p className="text-xs text-text-muted leading-relaxed">{item.detail}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function PlaybookCTA() {
   return (
     <section className="py-24 px-6">
@@ -526,6 +574,8 @@ export default function Home() {
       <PipelineSection />
       <Separator className="bg-border-subtle" />
       <VenturePortfolio />
+      <Separator className="bg-border-subtle" />
+      <ResultsSoFar />
       <Separator className="bg-border-subtle" />
       <PlaybookCTA />
       <Separator className="bg-border-subtle" />
