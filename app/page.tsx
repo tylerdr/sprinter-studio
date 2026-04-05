@@ -407,6 +407,65 @@ function PlaybookCTA() {
   )
 }
 
+function FollowTheBuild() {
+  return (
+    <section className="py-24 px-6 bg-surface/50">
+      <div className="max-w-3xl mx-auto text-center space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="space-y-4"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold">
+            Follow the Build
+          </h2>
+          <p className="text-text-muted max-w-lg mx-auto">
+            This is a live experiment. New ventures launch weekly. Failures are documented publicly.
+            Follow along as we prove (or disprove) whether one founder + AI agents can build
+            a constellation of profitable businesses.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
+          className="flex flex-wrap items-center justify-center gap-4"
+        >
+          <a
+            href="https://github.com/tylerdr/sprinter-studio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ size: 'lg', variant: 'outline' }), 'border-border-subtle hover:bg-surface inline-flex items-center gap-2')}
+          >
+            <Github className="w-5 h-5" /> Star on GitHub
+          </a>
+          <a
+            href="https://x.com/sprintertd"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ size: 'lg', variant: 'outline' }), 'border-border-subtle hover:bg-surface inline-flex items-center gap-2')}
+          >
+            <ExternalLink className="w-4 h-4" /> Follow on X
+          </a>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="text-xs text-text-muted"
+        >
+          Every commit, every launch, every kill decision — all in public.
+        </motion.p>
+      </div>
+    </section>
+  )
+}
+
 function Footer() {
   return (
     <footer className="border-t border-border-subtle py-12 px-6">
@@ -580,6 +639,8 @@ export default function Home() {
       <PlaybookCTA />
       <Separator className="bg-border-subtle" />
       <BuiltBySection />
+      <Separator className="bg-border-subtle" />
+      <FollowTheBuild />
       <Separator className="bg-border-subtle" />
       <FAQSection />
       <Footer />
