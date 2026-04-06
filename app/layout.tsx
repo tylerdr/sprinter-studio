@@ -50,18 +50,45 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Sprinter Studio",
-    url: "https://sprinter.studio",
-    description:
-      "AI-native venture studio building a constellation of profitable software businesses.",
-    founder: {
-      "@type": "Person",
-      name: "Tyler Dreher",
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Sprinter Studio",
+      url: "https://sprinter.studio",
+      logo: "https://sprinter.studio/og.png",
+      description:
+        "AI-native venture studio that uses autonomous AI agents to build, deploy, and operate a portfolio of profitable software businesses.",
+      founder: {
+        "@type": "Person",
+        name: "Tyler Driessen",
+        url: "https://github.com/tylerdr",
+      },
+      sameAs: [
+        "https://github.com/tylerdr/sprinter-studio",
+        "https://x.com/sprintertd",
+      ],
+      knowsAbout: [
+        "AI agents",
+        "Venture studio",
+        "SaaS",
+        "Software development",
+        "Startup automation",
+      ],
     },
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Sprinter Studio",
+      url: "https://sprinter.studio",
+      description:
+        "One founder. An army of AI agents. A constellation of profitable software businesses.",
+      publisher: {
+        "@type": "Organization",
+        name: "Sprinter Studio",
+      },
+    },
+  ];
 
   return (
     <html lang="en" className="dark">
