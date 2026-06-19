@@ -109,7 +109,7 @@ function WhyAIAgents() {
   const comparisons = [
     {
       traditional: 'Hire a team of 5–10 to launch one product',
-      studio: 'One founder + AI agents launch 19 products simultaneously',
+      studio: 'One founder + AI agents run 19 ventures at once',
     },
     {
       traditional: '6–12 months from idea to MVP',
@@ -336,7 +336,7 @@ function VenturePortfolio() {
 
 function ResultsSoFar() {
   const results = [
-    { metric: 'Ventures shipped to production', value: '19', detail: 'Each with its own domain, deploy pipeline, and AI operator' },
+    { metric: 'Ventures in the pipeline', value: '19', detail: 'Live, in build, or in validation — each with its own domain, repo, and AI operator' },
     { metric: 'Time from idea to live MVP', value: '1–3 days', detail: 'Not weeks. Not months. Days — including deploy and SEO basics' },
     { metric: 'Codebase changes per week', value: '200+', detail: 'Autonomous agents ship around the clock, every day of the week' },
     { metric: 'Total human employees', value: '0', detail: 'One founder sets direction. AI agents handle everything else.' },
@@ -355,7 +355,7 @@ function ResultsSoFar() {
         >
           <h2 className="text-3xl md:text-4xl font-bold">Results So Far</h2>
           <p className="text-text-muted max-w-2xl mx-auto">
-            We don&apos;t hide behind "stealth mode." Here&apos;s what the factory has actually produced — every number is real and verifiable.
+            We don&apos;t hide behind &ldquo;stealth mode.&rdquo; Here&apos;s what the factory has actually produced — built in the open, every step logged.
           </p>
         </motion.div>
 
@@ -475,9 +475,11 @@ function Footer() {
           <span className="font-semibold">sprinter.studio</span>
           <span className="text-text-muted text-sm ml-2">Built by Sprinter Studio</span>
         </div>
-        <nav className="flex items-center gap-6 text-sm text-text-muted">
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
           <Link href="#pipeline" className="hover:text-foreground transition-colors">Pipeline</Link>
           <Link href="/playbook" className="hover:text-foreground transition-colors">Playbook</Link>
+          <a href="https://sprinter.ai" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Sprinter AI</a>
+          <a href="https://sprinterconsulting.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Consulting</a>
           <a href="https://github.com/tylerdr/sprinter-studio" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors flex items-center gap-1">
             <Github className="w-4 h-4" /> GitHub
           </a>
@@ -525,19 +527,23 @@ function BuiltBySection() {
               T
             </div>
             <div>
-              <h3 className="text-lg font-semibold">Tyler Driessen</h3>
+              <h3 className="text-lg font-semibold">Tyler Dreher</h3>
               <p className="text-sm text-text-muted">Founder &amp; Sole Operator</p>
             </div>
           </div>
           <p className="text-sm text-text-muted leading-relaxed">
-            I&apos;m a full-stack builder who spent a decade in consulting and enterprise software before
-            asking a simple question: <span className="text-foreground font-medium">what if you treated a venture studio
-            like a factory — and staffed the floor with AI agents instead of people?</span>
+            I&apos;ve always been a builder. I trained as a mechanical engineer (Auburn), worked on
+            machinery at ExxonMobil, and ran a construction company on the side — and at every one of
+            them, the software the work actually needed didn&apos;t exist. So I taught myself to build
+            it, and I never stopped.
           </p>
           <p className="text-sm text-text-muted leading-relaxed">
-            Sprinter Studio is the answer. Every venture in the portfolio is built, deployed, and operated
-            by autonomous AI agents that work 24/7. I set direction, make the hard calls, and let the
-            factory compound. The goal: 1,000+ small, profitable businesses — owned and operated forever.
+            When I saw how much faster I could build with AI, the question got bigger:{' '}
+            <span className="text-foreground font-medium">what if you ran a venture studio like a
+            factory — and staffed the floor with AI agents instead of people?</span> Sprinter Studio
+            is the experiment. I set direction, make the hard calls, and let the system compound —
+            building toward a constellation of small, durable software businesses that get better
+            every week.
           </p>
           <div className="flex items-center gap-4 pt-2">
             <a

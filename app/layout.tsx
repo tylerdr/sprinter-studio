@@ -61,7 +61,7 @@ export default function RootLayout({
         "AI-native venture studio that uses autonomous AI agents to build, deploy, and operate a portfolio of profitable software businesses.",
       founder: {
         "@type": "Person",
-        name: "Tyler Driessen",
+        name: "Tyler Dreher",
         url: "https://github.com/tylerdr",
       },
       sameAs: [
