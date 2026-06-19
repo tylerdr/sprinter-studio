@@ -9,7 +9,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'The Playbook | Sprinter Studio',
-  description: 'The Amble → Sprint → Sail methodology. How one founder and AI agents build a constellation of profitable software businesses.',
+  description: 'The Amble → Sprint → Sail methodology. How one founder and AI agents build a growing constellation of vertical software businesses.',
 }
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {

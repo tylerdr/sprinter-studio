@@ -423,7 +423,7 @@ function FollowTheBuild() {
           <p className="text-text-muted max-w-lg mx-auto">
             This is a live experiment. New ventures launch weekly. Failures are documented publicly.
             Follow along as we prove (or disprove) whether one founder + AI agents can build
-            a constellation of profitable businesses.
+            a growing constellation of vertical software businesses.
           </p>
         </motion.div>
 
@@ -542,7 +542,7 @@ function BuiltBySection() {
             <span className="text-foreground font-medium">what if you ran a venture studio like a
             factory — and staffed the floor with AI agents instead of people?</span> Sprinter Studio
             is the experiment. I set direction, make the hard calls, and let the system compound —
-            building toward a constellation of small, durable software businesses that get better
+            building toward a growing constellation of vertical software businesses that get better
             every week.
           </p>
           <div className="flex items-center gap-4 pt-2">

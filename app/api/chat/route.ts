@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     return createUIMessageStreamResponse({
       stream: streamText({
         model,
-        system: `You are the Sprinter Studio assistant. Sprinter Studio is an AI-native venture studio building a constellation of profitable software businesses.
+        system: `You are the Sprinter Studio assistant. Sprinter Studio is an AI-native venture studio building a growing constellation of vertical software businesses.
 
 We run on the Amble → Sprint → Sail methodology:
 - Amble: Ideate and validate (divergent thinking, scoring, ICP definition)
