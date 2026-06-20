@@ -71,7 +71,7 @@ export function SiteHeader() {
       {menuOpen && (
         <nav
           id="studio-mobile-nav"
-          className="md:hidden fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-background border-t border-border-subtle px-6 py-2"
+          className="md:hidden fixed inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-t border-border-subtle px-6 py-2"
         >
           <Link
             href="#pipeline"
