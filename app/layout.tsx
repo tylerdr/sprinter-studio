@@ -66,7 +66,6 @@ export default function RootLayout({
       },
       sameAs: [
         "https://github.com/tylerdr/sprinter-studio",
-        "https://x.com/sprintertd",
       ],
       knowsAbout: [
         "AI agents",

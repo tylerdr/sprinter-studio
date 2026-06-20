@@ -18,7 +18,18 @@ export function Chat() {
 
   const { messages, sendMessage, status, error } = useChat({
     onError: (err) => {
-      if (err.message?.includes('API key') || err.message?.includes('401') || err.message?.includes('not configured')) {
+      const msg = (err.message || '').toLowerCase()
+      // Degrade gracefully on any auth/config/availability failure (e.g. "invalid x-api-key",
+      // 401/403, "not configured", "unavailable") instead of showing a scary error.
+      if (
+        msg.includes('api') ||
+        msg.includes('key') ||
+        msg.includes('401') ||
+        msg.includes('403') ||
+        msg.includes('configured') ||
+        msg.includes('unavailable') ||
+        msg.includes('invalid')
+      ) {
         setChatAvailable(false)
       }
     },

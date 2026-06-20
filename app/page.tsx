@@ -442,14 +442,6 @@ function FollowTheBuild() {
           >
             <Github className="w-5 h-5" /> Star on GitHub
           </a>
-          <a
-            href="https://x.com/sprintertd"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(buttonVariants({ size: 'lg', variant: 'outline' }), 'border-border-subtle hover:bg-surface inline-flex items-center gap-2')}
-          >
-            <ExternalLink className="w-4 h-4" /> Follow on X
-          </a>
         </motion.div>
 
         <motion.p

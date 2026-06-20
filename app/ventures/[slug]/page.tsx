@@ -1,7 +1,7 @@
 import { ventures, stageConfig } from '@/app/data/ventures'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const venture = ventures.find((v) => v.slug === slug)
   if (!venture) return { title: 'Venture Not Found' }
   return {
-    title: `${venture.name} | Sprinter Studio`,
+    title: venture.name,
     description: venture.description,
   }
 }
@@ -65,7 +65,7 @@ export default async function VenturePage({ params }: { params: Promise<{ slug: 
                 {venture.archetype}
               </Badge>
             </div>
-            <CardTitle className="text-3xl md:text-4xl">{venture.name}</CardTitle>
+            <h1 className="text-3xl md:text-4xl font-semibold leading-none tracking-tight">{venture.name}</h1>
             <p className="text-text-muted">{venture.domain}</p>
           </CardHeader>
           <CardContent className="space-y-6">
