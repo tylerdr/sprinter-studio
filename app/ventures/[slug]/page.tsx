@@ -19,6 +19,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: venture.name,
     description: venture.description,
+    alternates: { canonical: `/ventures/${venture.slug}` },
+    openGraph: {
+      title: `${venture.name} | Sprinter Studio`,
+      description: venture.description,
+      url: `https://sprinter.studio/ventures/${venture.slug}`,
+      type: 'website',
+    },
   }
 }
 
@@ -80,6 +87,32 @@ export default async function VenturePage({ params }: { params: Promise<{ slug: 
               <h2 className="text-lg font-semibold mb-3">About this venture</h2>
               <p className="text-text-muted leading-relaxed">{venture.description}</p>
             </div>
+
+            {(venture.icp || venture.monetization || venture.signal) && (
+              <>
+                <Separator className="bg-border-subtle" />
+                <dl className="space-y-5">
+                  {venture.icp && (
+                    <div>
+                      <dt className="text-sm font-medium text-foreground mb-1">Who it&apos;s for</dt>
+                      <dd className="text-text-muted leading-relaxed">{venture.icp}</dd>
+                    </div>
+                  )}
+                  {venture.monetization && (
+                    <div>
+                      <dt className="text-sm font-medium text-foreground mb-1">How it makes money</dt>
+                      <dd className="text-text-muted leading-relaxed">{venture.monetization}</dd>
+                    </div>
+                  )}
+                  {venture.signal && (
+                    <div>
+                      <dt className="text-sm font-medium text-foreground mb-1">Why it&apos;s promising</dt>
+                      <dd className="text-text-muted leading-relaxed">{venture.signal}</dd>
+                    </div>
+                  )}
+                </dl>
+              </>
+            )}
 
             {venture.url && (
               <a

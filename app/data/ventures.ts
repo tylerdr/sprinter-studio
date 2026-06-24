@@ -170,7 +170,7 @@ export const ventures: Venture[] = [
     slug: 'portcoaudit',
     name: 'PortCo Audit',
     domain: 'portcoaudit.com',
-    description: 'AI audit of portfolio companies to identify AI transformation opportunities.',
+    description: 'AI audit of portfolio companies to identify high-impact AI opportunities.',
     stage: 'sprint',
     archetype: 'service',
     status: 'Build-now validate',

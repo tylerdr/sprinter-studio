@@ -39,7 +39,7 @@ export function SiteHeader() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm">
-          <Link href="#pipeline" className="text-text-muted hover:text-foreground transition-colors">
+          <Link href="/#pipeline" className="text-text-muted hover:text-foreground transition-colors">
             Pipeline
           </Link>
           <Link href="/playbook" className="text-text-muted hover:text-foreground transition-colors">
@@ -74,7 +74,7 @@ export function SiteHeader() {
           className="md:hidden fixed inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-t border-border-subtle px-6 py-2"
         >
           <Link
-            href="#pipeline"
+            href="/#pipeline"
             className="flex min-h-[48px] items-center text-sm text-text-muted hover:text-foreground"
             onClick={() => setMenuOpen(false)}
           >

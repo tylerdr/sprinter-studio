@@ -36,7 +36,7 @@ function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg md:text-xl text-text-muted max-w-2xl mx-auto"
         >
-          Sprinter Studio is a real venture factory where autonomous AI agents build, deploy, and grow software companies around the clock. Every venture below is live. Watch the factory work.
+          Sprinter Studio is a real venture factory where autonomous AI agents build, deploy, and grow software companies around the clock. Every venture below is real — live, in build, or in validation. Watch the factory work.
         </motion.p>
 
         <motion.div
@@ -46,7 +46,7 @@ function Hero() {
           className="flex flex-wrap items-center justify-center gap-4"
         >
           <Link href="#pipeline" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold')}>
-            See Every Venture Live
+            See the Venture Pipeline
           </Link>
           <Link href="/playbook" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'border-border-subtle hover:bg-surface')}>
             How We Build This Fast
@@ -76,7 +76,7 @@ function Hero() {
 
 function ByTheNumbers() {
   const stats = [
-    { value: `${ventures.length}+`, label: 'Ventures in Pipeline' },
+    { value: `${ventures.length}`, label: 'Ventures in Pipeline' },
     { value: '6', label: 'Business Archetypes' },
     { value: '24/7', label: 'Agent Uptime' },
     { value: '1', label: 'Human Founder' },
@@ -261,7 +261,7 @@ function PipelineSection() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Live Pipeline</h2>
           <p className="text-text-muted">
-            Real-time view of every venture across the factory.
+            Where every venture stands across the factory right now.
           </p>
         </motion.div>
 
@@ -338,7 +338,7 @@ function ResultsSoFar() {
   const results = [
     { metric: 'Ventures in the pipeline', value: '19', detail: 'Live, in build, or in validation — each with its own domain, repo, and AI operator' },
     { metric: 'Time from idea to live MVP', value: '1–3 days', detail: 'Not weeks. Not months. Days — including deploy and SEO basics' },
-    { metric: 'Codebase changes per week', value: '200+', detail: 'Autonomous agents ship around the clock, every day of the week' },
+    { metric: 'Code shipped', value: 'Daily', detail: 'Autonomous agents commit and deploy around the clock, every day of the week' },
     { metric: 'Total human employees', value: '0', detail: 'One founder sets direction. AI agents handle everything else.' },
     { metric: 'Business archetypes covered', value: '6', detail: 'SaaS, SEO/affiliate, services, marketplaces, consumer apps, infrastructure' },
     { metric: 'Cost to launch each venture', value: '~$0', detail: 'Free-tier hosting, AI-generated code and content, no salaries' },
@@ -396,7 +396,7 @@ function PlaybookCTA() {
             The playbook is open source.
           </h2>
           <p className="text-text-muted max-w-lg mx-auto">
-            Amble → Sprint → Sail. The exact methodology we use to go from raw idea to deployed, revenue-generating product in days — not months.
+            Amble → Sprint → Sail. The exact methodology we use to go from raw idea to deployed, in-market product in days — not months.
           </p>
           <Link href="/playbook" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2')}>
             Read the Playbook <ArrowRight className="w-4 h-4" />
@@ -421,7 +421,7 @@ function FollowTheBuild() {
             Follow the Build
           </h2>
           <p className="text-text-muted max-w-lg mx-auto">
-            This is a live experiment. New ventures launch weekly. Failures are documented publicly.
+            This is a live experiment. New ventures launch regularly. Failures are documented publicly.
             Follow along as we prove (or disprove) whether one founder + AI agents can build
             a growing constellation of vertical software businesses.
           </p>
@@ -495,7 +495,7 @@ const faqItems = [
   {
     question: 'How many ventures does Sprinter Studio run?',
     answer:
-      'The pipeline currently tracks 19+ ventures across six archetypes: SEO/affiliate sites, productized services, SaaS tools, marketplaces, consumer apps, and infrastructure products. New ventures enter the pipeline weekly as the factory accelerates.',
+      'The pipeline currently tracks 19 ventures across six archetypes: SEO/affiliate sites, productized services, SaaS tools, marketplaces, consumer apps, and infrastructure products. New ventures enter the pipeline regularly as the factory accelerates.',
   },
   {
     question: 'Can I use the Sprinter Studio playbook for my own projects?',

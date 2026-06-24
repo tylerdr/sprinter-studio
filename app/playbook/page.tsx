@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'The Playbook | Sprinter Studio',
+  title: 'The Playbook',
   description: 'The Amble → Sprint → Sail methodology. How one founder and AI agents build a growing constellation of vertical software businesses.',
 }
 

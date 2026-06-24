@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   description:
     "One founder. An army of AI agents. A growing constellation of vertical software businesses. Watch us build in public.",
   metadataBase: new URL("https://sprinter.studio"),
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Sprinter Studio | The AI Venture Factory",
     description:
