@@ -4,6 +4,7 @@ import { useChat } from '@ai-sdk/react'
 import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { useReducedMotion } from '@/app/hooks/use-reduced-motion'
 import { MessageCircle, X, Send, Loader2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -15,10 +16,22 @@ export function Chat() {
   const [chatAvailable, setChatAvailable] = useState(true)
   const [inputValue, setInputValue] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = useReducedMotion()
 
   const { messages, sendMessage, status, error } = useChat({
     onError: (err) => {
-      if (err.message?.includes('API key') || err.message?.includes('401') || err.message?.includes('not configured')) {
+      const msg = (err.message || '').toLowerCase()
+      // Degrade gracefully on any auth/config/availability failure (e.g. "invalid x-api-key",
+      // 401/403, "not configured", "unavailable") instead of showing a scary error.
+      if (
+        msg.includes('api') ||
+        msg.includes('key') ||
+        msg.includes('401') ||
+        msg.includes('403') ||
+        msg.includes('configured') ||
+        msg.includes('unavailable') ||
+        msg.includes('invalid')
+      ) {
         setChatAvailable(false)
       }
     },
@@ -46,7 +59,10 @@ export function Chat() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            id="sprinter-chat-panel"
+            role="dialog"
+            aria-label="Sprinter Studio AI chat"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
@@ -55,10 +71,10 @@ export function Chat() {
             <Card className="bg-surface border-border-subtle flex flex-col h-[480px] overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 border-b border-border-subtle">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-accent-green" />
+                  <div className={`w-2 h-2 rounded-full ${chatAvailable ? 'bg-accent-green' : 'bg-text-muted'}`} />
                   <span className="text-sm font-medium">Sprinter Studio AI</span>
                 </div>
-                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setIsOpen(false)}>
+                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setIsOpen(false)} aria-label="Close chat">
                   <X className="w-4 h-4" />
                 </Button>
               </div>
@@ -120,12 +136,14 @@ export function Chat() {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Ask about Sprinter Studio..."
+                        aria-label="Ask about Sprinter Studio"
                         className="flex-1 bg-surface-raised border border-border-subtle rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-accent-green placeholder:text-text-muted"
                         disabled={isLoading}
                       />
                       <Button
                         type="submit"
                         size="icon"
+                        aria-label="Send message"
                         className="bg-accent-green text-background hover:bg-accent-green/90 shrink-0"
                         disabled={isLoading || !inputValue.trim()}
                       >
@@ -142,12 +160,15 @@ export function Chat() {
 
       <motion.div
         className="fixed bottom-4 right-4 z-50"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
       >
         <Button
           onClick={() => setIsOpen(!isOpen)}
           size="icon"
+          aria-label={isOpen ? 'Close chat' : 'Open chat'}
+          aria-expanded={isOpen}
+          aria-controls="sprinter-chat-panel"
           className="h-12 w-12 rounded-full bg-accent-green text-background hover:bg-accent-green/90 shadow-lg"
         >
           {isOpen ? <X className="w-5 h-5" /> : <MessageCircle className="w-5 h-5" />}

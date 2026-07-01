@@ -1,9 +1,10 @@
 import { ventures, stageConfig } from '@/app/data/ventures'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
@@ -17,8 +18,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const venture = ventures.find((v) => v.slug === slug)
   if (!venture) return { title: 'Venture Not Found' }
   return {
-    title: `${venture.name} | Sprinter Studio`,
+    title: venture.name,
     description: venture.description,
+    alternates: { canonical: `/ventures/${venture.slug}` },
+    openGraph: {
+      title: `${venture.name} | Sprinter Studio`,
+      description: venture.description,
+      url: `https://sprinter.studio/ventures/${venture.slug}`,
+      type: 'website',
+    },
   }
 }
 
@@ -65,9 +73,27 @@ export default async function VenturePage({ params }: { params: Promise<{ slug: 
                 {venture.archetype}
               </Badge>
             </div>
-            <CardTitle className="text-3xl md:text-4xl">{venture.name}</CardTitle>
+            <h1 className="text-3xl md:text-4xl font-semibold leading-none tracking-tight">{venture.name}</h1>
             <p className="text-text-muted">{venture.domain}</p>
           </CardHeader>
+          {venture.screenshot && (
+            <div className="px-4">
+              <div className="relative w-full aspect-[16/10] rounded-lg border border-border-subtle overflow-hidden">
+                <div
+                  className="absolute inset-x-0 top-0 h-1 z-10"
+                  style={{ backgroundColor: config.hex }}
+                />
+                <Image
+                  src={venture.screenshot}
+                  alt={`${venture.name} screenshot`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="object-cover"
+                />
+              </div>
+              <p className="mt-2 text-xs font-mono text-text-muted">{venture.domain}</p>
+            </div>
+          )}
           <CardContent className="space-y-6">
             <div>
               <p className="text-sm font-medium text-text-muted mb-1">Status</p>
@@ -80,6 +106,32 @@ export default async function VenturePage({ params }: { params: Promise<{ slug: 
               <h2 className="text-lg font-semibold mb-3">About this venture</h2>
               <p className="text-text-muted leading-relaxed">{venture.description}</p>
             </div>
+
+            {(venture.icp || venture.monetization || venture.signal) && (
+              <>
+                <Separator className="bg-border-subtle" />
+                <dl className="space-y-5">
+                  {venture.icp && (
+                    <div>
+                      <dt className="text-sm font-medium text-foreground mb-1">Who it&apos;s for</dt>
+                      <dd className="text-text-muted leading-relaxed">{venture.icp}</dd>
+                    </div>
+                  )}
+                  {venture.monetization && (
+                    <div>
+                      <dt className="text-sm font-medium text-foreground mb-1">How it makes money</dt>
+                      <dd className="text-text-muted leading-relaxed">{venture.monetization}</dd>
+                    </div>
+                  )}
+                  {venture.signal && (
+                    <div>
+                      <dt className="text-sm font-medium text-foreground mb-1">Why it&apos;s promising</dt>
+                      <dd className="text-text-muted leading-relaxed">{venture.signal}</dd>
+                    </div>
+                  )}
+                </dl>
+              </>
+            )}
 
             {venture.url && (
               <a

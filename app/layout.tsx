@@ -21,12 +21,13 @@ export const metadata: Metadata = {
     template: "%s | Sprinter Studio",
   },
   description:
-    "One founder. An army of AI agents. A constellation of profitable software businesses. Watch us build in public.",
+    "One founder. An army of AI agents. A growing constellation of vertical software businesses. Watch us build in public.",
   metadataBase: new URL("https://sprinter.studio"),
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Sprinter Studio | The AI Venture Factory",
     description:
-      "One founder. An army of AI agents. A constellation of profitable software businesses.",
+      "One founder. An army of AI agents. A growing constellation of vertical software businesses.",
     url: "https://sprinter.studio",
     siteName: "Sprinter Studio",
     type: "website",
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sprinter Studio | The AI Venture Factory",
     description:
-      "One founder. An army of AI agents. A constellation of profitable software businesses.",
+      "One founder. An army of AI agents. A growing constellation of vertical software businesses.",
     images: ["/og.png"],
   },
   robots: {
@@ -58,15 +59,14 @@ export default function RootLayout({
       url: "https://sprinter.studio",
       logo: "https://sprinter.studio/og.png",
       description:
-        "AI-native venture studio that uses autonomous AI agents to build, deploy, and operate a portfolio of profitable software businesses.",
+        "AI-native venture studio that uses autonomous AI agents to build, deploy, and operate a growing portfolio of vertical software businesses.",
       founder: {
         "@type": "Person",
-        name: "Tyler Driessen",
+        name: "Tyler Dreher",
         url: "https://github.com/tylerdr",
       },
       sameAs: [
         "https://github.com/tylerdr/sprinter-studio",
-        "https://x.com/sprintertd",
       ],
       knowsAbout: [
         "AI agents",
@@ -82,7 +82,7 @@ export default function RootLayout({
       name: "Sprinter Studio",
       url: "https://sprinter.studio",
       description:
-        "One founder. An army of AI agents. A constellation of profitable software businesses.",
+        "One founder. An army of AI agents. A growing constellation of vertical software businesses.",
       publisher: {
         "@type": "Organization",
         name: "Sprinter Studio",
@@ -91,16 +91,14 @@ export default function RootLayout({
   ];
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`dark ${geistSans.variable} ${geistMono.variable}`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="antialiased">
         <SiteHeader />
         {children}
         <Chat />
