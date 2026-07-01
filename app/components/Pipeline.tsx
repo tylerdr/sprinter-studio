@@ -2,12 +2,12 @@
 
 import { ventures, stageConfig } from "@/app/data/ventures"
 import type { Venture } from "@/app/data/ventures"
+import { PhaseGlyph } from "@/app/components/PlaybookDiagram"
 import { Reveal } from "@/app/components/Reveal"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 
-const stages: Array<Venture["stage"]> = ["amble", "sprint", "sail"]
-const stageEmoji: Record<string, string> = { amble: "\ud83c\udf00", sprint: "\ud83c\udfaf", sail: "\u26f5" }
+const stages = ["amble", "sprint", "sail"] as const
 
 function VentureCard({ venture, index }: { venture: Venture; index: number }) {
   const config = stageConfig[venture.stage]
@@ -54,7 +54,7 @@ export function Pipeline() {
         return (
           <div key={stage} className="space-y-3">
             <div className="flex items-center gap-2 mb-4 pb-3 border-b" style={{ borderColor: `${config.hex}40` }}>
-              <span className="text-xl">{stageEmoji[stage]}</span>
+              <PhaseGlyph phase={stage} className="w-5 h-5 shrink-0" />
               <h3 className="text-lg font-semibold" style={{ color: config.hex }}>
                 {config.label}
               </h3>
