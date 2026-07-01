@@ -2,9 +2,8 @@
 
 import { ventures, stageConfig } from "@/app/data/ventures"
 import type { Venture } from "@/app/data/ventures"
-import { useReducedMotion } from "@/app/hooks/use-reduced-motion"
+import { Reveal } from "@/app/components/Reveal"
 import { Badge } from "@/components/ui/badge"
-import { motion } from "framer-motion"
 import Link from "next/link"
 
 const stages: Array<Venture["stage"]> = ["amble", "sprint", "sail"]
@@ -12,15 +11,9 @@ const stageEmoji: Record<string, string> = { amble: "\ud83c\udf00", sprint: "\ud
 
 function VentureCard({ venture, index }: { venture: Venture; index: number }) {
   const config = stageConfig[venture.stage]
-  const prefersReducedMotion = useReducedMotion()
 
   return (
-    <motion.div
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.05, duration: 0.3 }}
-    >
+    <Reveal delay={index * 0.05} duration={0.3}>
       <Link href={`/ventures/${venture.slug}`}>
         <div
           className="group relative rounded-lg border p-3 transition-all hover:scale-[1.02] cursor-pointer bg-card"
@@ -47,7 +40,7 @@ function VentureCard({ venture, index }: { venture: Venture; index: number }) {
           </p>
         </div>
       </Link>
-    </motion.div>
+    </Reveal>
   )
 }
 
