@@ -4,6 +4,7 @@ import { useChat } from '@ai-sdk/react'
 import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { useReducedMotion } from '@/app/hooks/use-reduced-motion'
 import { MessageCircle, X, Send, Loader2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -15,6 +16,7 @@ export function Chat() {
   const [chatAvailable, setChatAvailable] = useState(true)
   const [inputValue, setInputValue] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = useReducedMotion()
 
   const { messages, sendMessage, status, error } = useChat({
     onError: (err) => {
@@ -60,7 +62,7 @@ export function Chat() {
             id="sprinter-chat-panel"
             role="dialog"
             aria-label="Sprinter Studio AI chat"
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
@@ -158,8 +160,8 @@ export function Chat() {
 
       <motion.div
         className="fixed bottom-4 right-4 z-50"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
+        whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
       >
         <Button
           onClick={() => setIsOpen(!isOpen)}

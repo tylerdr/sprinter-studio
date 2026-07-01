@@ -4,6 +4,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
@@ -75,6 +76,24 @@ export default async function VenturePage({ params }: { params: Promise<{ slug: 
             <h1 className="text-3xl md:text-4xl font-semibold leading-none tracking-tight">{venture.name}</h1>
             <p className="text-text-muted">{venture.domain}</p>
           </CardHeader>
+          {venture.screenshot && (
+            <div className="px-4">
+              <div className="relative w-full aspect-[16/10] rounded-lg border border-border-subtle overflow-hidden">
+                <div
+                  className="absolute inset-x-0 top-0 h-1 z-10"
+                  style={{ backgroundColor: config.hex }}
+                />
+                <Image
+                  src={venture.screenshot}
+                  alt={`${venture.name} screenshot`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="object-cover"
+                />
+              </div>
+              <p className="mt-2 text-xs font-mono text-text-muted">{venture.domain}</p>
+            </div>
+          )}
           <CardContent className="space-y-6">
             <div>
               <p className="text-sm font-medium text-text-muted mb-1">Status</p>

@@ -2,14 +2,16 @@ import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import Link from 'next/link'
+import { PlaybookDiagram, PhaseGlyph } from '@/app/components/PlaybookDiagram'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'The Playbook',
   description: 'The Amble → Sprint → Sail methodology. How one founder and AI agents build a growing constellation of vertical software businesses.',
+  alternates: { canonical: '/playbook' },
 }
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -37,13 +39,16 @@ export default function PlaybookPage() {
             This is the Amble → Sprint → Sail methodology: a repeatable framework for
             validating, building, and scaling software ventures at AI speed.
           </p>
+          <div className="mt-12">
+            <PlaybookDiagram />
+          </div>
         </Section>
 
         <Separator className="bg-border-subtle" />
 
         <Section>
           <div className="flex items-center gap-3 mb-6">
-            <span className="text-3xl">🌀</span>
+            <PhaseGlyph phase="amble" className="w-9 h-9 shrink-0" />
             <div>
               <h2 className="text-2xl md:text-3xl font-bold" style={{ color: '#ff6600' }}>Phase 1: Amble</h2>
               <p className="text-text-muted">Ideate & Validate</p>
@@ -73,11 +78,11 @@ export default function PlaybookPage() {
               <CardContent className="pt-6">
                 <h3 className="font-semibold text-foreground mb-3">Gate 1: Build-Ready Checklist</h3>
                 <ul className="space-y-2 text-sm">
-                  <li>✅ Clear ICP with validated pain point</li>
-                  <li>✅ Revenue model defined (how it makes money day 1)</li>
-                  <li>✅ Competitive advantage articulated</li>
-                  <li>✅ MVP scope defined (what ships in the first sprint)</li>
-                  <li>✅ Domain secured</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#ff6600' }} aria-hidden="true" /> Clear ICP with validated pain point</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#ff6600' }} aria-hidden="true" /> Revenue model defined (how it makes money day 1)</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#ff6600' }} aria-hidden="true" /> Competitive advantage articulated</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#ff6600' }} aria-hidden="true" /> MVP scope defined (what ships in the first sprint)</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#ff6600' }} aria-hidden="true" /> Domain secured</li>
                 </ul>
               </CardContent>
             </Card>
@@ -88,7 +93,7 @@ export default function PlaybookPage() {
 
         <Section>
           <div className="flex items-center gap-3 mb-6">
-            <span className="text-3xl">🎯</span>
+            <PhaseGlyph phase="sprint" className="w-9 h-9 shrink-0" />
             <div>
               <h2 className="text-2xl md:text-3xl font-bold" style={{ color: '#0066ff' }}>Phase 2: Sprint</h2>
               <p className="text-text-muted">Build & Deploy</p>
@@ -118,12 +123,12 @@ export default function PlaybookPage() {
               <CardContent className="pt-6">
                 <h3 className="font-semibold text-foreground mb-3">Gate 2: Launch Checklist</h3>
                 <ul className="space-y-2 text-sm">
-                  <li>✅ Core features functional and tested</li>
-                  <li>✅ Landing page with clear value proposition</li>
-                  <li>✅ Payment integration (if applicable)</li>
-                  <li>✅ Analytics and monitoring in place</li>
-                  <li>✅ SEO basics configured</li>
-                  <li>✅ Deployed to production domain</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#0066ff' }} aria-hidden="true" /> Core features functional and tested</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#0066ff' }} aria-hidden="true" /> Landing page with clear value proposition</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#0066ff' }} aria-hidden="true" /> Payment integration (if applicable)</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#0066ff' }} aria-hidden="true" /> Analytics and monitoring in place</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#0066ff' }} aria-hidden="true" /> SEO basics configured</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: '#0066ff' }} aria-hidden="true" /> Deployed to production domain</li>
                 </ul>
               </CardContent>
             </Card>
@@ -134,7 +139,7 @@ export default function PlaybookPage() {
 
         <Section>
           <div className="flex items-center gap-3 mb-6">
-            <span className="text-3xl">⛵</span>
+            <PhaseGlyph phase="sail" className="w-9 h-9 shrink-0" />
             <div>
               <h2 className="text-2xl md:text-3xl font-bold" style={{ color: '#00ff88' }}>Phase 3: Sail</h2>
               <p className="text-text-muted">Grow & Scale</p>

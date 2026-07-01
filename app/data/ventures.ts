@@ -11,6 +11,7 @@ export interface Venture {
   monetization?: string
   signal?: string
   featured?: boolean
+  screenshot?: string
 }
 
 export const ventures: Venture[] = [
@@ -28,6 +29,7 @@ export const ventures: Venture[] = [
     monetization: 'Service packages + sprint retainers.',
     signal: 'Live offer in market with clear founder-service fit.',
     featured: true,
+    screenshot: '/ventures/getfoundinchat.webp',
   },
   {
     slug: 'aiopsguide',
@@ -42,6 +44,7 @@ export const ventures: Venture[] = [
     monetization: 'Content-led acquisition into advisory, products, and tools.',
     signal: 'Authority-building asset with organic search upside.',
     featured: true,
+    screenshot: '/ventures/aiopsguide.webp',
   },
   {
     slug: 'aibizblueprint',
@@ -56,6 +59,7 @@ export const ventures: Venture[] = [
     monetization: 'Lead generation into consulting, products, and playbooks.',
     signal: 'Strong thesis fit with the studio’s public narrative.',
     featured: true,
+    screenshot: '/ventures/aibizblueprint.webp',
   },
   {
     slug: 'shreddify',
@@ -69,6 +73,7 @@ export const ventures: Venture[] = [
     icp: 'Guitarists who want faster practice loops and personalized learning support.',
     monetization: 'Subscription SaaS.',
     signal: 'Consumer AI product already shipped.',
+    screenshot: '/ventures/shreddify.webp',
   },
   {
     slug: 'protocolrank',
@@ -82,6 +87,7 @@ export const ventures: Venture[] = [
     icp: 'SEO operators and growth teams tracking search visibility.',
     monetization: 'Tool subscription or internal growth infrastructure.',
     signal: 'Live property with direct overlap to studio distribution systems.',
+    screenshot: '/ventures/protocolrank.webp',
   },
   {
     slug: 'ohioelectricityrates',
@@ -95,6 +101,7 @@ export const ventures: Venture[] = [
     icp: 'Ohio consumers shopping electricity suppliers and rates.',
     monetization: 'Lead gen / affiliate / local SEO monetization.',
     signal: 'Functional vertical SEO asset.',
+    screenshot: '/ventures/ohioelectricityrates.webp',
   },
   {
     slug: 'ogpreviewtool',
@@ -103,7 +110,7 @@ export const ventures: Venture[] = [
     description: 'Preview how your links look on social media platforms.',
     stage: 'sail',
     archetype: 'tool',
-    status: 'Launched - revenue-blocked',
+    status: 'Launched · revenue-blocked',
     icp: 'Marketers and developers validating social share cards.',
     monetization: 'Free tool into paid design / optimization workflow.',
     signal: 'Useful tool with clear utility, monetization still blocked.',
@@ -114,7 +121,7 @@ export const ventures: Venture[] = [
     slug: 'sprinter-studio',
     name: 'Sprinter Studio',
     domain: 'sprinter.studio',
-    description: 'The AI venture factory dashboard and public proof-of-work site — this project.',
+    description: 'The public face of the AI venture factory — every venture, stage, and status, live.',
     stage: 'sprint',
     archetype: 'infra',
     status: 'Building MVP',
@@ -131,12 +138,13 @@ export const ventures: Venture[] = [
     description: 'AI-powered winery management platform.',
     stage: 'sprint',
     archetype: 'saas',
-    status: 'Building → Launch-Ready',
+    status: 'Build · launch-ready',
     url: 'https://winemakeros.com',
     icp: 'Small and midsize wineries that want operational leverage and decision support.',
     monetization: 'Subscription SaaS with winery-specific tooling.',
     signal: 'One of the stronger vertical-software plays in the portfolio.',
     featured: true,
+    screenshot: '/ventures/winemakeros.webp',
   },
   {
     slug: 'everymcp',
@@ -151,6 +159,7 @@ export const ventures: Venture[] = [
     monetization: 'Marketplace, listings, sponsorships, or premium discovery.',
     signal: 'Rides the MCP adoption wave directly.',
     featured: true,
+    screenshot: '/ventures/everymcp.webp',
   },
   {
     slug: 'cimreader',
@@ -159,12 +168,13 @@ export const ventures: Venture[] = [
     description: 'AI CIM analysis for PE analysts — turns 3-hour CIM review into 10 minutes.',
     stage: 'sprint',
     archetype: 'tool',
-    status: 'Live, needs domain DNS',
+    status: 'Live · DNS pending',
     url: 'https://cimreader.com',
     icp: 'PE analysts, family offices, and independent sponsors buried in CIM review.',
     monetization: 'Per-report fee or SaaS subscription.',
     signal: 'Strong pain, warm lead access, clear ROI story.',
     featured: true,
+    screenshot: '/ventures/cimreader.webp',
   },
   {
     slug: 'portcoaudit',
@@ -173,11 +183,12 @@ export const ventures: Venture[] = [
     description: 'AI audit of portfolio companies to identify high-impact AI opportunities.',
     stage: 'sprint',
     archetype: 'service',
-    status: 'Build-now validate',
+    status: 'Build · validating',
     url: 'https://portcoaudit.com',
     icp: 'Private equity firms and portfolio operators.',
     monetization: 'Audit engagements + downstream AI implementation work.',
     signal: 'High-ticket service with natural expansion revenue.',
+    screenshot: '/ventures/portcoaudit.webp',
   },
   {
     slug: 'hireagentbuilders',
@@ -186,11 +197,12 @@ export const ventures: Venture[] = [
     description: 'Marketplace connecting companies with AI agent development talent.',
     stage: 'sprint',
     archetype: 'marketplace',
-    status: 'Validation - concierge v1',
+    status: 'Validating · concierge v1',
     url: 'https://hireagentbuilders.com',
     icp: 'Teams that need agent builders fast without doing full recruiting.',
     monetization: 'Placement fee, marketplace rake, or lead-gen model.',
     signal: 'Demand exists; execution model still tightening.',
+    screenshot: '/ventures/hireagentbuilders.webp',
   },
   {
     slug: 'shotfreetrt',
@@ -204,6 +216,7 @@ export const ventures: Venture[] = [
     icp: 'Men exploring TRT alternatives and hormone optimization.',
     monetization: 'Content-led offers, partnerships, and affiliate revenue.',
     signal: 'Live property with niche demand.',
+    screenshot: '/ventures/shotfreetrt.webp',
   },
   {
     slug: 'sprinteragent',
@@ -212,11 +225,12 @@ export const ventures: Venture[] = [
     description: 'AI agent infrastructure and deployment platform.',
     stage: 'sprint',
     archetype: 'infra',
-    status: 'Live, DNS propagating',
+    status: 'Live · DNS propagating',
     url: 'https://sprinteragent.com',
     icp: 'Builders and companies deploying production AI agents.',
     monetization: 'Infra subscription or enterprise tooling.',
     signal: 'Core infrastructure adjacency to the studio thesis.',
+    screenshot: '/ventures/sprinteragent.webp',
   },
   {
     slug: 'roofrainmaker',
@@ -225,12 +239,13 @@ export const ventures: Venture[] = [
     description: 'AI-powered website + lead-gen system for roofing contractors.',
     stage: 'sprint',
     archetype: 'service',
-    status: 'Sprint → approaching Sail',
+    status: 'Sprint · nearing Sail',
     url: 'https://roofrainmaker.com',
     icp: 'Roofing contractors that need better websites and inbound leads.',
     monetization: 'Setup fees + recurring marketing/automation retainers.',
     signal: 'Strong founder-market fit and direct outbound path.',
     featured: true,
+    screenshot: '/ventures/roofrainmaker.webp',
   },
 
   // AMBLE (ideating, validating)
@@ -258,6 +273,7 @@ export const ventures: Venture[] = [
     icp: 'Health-conscious consumers tracking biomarkers and protocol decisions.',
     monetization: 'Subscription SaaS or premium health optimization program.',
     signal: 'Compelling space, currently in reactivation.',
+    screenshot: '/ventures/alivelongevity.webp',
   },
   {
     slug: 'sproutparent',
