@@ -6,17 +6,14 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Pipeline } from '@/app/components/Pipeline'
 import { PlaybookDiagram, PhaseGlyph } from '@/app/components/PlaybookDiagram'
+import { Reveal } from '@/app/components/Reveal'
 import { featuredVentures, ventures, stageConfig } from '@/app/data/ventures'
-import { useReducedMotion } from '@/app/hooks/use-reduced-motion'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Zap, Github, ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 function Hero() {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center px-6 overflow-hidden">
       <div className="absolute inset-0" aria-hidden="true">
@@ -32,11 +29,7 @@ function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,136,0.05)_0%,_transparent_70%)]" />
       </div>
       <div className="relative max-w-4xl mx-auto text-center space-y-8">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <Reveal immediate duration={0.6} y={30}>
           <p className="text-sm md:text-base font-mono text-accent-green mb-4 tracking-wider uppercase">The AI Venture Factory</p>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
             One Founder.{' '}
@@ -44,21 +37,22 @@ function Hero() {
             <br />
             Zero Employees.
           </h1>
-        </motion.div>
+        </Reveal>
 
-        <motion.p
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <Reveal
+          as="p"
+          immediate
+          duration={0.6}
+          delay={0.2}
           className="text-lg md:text-xl text-text-muted max-w-2xl mx-auto"
         >
           Sprinter Studio is a real venture factory where autonomous AI agents build, deploy, and grow software companies around the clock. Every venture below is real — live, in build, or in validation.
-        </motion.p>
+        </Reveal>
 
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+        <Reveal
+          immediate
+          duration={0.6}
+          delay={0.4}
           className="flex flex-wrap items-center justify-center gap-4"
         >
           <Link href="#pipeline" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold')}>
@@ -67,12 +61,13 @@ function Hero() {
           <Link href="/playbook" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'border-border-subtle hover:bg-surface')}>
             How We Build This Fast
           </Link>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+        <Reveal
+          immediate
+          duration={0.6}
+          delay={0.6}
+          y={0}
           className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 pt-4 font-mono text-xs uppercase tracking-widest text-text-muted"
         >
           <span className="inline-flex items-center gap-2">
@@ -87,7 +82,7 @@ function Hero() {
             <span className="h-1 w-1 bg-accent-green" aria-hidden="true" />
             Built in public
           </span>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   )
@@ -131,8 +126,6 @@ function StageDistribution() {
 }
 
 function ByTheNumbers() {
-  const prefersReducedMotion = useReducedMotion()
-
   const stats = [
     { value: `${ventures.length}`, label: 'Ventures in Pipeline' },
     { value: '6', label: 'Business Archetypes' },
@@ -145,35 +138,21 @@ function ByTheNumbers() {
       <div className="max-w-5xl mx-auto space-y-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="text-center space-y-1"
-            >
+            <Reveal key={stat.label} delay={i * 0.1} y={15} className="text-center space-y-1">
               <p className="text-3xl md:text-4xl font-bold font-mono text-accent-green">{stat.value}</p>
               <p className="text-sm text-text-muted">{stat.label}</p>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
+        <Reveal delay={0.3} y={0}>
           <StageDistribution />
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   )
 }
 
 function WhyAIAgents() {
-  const prefersReducedMotion = useReducedMotion()
-
   const comparisons = [
     {
       traditional: 'Hire a team of 5–10 to launch one product',
@@ -200,12 +179,7 @@ function WhyAIAgents() {
   return (
     <section className="py-24 px-6">
       <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12 space-y-4"
-        >
+        <Reveal className="text-center mb-12 space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">
             Why AI Agents Change the Math
           </h2>
@@ -213,16 +187,15 @@ function WhyAIAgents() {
             Traditional startups bet everything on one idea with a big team and a long runway.
             We run dozens of experiments simultaneously at near-zero cost — and only scale what works.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="space-y-3">
           {comparisons.map((row, i) => (
-            <motion.div
+            <Reveal
               key={i}
-              initial={prefersReducedMotion ? false : { opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              delay={i * 0.08}
+              x={-10}
+              y={0}
               className="grid grid-cols-1 md:grid-cols-2 gap-3"
             >
               <div className="bg-surface border border-border-subtle rounded-lg px-5 py-3 flex items-center gap-3">
@@ -233,7 +206,7 @@ function WhyAIAgents() {
                 <span className="text-accent-green text-lg shrink-0">✓</span>
                 <p className="text-sm text-foreground">{row.studio}</p>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -242,8 +215,6 @@ function WhyAIAgents() {
 }
 
 function HowWeBuild() {
-  const prefersReducedMotion = useReducedMotion()
-
   const phases = [
     {
       phase: 'amble',
@@ -271,36 +242,20 @@ function HowWeBuild() {
   return (
     <section className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <Reveal className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">How We Build</h2>
           <p className="text-text-muted max-w-xl mx-auto">
             Three phases. One methodology. Repeatable venture creation at AI speed.
           </p>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
+        <Reveal y={0} className="mb-12">
           <PlaybookDiagram variant="compact" />
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {phases.map((phase, i) => (
-            <motion.div
-              key={phase.title}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-            >
+            <Reveal key={phase.title} delay={i * 0.15} y={30}>
               <Card className="bg-surface border-border-subtle h-full">
                 <CardContent className="pt-6 space-y-4">
                   <div className="flex items-center gap-3">
@@ -320,7 +275,7 @@ function HowWeBuild() {
                   )}
                 </CardContent>
               </Card>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -329,22 +284,15 @@ function HowWeBuild() {
 }
 
 function PipelineSection() {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
     <section id="pipeline" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <Reveal className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Live Pipeline</h2>
           <p className="text-text-muted">
             Where every venture stands across the factory right now.
           </p>
-        </motion.div>
+        </Reveal>
 
         <Pipeline />
       </div>
@@ -353,33 +301,20 @@ function PipelineSection() {
 }
 
 function VenturePortfolio() {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
     <section className="py-24 px-6">
       <div className="max-w-6xl mx-auto space-y-10">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center space-y-4"
-        >
+        <Reveal className="text-center space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">Portfolio Snapshot</h2>
           <p className="text-text-muted max-w-2xl mx-auto">
             A mix of launched assets, active builds, and fresh bets moving through the factory right now.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {featuredVentures.map((venture, index) => (
-            <motion.div
-              key={venture.slug}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.06 }}
-            >
-              <Card className="bg-surface border-border-subtle h-full overflow-hidden">
+            <Reveal key={venture.slug} delay={index * 0.06}>
+              <Card className={cn('bg-surface border-border-subtle overflow-hidden', venture.screenshot && 'h-full')}>
                 {venture.screenshot && (
                   <div className="relative w-full aspect-[16/10] border-b border-border-subtle overflow-hidden">
                     <div
@@ -395,7 +330,7 @@ function VenturePortfolio() {
                     />
                   </div>
                 )}
-                <CardContent className={cn('space-y-4 h-full flex flex-col', venture.screenshot ? 'pt-4' : 'pt-6')}>
+                <CardContent className={cn('space-y-4', venture.screenshot ? 'pt-4 h-full flex flex-col' : 'pt-6')}>
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <Link href={`/ventures/${venture.slug}`} className="text-lg font-semibold hover:text-accent-green transition-colors">
@@ -412,7 +347,7 @@ function VenturePortfolio() {
                   {venture.icp && <p className="text-xs text-text-muted"><span className="text-foreground font-medium">ICP:</span> {venture.icp}</p>}
                   {venture.monetization && <p className="text-xs text-text-muted"><span className="text-foreground font-medium">Monetization:</span> {venture.monetization}</p>}
 
-                  <div className="mt-auto flex items-center justify-between gap-3 pt-2">
+                  <div className={cn('flex items-center justify-between gap-3 pt-2', venture.screenshot && 'mt-auto')}>
                     <Link href={`/ventures/${venture.slug}`} className="text-sm text-accent-green hover:text-accent-green/80 inline-flex items-center gap-1">
                       View venture <ArrowRight className="w-4 h-4" />
                     </Link>
@@ -424,7 +359,7 @@ function VenturePortfolio() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -433,8 +368,6 @@ function VenturePortfolio() {
 }
 
 function ResultsSoFar() {
-  const prefersReducedMotion = useReducedMotion()
-
   const results = [
     { metric: 'Ventures in the pipeline', value: `${ventures.length}`, detail: 'Live, in build, or in validation — each with its own domain, repo, and AI operator' },
     { metric: 'Time from idea to live MVP', value: '1–3 days', detail: 'Not weeks. Not months. Days — including deploy and SEO basics' },
@@ -447,26 +380,19 @@ function ResultsSoFar() {
   return (
     <section className="py-24 px-6">
       <div className="max-w-5xl mx-auto space-y-12">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center space-y-4"
-        >
+        <Reveal className="text-center space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">Results So Far</h2>
           <p className="text-text-muted max-w-2xl mx-auto">
             We don&apos;t hide behind &ldquo;stealth mode.&rdquo; Here&apos;s what the factory has actually produced — built in the open, every step logged.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {results.map((item, i) => (
-            <motion.div
+            <Reveal
               key={item.metric}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              delay={i * 0.08}
+              y={15}
               className="bg-surface border border-border-subtle rounded-lg p-5 space-y-1.5"
             >
               <div className="flex items-baseline gap-3">
@@ -474,7 +400,7 @@ function ResultsSoFar() {
                 <span className="text-sm font-medium text-foreground">{item.metric}</span>
               </div>
               <p className="text-xs text-text-muted leading-relaxed">{item.detail}</p>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -483,17 +409,10 @@ function ResultsSoFar() {
 }
 
 function PlaybookCTA() {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
     <section className="py-24 px-6">
       <div className="max-w-3xl mx-auto text-center space-y-6">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="space-y-4"
-        >
+        <Reveal className="space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">
             The playbook is open source.
           </h2>
@@ -503,24 +422,17 @@ function PlaybookCTA() {
           <Link href="/playbook" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2')}>
             Read the Playbook <ArrowRight className="w-4 h-4" />
           </Link>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   )
 }
 
 function FollowTheBuild() {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
     <section className="py-24 px-6 bg-surface/50">
       <div className="max-w-3xl mx-auto text-center space-y-8">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="space-y-4"
-        >
+        <Reveal className="space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">
             Follow the Build
           </h2>
@@ -529,13 +441,11 @@ function FollowTheBuild() {
             Follow along as we prove (or disprove) whether one founder + AI agents can build
             a growing constellation of vertical software businesses.
           </p>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.15 }}
+        <Reveal
+          delay={0.15}
+          y={15}
           className="flex flex-wrap items-center justify-center gap-4"
         >
           <a
@@ -546,17 +456,11 @@ function FollowTheBuild() {
           >
             <Github className="w-5 h-5" /> Star on GitHub
           </a>
-        </motion.div>
+        </Reveal>
 
-        <motion.p
-          initial={prefersReducedMotion ? false : { opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="text-xs text-text-muted"
-        >
+        <Reveal as="p" delay={0.3} y={0} className="text-xs text-text-muted">
           Every commit, every launch, every kill decision — all in public.
-        </motion.p>
+        </Reveal>
       </div>
     </section>
   )
@@ -576,6 +480,7 @@ function Footer() {
           <Link href="/playbook" className="hover:text-foreground transition-colors">Playbook</Link>
           <a href="https://sprinter.ai" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Sprinter AI</a>
           <a href="https://sprinterconsulting.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Consulting</a>
+          <a href="https://amble.so" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Amble</a>
           <a href="https://github.com/tylerdr/sprinter-studio" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors flex items-center gap-1">
             <Github className="w-4 h-4" /> GitHub
           </a>
@@ -609,17 +514,10 @@ const faqItems = [
 ]
 
 function BuiltBySection() {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
     <section className="py-24 px-6">
       <div className="max-w-3xl mx-auto">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-surface border border-border-subtle rounded-xl p-8 md:p-10 space-y-5"
-        >
+        <Reveal className="bg-surface border border-border-subtle rounded-xl p-8 md:p-10 space-y-5">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-accent-green/10 flex items-center justify-center text-accent-green text-xl font-bold shrink-0">
               T
@@ -661,46 +559,33 @@ function BuiltBySection() {
               <ExternalLink className="w-4 h-4" /> View source
             </a>
           </div>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   )
 }
 
 function FAQSection() {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
     <section className="py-24 px-6">
       <div className="max-w-3xl mx-auto space-y-10">
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center space-y-4"
-        >
+        <Reveal className="text-center space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
           <p className="text-text-muted">
             How the factory works — in plain language.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="space-y-6">
           {faqItems.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-            >
+            <Reveal key={i} delay={i * 0.08} y={15}>
               <Card className="bg-surface border-border-subtle">
                 <CardContent className="pt-6 space-y-2">
                   <h3 className="text-lg font-semibold">{item.question}</h3>
                   <p className="text-sm text-text-muted leading-relaxed">{item.answer}</p>
                 </CardContent>
               </Card>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
 
