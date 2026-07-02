@@ -480,6 +480,7 @@ function Footer() {
           <Link href="/playbook" className="hover:text-foreground transition-colors">Playbook</Link>
           <a href="https://sprinter.ai" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Sprinter AI</a>
           <a href="https://sprinterconsulting.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Consulting</a>
+          <a href="https://amble.so" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Amble</a>
           <a href="https://github.com/tylerdr/sprinter-studio" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors flex items-center gap-1">
             <Github className="w-4 h-4" /> GitHub
           </a>
