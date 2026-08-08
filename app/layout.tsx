@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
-import { Chat } from "@/app/components/Chat";
 import { SiteHeader } from "@/app/components/SiteHeader";
+import { Footer } from "@/app/components/Footer";
+import { POSITIONING_STATEMENT } from "@/app/data/positioning";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,28 +17,23 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Sprinter Studio | The AI Venture Factory",
+    default: "Sprinter Studio | Truth-Labeled Venture Portfolio",
     template: "%s | Sprinter Studio",
   },
-  description:
-    "One founder. An army of AI agents. A growing constellation of vertical software businesses. Watch us build in public.",
+  description: POSITIONING_STATEMENT,
   metadataBase: new URL("https://sprinter.studio"),
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Sprinter Studio | The AI Venture Factory",
-    description:
-      "One founder. An army of AI agents. A growing constellation of vertical software businesses.",
+    title: "Sprinter Studio | Truth-Labeled Venture Portfolio",
+    description: POSITIONING_STATEMENT,
     url: "https://sprinter.studio",
     siteName: "Sprinter Studio",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sprinter Studio | The AI Venture Factory",
-    description:
-      "One founder. An army of AI agents. A growing constellation of vertical software businesses.",
-    images: ["/og.png"],
+    title: "Sprinter Studio | Truth-Labeled Venture Portfolio",
+    description: POSITIONING_STATEMENT,
   },
   robots: {
     index: true,
@@ -57,9 +52,7 @@ export default function RootLayout({
       "@type": "Organization",
       name: "Sprinter Studio",
       url: "https://sprinter.studio",
-      logo: "https://sprinter.studio/og.png",
-      description:
-        "AI-native venture studio that uses autonomous AI agents to build, deploy, and operate a growing portfolio of vertical software businesses.",
+      description: POSITIONING_STATEMENT,
       founder: {
         "@type": "Person",
         name: "Tyler Dreher",
@@ -69,11 +62,10 @@ export default function RootLayout({
         "https://github.com/tylerdr/sprinter-studio",
       ],
       knowsAbout: [
-        "AI agents",
-        "Venture studio",
+        "AI product development",
+        "Venture building",
         "SaaS",
         "Software development",
-        "Startup automation",
       ],
     },
     {
@@ -81,8 +73,7 @@ export default function RootLayout({
       "@type": "WebSite",
       name: "Sprinter Studio",
       url: "https://sprinter.studio",
-      description:
-        "One founder. An army of AI agents. A growing constellation of vertical software businesses.",
+      description: POSITIONING_STATEMENT,
       publisher: {
         "@type": "Organization",
         name: "Sprinter Studio",
@@ -99,10 +90,15 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-md focus:bg-accent-green focus:px-4 focus:py-2 focus:text-background focus:font-medium"
+        >
+          Skip to content
+        </a>
         <SiteHeader />
         {children}
-        <Chat />
-        <Analytics />
+        <Footer />
       </body>
     </html>
   );

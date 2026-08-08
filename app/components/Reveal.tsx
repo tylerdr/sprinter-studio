@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useReducedMotion } from '@/app/hooks/use-reduced-motion'
 
 const FALLBACK_REVEAL_MS = 2500
 const EASE = 'cubic-bezier(0.21, 0.55, 0.28, 1)'
@@ -40,14 +41,11 @@ export function Reveal({
   as?: 'div' | 'p' | 'li'
 }) {
   const ref = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
     const el = ref.current
-    if (
-      !el ||
-      typeof IntersectionObserver === 'undefined' ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
+    if (!el || typeof IntersectionObserver === 'undefined' || prefersReducedMotion) {
       return
     }
 
@@ -118,7 +116,7 @@ export function Reveal({
       teardown()
       reset()
     }
-  }, [delay, duration, immediate, x, y])
+  }, [delay, duration, immediate, x, y, prefersReducedMotion])
 
   const Comp = as as 'div'
 

@@ -1,19 +1,11 @@
-import { ventures, getVenturesByStage, stageConfig } from '@/app/data/ventures'
+import { phaseConfig, PHASES, type Phase } from '@/app/data/methodology'
 
 /**
  * Hand-authored SVG diagram of the Amble → Sprint → Sail methodology.
  * Engineering-drawing language: datum rail, stage nodes, gate checkpoints
- * as diamonds, mono annotations, registration marks. Stage counts are
- * derived from the ventures data — never hardcoded.
+ * as diamonds, mono annotations, registration marks. Process narrative
+ * only — it does not tag or count individual ventures.
  */
-
-type Phase = 'amble' | 'sprint' | 'sail'
-
-const phaseMeta: Record<Phase, { name: string; phase: string; sub: string }> = {
-  amble: { name: 'AMBLE', phase: 'PHASE 01', sub: 'IDEATE & VALIDATE' },
-  sprint: { name: 'SPRINT', phase: 'PHASE 02', sub: 'BUILD & DEPLOY' },
-  sail: { name: 'SAIL', phase: 'PHASE 03', sub: 'GROW & SCALE' },
-}
 
 /** Line-art glyph paths in a 24×24 box, stroke inherits from parent. */
 function GlyphPaths({ phase }: { phase: Phase }) {
@@ -43,7 +35,7 @@ function GlyphPaths({ phase }: { phase: Phase }) {
   )
 }
 
-/** Standalone phase glyph, colored by stage. Replaces the old phase emoji. */
+/** Standalone phase glyph, colored by stage. */
 export function PhaseGlyph({ phase, className }: { phase: Phase; className?: string }) {
   return (
     <svg
@@ -54,7 +46,7 @@ export function PhaseGlyph({ phase, className }: { phase: Phase; className?: str
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
-      style={{ color: stageConfig[phase].hex }}
+      style={{ color: phaseConfig[phase].hex }}
       aria-hidden="true"
     >
       <GlyphPaths phase={phase} />
@@ -76,7 +68,6 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
   const nodeR = full ? 46 : 32
   const ringR = full ? 56 : 39
   const glyphScale = full ? 1.75 : 1.25
-  const phases: Phase[] = ['amble', 'sprint', 'sail']
 
   return (
     <div className="overflow-x-auto" role="img" aria-label="The Amble, Sprint, Sail methodology: ideas enter at Amble for validation, pass Gate 1 (build-ready) into Sprint for build and deploy, pass Gate 2 (launch) into Sail for growth and revenue.">
@@ -85,6 +76,7 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
         fill="none"
         className="w-full min-w-[560px] h-auto"
         aria-hidden="true"
+        tabIndex={0}
       >
         {/* Datum rail */}
         <text x="40" y={railY - 12} className="font-mono" fontSize="10" letterSpacing="0.2em" fill="#555555">IDEAS</text>
@@ -111,21 +103,12 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
         ))}
 
         {/* Stage nodes */}
-        {phases.map((phase) => {
+        {PHASES.map((phase) => {
           const x = NODE_X[phase]
-          const hex = stageConfig[phase].hex
-          const count = getVenturesByStage(phase).length
+          const hex = phaseConfig[phase].hex
           const glyphOffset = 12 * glyphScale
           return (
             <g key={phase}>
-              {full && (
-                <>
-                  <line x1={x} y1={railY - nodeR - 10} x2={x} y2={railY - nodeR - 28} stroke="#333333" strokeWidth="1" />
-                  <text x={x} y={railY - nodeR - 36} className="font-mono" fontSize="10" letterSpacing="0.15em" fill="#888888" textAnchor="middle">
-                    {count} {count === 1 ? 'VENTURE' : 'VENTURES'}
-                  </text>
-                </>
-              )}
               <circle cx={x} cy={railY} r={ringR} stroke={hex} strokeWidth="1" strokeDasharray="2 5" opacity="0.35" />
               <circle cx={x} cy={railY} r={nodeR} fill="#0a0a0a" stroke={hex} strokeWidth="1.5" />
               <g
@@ -138,10 +121,10 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
                 <GlyphPaths phase={phase} />
               </g>
               {full && (
-                <text x={x} y={railY + nodeR + 34} className="font-mono" fontSize="10" letterSpacing="0.25em" fill="#555555" textAnchor="middle">{phaseMeta[phase].phase}</text>
+                <text x={x} y={railY + nodeR + 34} className="font-mono" fontSize="10" letterSpacing="0.25em" fill="#555555" textAnchor="middle">{phaseConfig[phase].phase}</text>
               )}
-              <text x={x} y={railY + nodeR + (full ? 58 : 30)} className="font-mono" fontSize={full ? 20 : 14} fontWeight="600" letterSpacing="0.15em" fill={hex} textAnchor="middle">{phaseMeta[phase].name}</text>
-              <text x={x} y={railY + nodeR + (full ? 76 : 46)} className="font-mono" fontSize={full ? 10 : 9} letterSpacing="0.15em" fill="#888888" textAnchor="middle">{phaseMeta[phase].sub}</text>
+              <text x={x} y={railY + nodeR + (full ? 58 : 30)} className="font-mono" fontSize={full ? 20 : 14} fontWeight="600" letterSpacing="0.15em" fill={hex} textAnchor="middle">{phaseConfig[phase].name}</text>
+              <text x={x} y={railY + nodeR + (full ? 76 : 46)} className="font-mono" fontSize={full ? 10 : 9} letterSpacing="0.15em" fill="#888888" textAnchor="middle">{phaseConfig[phase].sub}</text>
             </g>
           )
         })}
@@ -157,7 +140,7 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
               <path key={`${x}-${y}`} d={`M${x - 5} ${y}h10M${x} ${y - 5}v10`} stroke="#222222" strokeWidth="1" />
             ))}
             <text x="944" y="20" className="font-mono" fontSize="9" letterSpacing="0.15em" fill="#444444" textAnchor="end">
-              FIG. 01 · VENTURE FLOW · N = {ventures.length}
+              FIG. 01 · METHODOLOGY
             </text>
           </>
         )}

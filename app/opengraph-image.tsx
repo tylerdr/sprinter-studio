@@ -1,7 +1,6 @@
-import { ventures } from '@/app/data/ventures'
 import { ImageResponse } from 'next/og'
 
-export const alt = 'Sprinter Studio — The AI Venture Factory'
+export const alt = 'Sprinter Studio — Truth-Labeled Venture Portfolio'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -42,31 +41,27 @@ export default function Image() {
             />
             <div
               style={{
-                fontSize: 76,
-                lineHeight: 1.02,
+                fontSize: 68,
+                lineHeight: 1.08,
                 fontWeight: 800,
                 maxWidth: 980,
                 display: 'flex',
                 flexDirection: 'column',
               }}
             >
-              <span>One Founder.</span>
-              <span>
-                <span style={{ color: ACCENT }}>{ventures.length} Ventures.</span>{' '}
-                Zero Employees.
-              </span>
+              <span>A venture portfolio,</span>
+              <span style={{ color: ACCENT }}>labeled honestly.</span>
             </div>
             <div
               style={{
-                fontSize: 32,
+                fontSize: 30,
                 lineHeight: 1.3,
                 color: '#a3a3a3',
                 marginTop: 32,
                 maxWidth: 900,
               }}
             >
-              A real venture factory where AI agents build, deploy, and grow
-              software companies around the clock.
+              Services-backed. Selective co-build. Not a fund.
             </div>
           </div>
           <div
@@ -80,7 +75,7 @@ export default function Image() {
             }}
           >
             <span>sprinter.studio</span>
-            <span style={{ color: ACCENT }}>AI venture factory</span>
+            <span style={{ color: ACCENT }}>Truth-labeled portfolio</span>
           </div>
         </div>
       </div>
