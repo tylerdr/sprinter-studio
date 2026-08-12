@@ -43,7 +43,7 @@ async function buildBody() {
     '- Playbook: https://sprinter.studio/playbook',
     ...listedVentures.map((v) => `- ${v.name}: https://sprinter.studio/ventures/${v.slug}`),
     '- Source: https://github.com/tylerdr/sprinter-studio',
-    '- Sibling sites (separate properties): https://sprinter.ai, https://sprinterconsulting.com, https://amble.so',
+    '- Sibling sites (separate properties): https://sprinter.ai, https://sprinterconsulting.com, https://ambleideation.com',
     '',
   ]
 

@@ -1,6 +1,6 @@
 # sprinter.studio
 
-sprinter.studio is the venture factory site for Sprinter's AI-native venture studio, showing the live portfolio of ventures built by one founder plus AI agents.
+Sprinter Studio is a truth-labeled, services-backed venture portfolio. We build and operate our own products, take on selective client work, and co-build with domain insiders who bring distribution, cash, a real wedge, and clean IP. Sprinter Studio is services-backed, not a fund. We do not raise outside capital, promise portfolio returns, or manage other people’s money.
 
 ## Stack
 
