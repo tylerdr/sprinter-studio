@@ -1,39 +1,60 @@
-import { ventures, stageConfig } from '@/app/data/ventures'
+import { listedVentures, stateConfig, relationshipConfig } from '@/app/data/ventures'
+import { POSITIONING_STATEMENT, NOT_A_FUND_STATEMENT } from '@/app/data/positioning'
+import { cacheLife } from 'next/cache'
 
-export const revalidate = 3600
+async function buildBody() {
+  'use cache'
+  cacheLife('hours')
 
-export function GET() {
+  const ventureLines =
+    listedVentures.length > 0
+      ? listedVentures.map(
+          (v) =>
+            `- ${v.name} (${v.domain}) — ${v.description} [${relationshipConfig[v.relationship].label}, ${stateConfig[v.publicState].label}, last verified ${v.lastVerified}]`,
+        )
+      : ['(No portfolio items are listed publicly right now — see https://sprinter.studio/ventures for review state.)']
+
   const lines: string[] = [
     '# Sprinter Studio',
     '',
-    `> One founder + AI agents building ${ventures.length} software ventures in public — zero employees. Every venture is real: live, in build, or in validation. The methodology (Amble → Sprint → Sail) is open source.`,
+    `> ${POSITIONING_STATEMENT} ${NOT_A_FUND_STATEMENT}`,
     '',
     '## Ventures',
     '',
-    ...ventures.map(
-      (v) =>
-        `- ${v.name} (${v.domain}) — ${v.description} [${stageConfig[v.stage].label}: ${v.status}]`,
-    ),
+    ...ventureLines,
     '',
     '## Playbook',
     '',
-    'Amble → Sprint → Sail — the stage-gate methodology behind every venture:',
-    '- Amble (ideate & validate): divergent exploration; score ideas, define ICP, validate demand. No code until the signal is clear.',
-    '- Sprint (build & deploy): focused execution; ship an MVP in days, with AI agents doing the heavy lifting.',
-    '- Sail (grow & scale): distribution and growth loops; optimize for revenue, automate everything that moves.',
+    'Amble → Sprint → Sail — the stage-gate methodology behind every build:',
+    '- Amble (ideate & validate): divergent exploration; score ideas, define ICP, validate demand before writing code.',
+    '- Sprint (build & deploy): focused execution with AI as leverage; architecture and scope stay human.',
+    '- Sail (grow & scale): distribution and growth loops, with revenue evidence tracked honestly.',
     'Ventures only advance through gates (build-ready, launch) with real market data. Full playbook: https://sprinter.studio/playbook',
+    '',
+    '## Co-build',
+    '',
+    'Selective co-build for domain insiders with distribution, cash, a real wedge, and clean IP. Fit criteria: https://sprinter.studio/co-build',
     '',
     '## Links',
     '',
     '- Home: https://sprinter.studio/',
+    '- Ventures: https://sprinter.studio/ventures',
+    '- Co-build: https://sprinter.studio/co-build',
     '- Playbook: https://sprinter.studio/playbook',
-    ...ventures.map((v) => `- ${v.name}: https://sprinter.studio/ventures/${v.slug}`),
-    '- Source (built in public): https://github.com/tylerdr/sprinter-studio',
-    '- Sibling sites: https://sprinter.ai, https://sprinterconsulting.com, https://amble.so',
+    ...listedVentures.map((v) => `- ${v.name}: https://sprinter.studio/ventures/${v.slug}`),
+    '- Source: https://github.com/tylerdr/sprinter-studio',
+    '- Sibling sites (separate properties): https://sprinter.ai, https://sprinterconsulting.com, https://amble.so',
     '',
   ]
 
-  return new Response(lines.join('\n'), {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+  return lines.join('\n')
+}
+
+export async function GET() {
+  return new Response(await buildBody(), {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+    },
   })
 }

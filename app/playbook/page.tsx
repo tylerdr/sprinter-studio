@@ -1,17 +1,23 @@
-import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
 import { ArrowRight, Check } from 'lucide-react'
 import Link from 'next/link'
 import { PlaybookDiagram, PhaseGlyph } from '@/app/components/PlaybookDiagram'
+import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'The Playbook',
-  description: 'The Amble → Sprint → Sail methodology. How one founder and AI agents build a growing constellation of vertical software businesses.',
+  description: 'The Amble → Sprint → Sail methodology — how we validate, build, and evaluate software products.',
   alternates: { canonical: '/playbook' },
+  openGraph: {
+    title: 'The Playbook | Sprinter Studio',
+    description: 'The Amble → Sprint → Sail methodology — how we validate, build, and evaluate software products.',
+    url: 'https://sprinter.studio/playbook',
+    type: 'website',
+  },
 }
 
 function Section({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -20,7 +26,7 @@ function Section({ children, className = '' }: { children: React.ReactNode; clas
 
 export default function PlaybookPage() {
   return (
-    <main className="min-h-screen py-12 px-6">
+    <main id="main-content" className="min-h-screen pt-32 pb-12 px-6">
       <div className="max-w-3xl mx-auto">
         <Link href="/" className="text-sm text-text-muted hover:text-foreground transition-colors">
           ← Back to Home
@@ -32,12 +38,12 @@ export default function PlaybookPage() {
           </Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">The Anti-Hustle Thesis</h1>
           <p className="text-lg text-text-muted leading-relaxed">
-            Most founders burn out chasing one idea. We build many — systematically, sustainably, with AI doing the heavy lifting.
-            The goal isn&apos;t to work harder. It&apos;s to build a machine that creates value while you sleep.
+            Most founders go all-in on one idea and burn out betting everything on a single outcome. We
+            build fewer, more deliberate wedges — with AI as leverage, not a replacement for judgment.
           </p>
           <p className="text-lg text-text-muted leading-relaxed mt-4">
-            This is the Amble → Sprint → Sail methodology: a repeatable framework for
-            validating, building, and scaling software ventures at AI speed.
+            This is the Amble → Sprint → Sail methodology: a repeatable framework for validating, building,
+            and evaluating software products honestly — including when to stop.
           </p>
           <div className="mt-12">
             <PlaybookDiagram />
@@ -102,15 +108,15 @@ export default function PlaybookPage() {
 
           <div className="space-y-6 text-text-muted leading-relaxed">
             <p>
-              Sprint is focused execution. The idea has passed validation — now ship it.
-              AI agents handle scaffolding, coding, content, and deployment. Human input is strategic, not tactical.
+              Sprint is focused execution. The idea has passed validation — now build it. AI accelerates
+              scaffolding, coding, and content; architecture, scope, and acceptance decisions stay human.
             </p>
 
             <Card className="bg-surface border-border-subtle">
               <CardContent className="pt-6 space-y-3">
                 <h3 className="font-semibold text-foreground">Activities</h3>
                 <ul className="space-y-2 text-sm">
-                  <li className="flex items-start gap-2"><span style={{ color: '#0066ff' }}>→</span> Project scaffolding (AI-generated codebase)</li>
+                  <li className="flex items-start gap-2"><span style={{ color: '#0066ff' }}>→</span> Project scaffolding (AI-assisted)</li>
                   <li className="flex items-start gap-2"><span style={{ color: '#0066ff' }}>→</span> Feature build in priority order</li>
                   <li className="flex items-start gap-2"><span style={{ color: '#0066ff' }}>→</span> SEO foundation + content strategy</li>
                   <li className="flex items-start gap-2"><span style={{ color: '#0066ff' }}>→</span> Testing and QA</li>
@@ -148,8 +154,8 @@ export default function PlaybookPage() {
 
           <div className="space-y-6 text-text-muted leading-relaxed">
             <p>
-              Sail is where ventures earn their keep. The product is live — now find distribution,
-              build growth loops, and optimize for revenue. The target: escape velocity at $10K MRR.
+              Sail is where a product earns its keep. It&apos;s live — now find distribution, build growth
+              loops, and track revenue evidence honestly rather than assuming it.
             </p>
 
             <Card className="bg-surface border-border-subtle">
@@ -159,21 +165,9 @@ export default function PlaybookPage() {
                   <li className="flex items-start gap-2"><span style={{ color: '#00ff88' }}>→</span> Distribution channel activation (SEO, content, partnerships)</li>
                   <li className="flex items-start gap-2"><span style={{ color: '#00ff88' }}>→</span> Growth loop design and implementation</li>
                   <li className="flex items-start gap-2"><span style={{ color: '#00ff88' }}>→</span> Revenue optimization and pricing experiments</li>
-                  <li className="flex items-start gap-2"><span style={{ color: '#00ff88' }}>→</span> Automation of operations (AI agents for support, content, monitoring)</li>
+                  <li className="flex items-start gap-2"><span style={{ color: '#00ff88' }}>→</span> Operational support, with AI handling routine work under human review</li>
                   <li className="flex items-start gap-2"><span style={{ color: '#00ff88' }}>→</span> Metrics tracking and iteration</li>
                 </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-surface-raised border-border-subtle">
-              <CardContent className="pt-6">
-                <h3 className="font-semibold text-foreground mb-3">Revenue Targets</h3>
-                <div className="space-y-2 text-sm">
-                  <p><strong className="text-foreground">Traction:</strong> First paying customer</p>
-                  <p><strong className="text-foreground">Validation:</strong> $1K MRR — the venture works</p>
-                  <p><strong className="text-foreground">Escape Velocity:</strong> $10K MRR — consider hiring humans</p>
-                  <p><strong className="text-foreground">Scale:</strong> $50K+ MRR — the venture runs itself</p>
-                </div>
               </CardContent>
             </Card>
           </div>
@@ -185,34 +179,34 @@ export default function PlaybookPage() {
           <h2 className="text-2xl md:text-3xl font-bold mb-6">The Constellation Model</h2>
           <div className="space-y-6 text-text-muted leading-relaxed">
             <p>
-              Traditional founders go all-in on one bet. We build a constellation — a portfolio of
-              ventures that share infrastructure, learnings, and AI capabilities. Each venture is a star
-              in the constellation, contributing to the whole.
+              Traditional founders go all-in on one bet. We aim to build a constellation instead — a small
+              set of products that share infrastructure and lessons learned. Each one is evaluated on its
+              own evidence, not on the size of the portfolio.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card className="bg-surface border-border-subtle">
                 <CardContent className="pt-6">
-                  <h3 className="font-semibold text-foreground mb-2">Own & Operate Forever</h3>
-                  <p className="text-sm">No exit-driven timelines. Build sustainably, compound returns over decades.</p>
+                  <h3 className="font-semibold text-foreground mb-2">Own & Operate Deliberately</h3>
+                  <p className="text-sm">No exit-driven timelines. Build sustainably and let evidence, not urgency, set the pace.</p>
                 </CardContent>
               </Card>
               <Card className="bg-surface border-border-subtle">
                 <CardContent className="pt-6">
-                  <h3 className="font-semibold text-foreground mb-2">AI Agents Run Everything</h3>
-                  <p className="text-sm">Operations, support, content, monitoring — agents handle the day-to-day.</p>
+                  <h3 className="font-semibold text-foreground mb-2">AI as Leverage</h3>
+                  <p className="text-sm">AI accelerates execution. Judgment, approval, and accountability stay with a person.</p>
                 </CardContent>
               </Card>
               <Card className="bg-surface border-border-subtle">
                 <CardContent className="pt-6">
-                  <h3 className="font-semibold text-foreground mb-2">Human Team at Escape Velocity</h3>
-                  <p className="text-sm">Only hire when a venture hits $10K+ MRR and needs humans to unlock the next level.</p>
+                  <h3 className="font-semibold text-foreground mb-2">Team Growth Is Evidence-Gated</h3>
+                  <p className="text-sm">Hiring or expanding capacity happens when evidence justifies it — not on a fixed schedule.</p>
                 </CardContent>
               </Card>
               <Card className="bg-surface border-border-subtle">
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-foreground mb-2">Shared Infrastructure</h3>
-                  <p className="text-sm">Common tooling, deployment, monitoring, and AI capabilities across all ventures.</p>
+                  <p className="text-sm">Common tooling, deployment, and monitoring reused product to product.</p>
                 </CardContent>
               </Card>
             </div>
@@ -224,10 +218,10 @@ export default function PlaybookPage() {
         <section className="py-16 text-center space-y-6">
           <h2 className="text-2xl md:text-3xl font-bold">See It in Action</h2>
           <p className="text-text-muted max-w-lg mx-auto">
-            Watch ventures move through Amble → Sprint → Sail in real time.
+            Review the truth-labeled public portfolio and each item&apos;s evidence state.
           </p>
-          <Link href="/#pipeline" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2')}>
-            View the Pipeline <ArrowRight className="w-4 h-4" />
+          <Link href="/ventures" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2')}>
+            View the portfolio <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
         </section>
       </div>

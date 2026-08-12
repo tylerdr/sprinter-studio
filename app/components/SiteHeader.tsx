@@ -18,8 +18,13 @@ export function SiteHeader() {
     if (!menuOpen) return
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
     return () => {
       document.body.style.overflow = prev
+      window.removeEventListener('keydown', onKeyDown)
     }
   }, [menuOpen])
 
@@ -33,14 +38,17 @@ export function SiteHeader() {
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16">
         <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
-          <Zap className="w-5 h-5 text-accent-green" />
+          <Zap className="w-5 h-5 text-accent-green" aria-hidden="true" />
           <span>sprinter.studio</span>
         </Link>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8 text-sm">
-          <Link href="/#pipeline" className="text-text-muted hover:text-foreground transition-colors">
-            Pipeline
+          <Link href="/ventures" className="text-text-muted hover:text-foreground transition-colors">
+            Ventures
+          </Link>
+          <Link href="/co-build" className="text-text-muted hover:text-foreground transition-colors">
+            Co-build
           </Link>
           <Link href="/playbook" className="text-text-muted hover:text-foreground transition-colors">
             Playbook
@@ -51,7 +59,7 @@ export function SiteHeader() {
             rel="noopener noreferrer"
             className="text-text-muted hover:text-foreground transition-colors flex items-center gap-1.5"
           >
-            <Github className="w-4 h-4" /> GitHub
+            <Github className="w-4 h-4" aria-hidden="true" /> GitHub
           </a>
         </nav>
 
@@ -74,11 +82,18 @@ export function SiteHeader() {
           className="md:hidden fixed inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-t border-border-subtle px-6 py-2"
         >
           <Link
-            href="/#pipeline"
+            href="/ventures"
             className="flex min-h-[48px] items-center text-sm text-text-muted hover:text-foreground"
             onClick={() => setMenuOpen(false)}
           >
-            Pipeline
+            Ventures
+          </Link>
+          <Link
+            href="/co-build"
+            className="flex min-h-[48px] items-center text-sm text-text-muted hover:text-foreground"
+            onClick={() => setMenuOpen(false)}
+          >
+            Co-build
           </Link>
           <Link
             href="/playbook"

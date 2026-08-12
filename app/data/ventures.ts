@@ -1,33 +1,31 @@
-export interface Venture {
-  slug: string
-  name: string
-  domain: string
-  description: string
-  stage: 'amble' | 'sprint' | 'sail' | 'revenue' | 'archived'
-  archetype: 'saas' | 'marketplace' | 'service' | 'content' | 'tool' | 'infra'
-  status: string
-  url?: string
-  icp?: string
-  monetization?: string
-  signal?: string
-  featured?: boolean
-  screenshot?: string
-}
+import { ventureSchema, type Venture, type PublicState, type Relationship } from './venture.schema.ts'
 
-export const ventures: Venture[] = [
-  // SAIL (launched, generating traction)
+export type { Venture, PublicState, Relationship }
+
+/**
+ * Portfolio data. `listed:false` is the safe default (see documents/
+ * DECISIONS.md) — every entry below predates the truth-labeling pass and
+ * has no live-URL check or ledger evidence behind it, so all 19 are
+ * currently delisted rather than deleted. Screenshot evidence uses the
+ * actual date each file entered the repo (`git log`), not an invented
+ * capture date. Re-list an entry only after checking its live URL and
+ * adding real evidence.
+ */
+const rawVentures = [
   {
     slug: 'getfoundinchat',
     name: 'GetFoundInChat',
     domain: 'getfoundinchat.com',
     description: 'GEO/LLMO optimization for businesses who want to get cited by AI chatbots.',
-    stage: 'sail',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'service',
-    status: 'Launched',
+    listed: false,
     url: 'https://getfoundinchat.com',
     icp: 'B2B companies that want visibility in ChatGPT, Perplexity, Gemini, and Claude.',
     monetization: 'Service packages + sprint retainers.',
-    signal: 'Live offer in market with clear founder-service fit.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/getfoundinchat.webp', label: 'GetFoundInChat product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     featured: true,
     screenshot: '/ventures/getfoundinchat.webp',
   },
@@ -36,13 +34,15 @@ export const ventures: Venture[] = [
     name: 'AI Ops Guide',
     domain: 'aiopsguide.com',
     description: 'Comprehensive guide to AI operations for engineering teams.',
-    stage: 'sail',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'content',
-    status: 'Launched',
+    listed: false,
     url: 'https://aiopsguide.com',
     icp: 'Technical leaders figuring out AI ops, governance, and deployment workflows.',
     monetization: 'Content-led acquisition into advisory, products, and tools.',
-    signal: 'Authority-building asset with organic search upside.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/aiopsguide.webp', label: 'AI Ops Guide product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     featured: true,
     screenshot: '/ventures/aiopsguide.webp',
   },
@@ -51,13 +51,15 @@ export const ventures: Venture[] = [
     name: 'AI Biz Blueprint',
     domain: 'aibizblueprint.com',
     description: 'AI business strategy frameworks and playbooks for founders.',
-    stage: 'sail',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'content',
-    status: 'Launched',
+    listed: false,
     url: 'https://aibizblueprint.com',
     icp: 'Founders and operators designing AI-native business models.',
     monetization: 'Lead generation into consulting, products, and playbooks.',
-    signal: 'Strong thesis fit with the studio’s public narrative.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/aibizblueprint.webp', label: 'AI Biz Blueprint product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     featured: true,
     screenshot: '/ventures/aibizblueprint.webp',
   },
@@ -66,13 +68,15 @@ export const ventures: Venture[] = [
     name: 'Shreddify',
     domain: 'shreddify.com',
     description: 'AI-powered guitar learning and tab generation.',
-    stage: 'sail',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'saas',
-    status: 'Launched',
+    listed: false,
     url: 'https://shreddify.com',
     icp: 'Guitarists who want faster practice loops and personalized learning support.',
     monetization: 'Subscription SaaS.',
-    signal: 'Consumer AI product already shipped.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/shreddify.webp', label: 'Shreddify product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     screenshot: '/ventures/shreddify.webp',
   },
   {
@@ -80,13 +84,15 @@ export const ventures: Venture[] = [
     name: 'ProtocolRank',
     domain: 'protocolrank.com',
     description: 'SEO rank tracking and protocol optimization.',
-    stage: 'sail',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'tool',
-    status: 'Launched',
+    listed: false,
     url: 'https://protocolrank.com',
     icp: 'SEO operators and growth teams tracking search visibility.',
     monetization: 'Tool subscription or internal growth infrastructure.',
-    signal: 'Live property with direct overlap to studio distribution systems.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/protocolrank.webp', label: 'ProtocolRank product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     screenshot: '/ventures/protocolrank.webp',
   },
   {
@@ -94,13 +100,15 @@ export const ventures: Venture[] = [
     name: 'Ohio Electricity Rates',
     domain: 'ohioelectricityrates.com',
     description: 'Rate comparison tool for Ohio energy consumers.',
-    stage: 'sail',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'tool',
-    status: 'Launched',
+    listed: false,
     url: 'https://ohioelectricityrates.com',
     icp: 'Ohio consumers shopping electricity suppliers and rates.',
     monetization: 'Lead gen / affiliate / local SEO monetization.',
-    signal: 'Functional vertical SEO asset.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/ohioelectricityrates.webp', label: 'Ohio Electricity Rates product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     screenshot: '/ventures/ohioelectricityrates.webp',
   },
   {
@@ -108,41 +116,44 @@ export const ventures: Venture[] = [
     name: 'OG Preview Tool',
     domain: 'ogpreviewtool.com',
     description: 'Preview how your links look on social media platforms.',
-    stage: 'sail',
+    relationship: 'experiment',
+    publicState: 'paused',
     archetype: 'tool',
-    status: 'Launched · revenue-blocked',
+    listed: false,
     icp: 'Marketers and developers validating social share cards.',
     monetization: 'Free tool into paid design / optimization workflow.',
-    signal: 'Useful tool with clear utility, monetization still blocked.',
+    evidence: [],
+    lastVerified: '2026-08-07',
   },
-
-  // SPRINT (building, validating)
   {
     slug: 'sprinter-studio',
     name: 'Sprinter Studio',
     domain: 'sprinter.studio',
-    description: 'The public face of the AI venture factory — every venture, stage, and status, live.',
-    stage: 'sprint',
+    description: 'This site — the portfolio and co-build surface, not a portfolio item itself.',
+    relationship: 'owned',
+    publicState: 'live',
     archetype: 'infra',
-    status: 'Building MVP',
+    listed: false,
     url: 'https://sprinter.studio',
-    icp: 'Founders, operators, clients, and talent evaluating the studio model.',
-    monetization: 'Trust surface for consulting, partnerships, and future studio products.',
-    signal: 'Core narrative asset for the whole portfolio.',
-    featured: true,
+    icp: 'Founders, operators, clients, and domain insiders evaluating co-build fit.',
+    monetization: 'Trust surface for services and selective co-build, not a monetized product.',
+    evidence: [{ kind: 'live-url', url: 'https://sprinter.studio', label: 'This site', capturedAt: '2026-08-07' }],
+    lastVerified: '2026-08-07',
   },
   {
     slug: 'winemakeros',
     name: 'WinemakerOS',
     domain: 'winemakeros.com',
     description: 'AI-powered winery management platform.',
-    stage: 'sprint',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'saas',
-    status: 'Build · launch-ready',
+    listed: false,
     url: 'https://winemakeros.com',
     icp: 'Small and midsize wineries that want operational leverage and decision support.',
     monetization: 'Subscription SaaS with winery-specific tooling.',
-    signal: 'One of the stronger vertical-software plays in the portfolio.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/winemakeros.webp', label: 'WinemakerOS product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     featured: true,
     screenshot: '/ventures/winemakeros.webp',
   },
@@ -151,13 +162,15 @@ export const ventures: Venture[] = [
     name: 'EveryMCP',
     domain: 'everymcp.com',
     description: 'Directory and marketplace for MCP (Model Context Protocol) servers.',
-    stage: 'sprint',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'marketplace',
-    status: 'Building',
+    listed: false,
     url: 'https://everymcp.com',
     icp: 'Developers and AI builders looking for MCP servers and integrations.',
     monetization: 'Marketplace, listings, sponsorships, or premium discovery.',
-    signal: 'Rides the MCP adoption wave directly.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/everymcp.webp', label: 'EveryMCP product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     featured: true,
     screenshot: '/ventures/everymcp.webp',
   },
@@ -165,14 +178,16 @@ export const ventures: Venture[] = [
     slug: 'cimreader',
     name: 'CIM Reader',
     domain: 'cimreader.com',
-    description: 'AI CIM analysis for PE analysts — turns 3-hour CIM review into 10 minutes.',
-    stage: 'sprint',
+    description: 'AI CIM analysis for PE analysts.',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'tool',
-    status: 'Live · DNS pending',
+    listed: false,
     url: 'https://cimreader.com',
     icp: 'PE analysts, family offices, and independent sponsors buried in CIM review.',
     monetization: 'Per-report fee or SaaS subscription.',
-    signal: 'Strong pain, warm lead access, clear ROI story.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/cimreader.webp', label: 'CIM Reader product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     featured: true,
     screenshot: '/ventures/cimreader.webp',
   },
@@ -181,13 +196,15 @@ export const ventures: Venture[] = [
     name: 'PortCo Audit',
     domain: 'portcoaudit.com',
     description: 'AI audit of portfolio companies to identify high-impact AI opportunities.',
-    stage: 'sprint',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'service',
-    status: 'Build · validating',
+    listed: false,
     url: 'https://portcoaudit.com',
     icp: 'Private equity firms and portfolio operators.',
     monetization: 'Audit engagements + downstream AI implementation work.',
-    signal: 'High-ticket service with natural expansion revenue.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/portcoaudit.webp', label: 'PortCo Audit product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     screenshot: '/ventures/portcoaudit.webp',
   },
   {
@@ -195,13 +212,15 @@ export const ventures: Venture[] = [
     name: 'Hire Agent Builders',
     domain: 'hireagentbuilders.com',
     description: 'Marketplace connecting companies with AI agent development talent.',
-    stage: 'sprint',
+    relationship: 'owned',
+    publicState: 'validating',
     archetype: 'marketplace',
-    status: 'Validating · concierge v1',
+    listed: false,
     url: 'https://hireagentbuilders.com',
     icp: 'Teams that need agent builders fast without doing full recruiting.',
     monetization: 'Placement fee, marketplace rake, or lead-gen model.',
-    signal: 'Demand exists; execution model still tightening.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/hireagentbuilders.webp', label: 'Hire Agent Builders product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     screenshot: '/ventures/hireagentbuilders.webp',
   },
   {
@@ -209,13 +228,15 @@ export const ventures: Venture[] = [
     name: 'ShotFree TRT',
     domain: 'shotfreetrt.com',
     description: 'Alternative TRT optimization resource and community.',
-    stage: 'sprint',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'content',
-    status: 'Live',
+    listed: false,
     url: 'https://shotfreetrt.com',
     icp: 'Men exploring TRT alternatives and hormone optimization.',
     monetization: 'Content-led offers, partnerships, and affiliate revenue.',
-    signal: 'Live property with niche demand.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/shotfreetrt.webp', label: 'ShotFree TRT product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     screenshot: '/ventures/shotfreetrt.webp',
   },
   {
@@ -223,13 +244,15 @@ export const ventures: Venture[] = [
     name: 'Sprinter Agent',
     domain: 'sprinteragent.com',
     description: 'AI agent infrastructure and deployment platform.',
-    stage: 'sprint',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'infra',
-    status: 'Live · DNS propagating',
+    listed: false,
     url: 'https://sprinteragent.com',
     icp: 'Builders and companies deploying production AI agents.',
     monetization: 'Infra subscription or enterprise tooling.',
-    signal: 'Core infrastructure adjacency to the studio thesis.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/sprinteragent.webp', label: 'Sprinter Agent product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     screenshot: '/ventures/sprinteragent.webp',
   },
   {
@@ -237,42 +260,46 @@ export const ventures: Venture[] = [
     name: 'Roof Rainmaker',
     domain: 'roofrainmaker.com',
     description: 'AI-powered website + lead-gen system for roofing contractors.',
-    stage: 'sprint',
+    relationship: 'owned',
+    publicState: 'in-development',
     archetype: 'service',
-    status: 'Sprint · nearing Sail',
+    listed: false,
     url: 'https://roofrainmaker.com',
     icp: 'Roofing contractors that need better websites and inbound leads.',
     monetization: 'Setup fees + recurring marketing/automation retainers.',
-    signal: 'Strong founder-market fit and direct outbound path.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/roofrainmaker.webp', label: 'Roof Rainmaker product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     featured: true,
     screenshot: '/ventures/roofrainmaker.webp',
   },
-
-  // AMBLE (ideating, validating)
   {
     slug: 'roofingreels',
     name: 'Roofing Reels',
     domain: 'roofingreels.com',
     description: 'Turn job site photos into social content for roofers.',
-    stage: 'amble',
+    relationship: 'experiment',
+    publicState: 'validating',
     archetype: 'saas',
-    status: 'Ideating',
+    listed: false,
     icp: 'Roofers with job photos but no content engine.',
     monetization: 'Subscription SaaS upsell from roofing clients.',
-    signal: 'Natural expansion product off Roof Rainmaker.',
+    evidence: [],
+    lastVerified: '2026-08-07',
   },
   {
     slug: 'alivelongevity',
     name: 'Alive Longevity',
     domain: 'alivelongevity.com',
     description: 'AI-powered longevity optimization and biomarker tracking.',
-    stage: 'amble',
+    relationship: 'experiment',
+    publicState: 'paused',
     archetype: 'saas',
-    status: 'Reactivation test',
+    listed: false,
     url: 'https://alivelongevity.com',
     icp: 'Health-conscious consumers tracking biomarkers and protocol decisions.',
     monetization: 'Subscription SaaS or premium health optimization program.',
-    signal: 'Compelling space, currently in reactivation.',
+    evidence: [{ kind: 'screenshot', url: '/ventures/alivelongevity.webp', label: 'Alive Longevity product screenshot', capturedAt: '2026-07-01' }],
+    lastVerified: '2026-08-07',
     screenshot: '/ventures/alivelongevity.webp',
   },
   {
@@ -280,25 +307,39 @@ export const ventures: Venture[] = [
     name: 'Sprout Parent',
     domain: 'sproutparent.com',
     description: 'AI parenting assistant and child development tracker.',
-    stage: 'amble',
+    relationship: 'experiment',
+    publicState: 'validating',
     archetype: 'saas',
-    status: 'Ideating',
+    listed: false,
     icp: 'Parents who want lightweight decision support and developmental guidance.',
     monetization: 'Consumer subscription or membership.',
-    signal: 'Early but strategically interesting.',
+    evidence: [],
+    lastVerified: '2026-08-07',
   },
-]
+] as const
 
-export const stageConfig = {
-  amble: { label: 'Amble', color: 'text-accent-orange', bg: 'bg-accent-orange/10', border: 'border-accent-orange/30', hex: '#ff6600' },
-  sprint: { label: 'Sprint', color: 'text-accent-blue', bg: 'bg-accent-blue/10', border: 'border-accent-blue/30', hex: '#0066ff' },
-  sail: { label: 'Sail', color: 'text-accent-green', bg: 'bg-accent-green/10', border: 'border-accent-green/30', hex: '#00ff88' },
-  revenue: { label: 'Revenue', color: 'text-accent-green', bg: 'bg-accent-green/10', border: 'border-accent-green/30', hex: '#00ff88' },
-  archived: { label: 'Archived', color: 'text-text-muted', bg: 'bg-text-muted/10', border: 'border-text-muted/30', hex: '#888888' },
-} as const
+export const ventures: Venture[] = rawVentures.map((v) => ventureSchema.parse(v))
 
-export function getVenturesByStage(stage: Venture['stage']) {
-  return ventures.filter(v => v.stage === stage)
+/** The only export the UI should render publicly. */
+export const listedVentures = ventures.filter((v) => v.listed)
+
+export const featuredVentures = listedVentures.filter((v) => v.featured)
+
+export function getVenturesByState(state: PublicState) {
+  return listedVentures.filter((v) => v.publicState === state)
 }
 
-export const featuredVentures = ventures.filter((venture) => venture.featured)
+export const stateConfig: Record<PublicState, { label: string; hex: string }> = {
+  live: { label: 'Live', hex: '#00ff88' },
+  'in-development': { label: 'In development', hex: '#0066ff' },
+  validating: { label: 'Validating', hex: '#ff6600' },
+  paused: { label: 'Paused', hex: '#888888' },
+  archived: { label: 'Archived', hex: '#555555' },
+}
+
+export const relationshipConfig: Record<Relationship, { label: string }> = {
+  owned: { label: 'Owned' },
+  operated: { label: 'Operated' },
+  'service-client': { label: 'Client work' },
+  experiment: { label: 'Experiment' },
+}

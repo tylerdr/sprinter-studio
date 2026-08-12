@@ -1,4 +1,4 @@
-import { stageConfig, ventures } from '@/app/data/ventures'
+import { listedVentures, stateConfig } from '@/app/data/ventures'
 import { ImageResponse } from 'next/og'
 
 export const alt = 'Sprinter Studio venture'
@@ -8,17 +8,15 @@ export const contentType = 'image/png'
 type Props = { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
-  return ventures.map((v) => ({ slug: v.slug }))
+  return listedVentures.map((v) => ({ slug: v.slug }))
 }
 
 export default async function Image({ params }: Props) {
   const { slug } = await params
-  const venture = ventures.find((v) => v.slug === slug)
-  const accentColor = venture ? stageConfig[venture.stage].hex : '#00ff88'
+  const venture = listedVentures.find((v) => v.slug === slug)
+  const accentColor = venture ? stateConfig[venture.publicState].hex : '#00ff88'
   const name = venture?.name ?? 'Sprinter Studio'
-  const description =
-    venture?.description ??
-    'The AI venture factory for a live portfolio of AI-native ventures.'
+  const description = venture?.description ?? 'A truth-labeled, services-backed venture portfolio.'
 
   return new ImageResponse(
     (
@@ -92,7 +90,7 @@ export default async function Image({ params }: Props) {
             }}
           >
             <span>sprinter.studio</span>
-            <span style={{ color: accentColor }}>AI venture factory</span>
+            <span style={{ color: accentColor }}>Truth-labeled portfolio</span>
           </div>
         </div>
       </div>
