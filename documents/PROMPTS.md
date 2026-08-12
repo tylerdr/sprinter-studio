@@ -5,6 +5,17 @@
 
 ---
 
+## 2026-08-12 05:41 UTC
+
+**Tyler's exact words:**
+> Replacement Fable controller after background session 33ab3e27 produced no transcript and no edits because it was stuck on an interactive startup dialog. Work in the already-existing isolated worktree /Users/td/code/github/tylerdr/sprinter-studio-portfolio-20260807, repo tylerdr/sprinter-studio, branch feat/portfolio-brand-next16-20260807, expected HEAD fb116c4d0c0c48644a1a70ece7d6f96b87d14676, PR #3 targeting dev. You are not alone in the broader codebase. Stop if cwd/repo/branch/head differs, status is dirty, or another active writer owns this exact worktree. Read repo instructions first. The exact-head GitHub Actions failure is proven: pnpm/action-setup@v4 exits because .github/workflows/ci.yml sets version 10.33.3 while package.json sets packageManager pnpm@10.33.3+integrity; all validation steps were skipped. Fable must drive the work, specify behavior, and review the final diff; delegate implementation to exactly one non-Fable writer with sole ownership of .github/workflows/ci.yml. Smallest intended repair: remove the redundant workflow version so packageManager is authoritative, unless inspection proves a different smaller correct fix. Run relevant local workflow/config validation plus lint, typecheck, truth gates, build, and E2E as proportionate. Have Fable and one fresh independent non-author reviewer assess the final exact head. Commit and normal-push the scoped repair to the existing PR branch only when clean. Do not mark ready, merge, deploy, change Vercel/DNS, publish/send, touch product copy/UI, change dependencies, force-push, reset, clean, delete worktrees, access secrets, or broaden scope. Return the new exact SHA, changed files, command results, review dispositions, and remaining hosted-CI/preview gates.
+
+**Classified as:** `ci-repair` (scoped fix, executed 2026-08-11 — see CHANGELOG)
+**Spec impact:** none
+
+
+---
+
 ## 2026-08-08 00:48 UTC
 
 **Tyler's exact words:**

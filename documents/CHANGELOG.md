@@ -4,6 +4,21 @@
 
 ---
 
+## 2026-08-11 — CI pnpm version-conflict repair (Claude Code session)
+
+**Branch:** feat/portfolio-brand-next16-20260807 (PR #3 → dev, draft) — pushed `4e1c724`
+**Tyler's prompt:** Replacement controller for stuck session 33ab3e27; fix the proven exact-head CI failure with the smallest scoped repair. Full text: `documents/PROMPTS.md` 2026-08-12 05:41 UTC.
+
+**Shipped:**
+- `.github/workflows/ci.yml` — removed the `version: 10.33.3` input from `pnpm/action-setup@v4` (2 deletions). The action's version check compares the raw `packageManager` string (`pnpm@10.33.3+sha512…`) against the input and never strips the corepack hash, so any coexistence fails with "Multiple versions of pnpm specified" and skips every validation step. `packageManager` is now the single source of pnpm-version truth.
+
+**Verification:** all local gates ran and passed — install (frozen lockfile), lint, typecheck, validate-ventures (19 records), check-banned-phrases, build (11/11 routes prerender), e2e (6 passed, 1 by-design skip). Independent non-author reviewer APPROVED after source-level and empirical verification. Hosted CI run 31567925173 in progress at session end.
+
+**Decisions:** none (no ADR — smallest correct fix for an already-proven diagnosis)
+**Follow-up / tech debt created:** T008 — CI builds the app twice (dedicated Build step + Playwright `webServer.command`); T001/T006-build-side/T007 closed.
+
+---
+
 ## 2026-08-07 — Truth-labeled portfolio rebuild (Claude Code session)
 
 **Branch:** feat/portfolio-brand-next16-20260807 (not committed/pushed this session)
