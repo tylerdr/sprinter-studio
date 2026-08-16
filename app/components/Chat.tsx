@@ -87,7 +87,7 @@ export function Chat() {
                 ) : messages.length === 0 ? (
                   <div className="flex items-center justify-center h-full">
                     <p className="text-sm text-text-muted text-center">
-                      Ask about our ventures, methodology, or the AI venture studio model.
+                      Ask about the experiments, the two tracks, or how we decide what to stop.
                     </p>
                   </div>
                 ) : (

@@ -1,7 +1,6 @@
-import { ventures } from '@/app/data/ventures'
 import { ImageResponse } from 'next/og'
 
-export const alt = 'Sprinter Studio — The AI Venture Factory'
+export const alt = 'Sprinter Studio — the venture studio of Sprinter'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -42,31 +41,33 @@ export default function Image() {
             />
             <div
               style={{
-                fontSize: 76,
-                lineHeight: 1.02,
+                fontSize: 68,
+                lineHeight: 1.04,
                 fontWeight: 800,
                 maxWidth: 980,
                 display: 'flex',
                 flexDirection: 'column',
               }}
             >
-              <span>One Founder.</span>
+              {/* Satori trims whitespace between spans — the nbsp is load-bearing. */}
               <span>
-                <span style={{ color: ACCENT }}>{ventures.length} Ventures.</span>{' '}
-                Zero Employees.
+                <span style={{ color: ACCENT }}>Two tracks,</span>
+                {' one bench.'}
               </span>
+              <span>Partner incubations.</span>
+              <span>Internal experiments.</span>
             </div>
             <div
               style={{
-                fontSize: 32,
+                fontSize: 30,
                 lineHeight: 1.3,
                 color: '#a3a3a3',
-                marginTop: 32,
-                maxWidth: 900,
+                marginTop: 30,
+                maxWidth: 920,
               }}
             >
-              A real venture factory where AI agents build, deploy, and grow
-              software companies around the clock.
+              Published while unproven — a public record of what we are testing,
+              shipping, and stopping.
             </div>
           </div>
           <div
@@ -80,7 +81,7 @@ export default function Image() {
             }}
           >
             <span>sprinter.studio</span>
-            <span style={{ color: ACCENT }}>AI venture factory</span>
+            <span style={{ color: ACCENT }}>the venture studio of Sprinter</span>
           </div>
         </div>
       </div>

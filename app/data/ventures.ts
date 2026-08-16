@@ -4,6 +4,12 @@ export interface Venture {
   domain: string
   description: string
   stage: 'amble' | 'sprint' | 'sail' | 'revenue' | 'archived'
+  /**
+   * D5: every entry sits in exactly one track.
+   * 'partner'  — incubated with a named partner who brings the domain and the demand.
+   * 'internal' — started on Sprinter's own bench, published while still unproven.
+   */
+  track: 'partner' | 'internal'
   archetype: 'saas' | 'marketplace' | 'service' | 'content' | 'tool' | 'infra'
   status: string
   url?: string
@@ -23,6 +29,7 @@ export const ventures: Venture[] = [
     domain: 'getfoundinchat.com',
     description: 'A service offer focused on how businesses appear in AI-generated answers.',
     stage: 'sail',
+    track: 'internal',
     archetype: 'service',
     status: 'Live offer · validating demand',
     url: 'https://getfoundinchat.com',
@@ -38,6 +45,7 @@ export const ventures: Venture[] = [
     domain: 'aiopsguide.com',
     description: 'A public guide to AI operations, governance, and deployment workflows.',
     stage: 'sail',
+    track: 'internal',
     archetype: 'content',
     status: 'Live content property',
     url: 'https://aiopsguide.com',
@@ -53,6 +61,7 @@ export const ventures: Venture[] = [
     domain: 'aibizblueprint.com',
     description: 'AI business-model frameworks and practical planning material for founders.',
     stage: 'sail',
+    track: 'internal',
     archetype: 'content',
     status: 'Live content property',
     url: 'https://aibizblueprint.com',
@@ -68,6 +77,7 @@ export const ventures: Venture[] = [
     domain: 'shreddify.com',
     description: 'A guitar-learning and tablature product experiment using AI assistance.',
     stage: 'sail',
+    track: 'internal',
     archetype: 'saas',
     status: 'Live product · traction unverified',
     url: 'https://shreddify.com',
@@ -82,6 +92,7 @@ export const ventures: Venture[] = [
     domain: 'protocolrank.com',
     description: 'A rank-tracking and optimization tool experiment.',
     stage: 'sail',
+    track: 'internal',
     archetype: 'tool',
     status: 'Live tool · monetization test',
     url: 'https://protocolrank.com',
@@ -96,6 +107,7 @@ export const ventures: Venture[] = [
     domain: 'ohioelectricityrates.com',
     description: 'A rate-comparison and local-search experiment for Ohio energy consumers.',
     stage: 'sail',
+    track: 'internal',
     archetype: 'tool',
     status: 'Live tool · monetization test',
     url: 'https://ohioelectricityrates.com',
@@ -110,6 +122,7 @@ export const ventures: Venture[] = [
     domain: 'ogpreviewtool.com',
     description: 'A utility for previewing how links may appear on social platforms.',
     stage: 'sail',
+    track: 'internal',
     archetype: 'tool',
     status: 'Live tool · monetization blocked',
     icp: 'Marketers and developers validating social-share cards.',
@@ -122,12 +135,13 @@ export const ventures: Venture[] = [
     slug: 'sprinter-studio',
     name: 'Sprinter Studio',
     domain: 'sprinter.studio',
-    description: 'The public build log for Sprinter experiments, reusable patterns, and evidence-based stage changes.',
+    description: 'The public site of the venture studio itself: two labeled tracks, the evidence behind each stage change, and the decisions to stop.',
     stage: 'sprint',
+    track: 'internal',
     archetype: 'infra',
     status: 'Repositioning · credibility and focus pass',
     url: 'https://sprinter.studio',
-    icp: 'Builders, collaborators, and prospects evaluating how Sprinter experiments and learns.',
+    icp: 'Builders, potential incubation partners, and prospects evaluating how Sprinter experiments and learns.',
     monetization: 'Trust and learning surface that routes commercial demand to the focused Sprinter sites.',
     signal: 'Useful only if the record remains honest and reinforces focus rather than portfolio theater.',
     featured: true,
@@ -138,6 +152,7 @@ export const ventures: Venture[] = [
     domain: 'winemakeros.com',
     description: 'A winery-operations software hypothesis with AI-assisted decision support.',
     stage: 'sprint',
+    track: 'internal',
     archetype: 'saas',
     status: 'Prototype · launch readiness unverified',
     url: 'https://winemakeros.com',
@@ -153,6 +168,7 @@ export const ventures: Venture[] = [
     domain: 'everymcp.com',
     description: 'A directory and marketplace hypothesis for Model Context Protocol servers.',
     stage: 'sprint',
+    track: 'internal',
     archetype: 'marketplace',
     status: 'Prototype · validating discovery demand',
     url: 'https://everymcp.com',
@@ -168,6 +184,7 @@ export const ventures: Venture[] = [
     domain: 'cimreader.com',
     description: 'A prototype for structured, AI-assisted first-pass review of confidential information memoranda.',
     stage: 'sprint',
+    track: 'internal',
     archetype: 'tool',
     status: 'Prototype · buyer validation required',
     url: 'https://cimreader.com',
@@ -183,9 +200,10 @@ export const ventures: Venture[] = [
     domain: 'portcoaudit.com',
     description: 'A retired standalone offer concept for assessing AI opportunities inside portfolio companies.',
     stage: 'archived',
+    track: 'internal',
     archetype: 'service',
     status: 'Retired offer · consolidated into the Sprinter training-first funnel',
-    url: 'https://sprinter.ai/portfolio-ai-training-pack',
+    url: 'https://sprinter.ai/portfolio-ai-training-pack?utm_source=studio&utm_medium=site',
     icp: 'Private equity firms, family offices, holding companies, and portfolio operators.',
     monetization: 'No standalone monetization path; relevant demand starts with the $2,500 workshop or $10,000 portfolio pack.',
     signal: 'The original concept asked the buyer to understand a new diagnostic too early. The simpler path teaches teams first, gives the sponsor aggregate evidence, and routes only earned workflows into implementation.',
@@ -197,6 +215,7 @@ export const ventures: Venture[] = [
     domain: 'hireagentbuilders.com',
     description: 'A concierge and marketplace hypothesis for matching companies with AI agent builders.',
     stage: 'sprint',
+    track: 'internal',
     archetype: 'marketplace',
     status: 'Concierge validation · not yet a marketplace',
     url: 'https://hireagentbuilders.com',
@@ -211,6 +230,7 @@ export const ventures: Venture[] = [
     domain: 'shotfreetrt.com',
     description: 'A content-property experiment about alternatives and questions around TRT delivery.',
     stage: 'sprint',
+    track: 'internal',
     archetype: 'content',
     status: 'Live content property · editorial validation',
     url: 'https://shotfreetrt.com',
@@ -225,6 +245,7 @@ export const ventures: Venture[] = [
     domain: 'sprinteragent.com',
     description: 'An infrastructure experiment for deploying and operating bounded AI-agent workflows.',
     stage: 'sprint',
+    track: 'internal',
     archetype: 'infra',
     status: 'Prototype · internal reuse test',
     url: 'https://sprinteragent.com',
@@ -239,6 +260,7 @@ export const ventures: Venture[] = [
     domain: 'roofrainmaker.com',
     description: 'A website, lead-capture, and follow-up service hypothesis for roofing contractors.',
     stage: 'sprint',
+    track: 'internal',
     archetype: 'service',
     status: 'Live service concept · validating demand',
     url: 'https://roofrainmaker.com',
@@ -256,6 +278,7 @@ export const ventures: Venture[] = [
     domain: 'roofingreels.com',
     description: 'A hypothesis for turning job-site media into usable social content for roofers.',
     stage: 'amble',
+    track: 'internal',
     archetype: 'saas',
     status: 'Hypothesis · no build commitment',
     icp: 'Roofers with job photos but no consistent content workflow.',
@@ -268,6 +291,7 @@ export const ventures: Venture[] = [
     domain: 'alivelongevity.com',
     description: 'A content and product hypothesis around longevity education and personal data organization.',
     stage: 'amble',
+    track: 'internal',
     archetype: 'saas',
     status: 'Reactivation hypothesis · safeguards required',
     url: 'https://alivelongevity.com',
@@ -282,6 +306,7 @@ export const ventures: Venture[] = [
     domain: 'sproutparent.com',
     description: 'A hypothesis for lightweight parenting organization and developmental-reference tools.',
     stage: 'amble',
+    track: 'internal',
     archetype: 'saas',
     status: 'Hypothesis · no build commitment',
     icp: 'Parents seeking organization and age-appropriate reference material.',
@@ -289,6 +314,21 @@ export const ventures: Venture[] = [
     signal: 'Personal relevance is not market evidence; safety, trust, and demand must be validated first.',
   },
 ]
+
+export const trackConfig = {
+  partner: {
+    label: 'Partner incubation',
+    plural: 'Partner incubations',
+    definition:
+      'New products Sprinter incubates with a named partner who brings the domain and the demand.',
+  },
+  internal: {
+    label: 'Internal experiment',
+    plural: 'Internal experiments',
+    definition:
+      "Products Sprinter starts on its own bench, published while they are still unproven.",
+  },
+} as const
 
 export const stageConfig = {
   amble: {
@@ -331,5 +371,23 @@ export const stageConfig = {
 export function getVenturesByStage(stage: Venture['stage']) {
   return ventures.filter((venture) => venture.stage === stage)
 }
+
+export function getVenturesByTrack(track: Venture['track']) {
+  return ventures.filter((venture) => venture.track === track)
+}
+
+/** Entries still under active investigation — excludes stopped/archived records. */
+export const activeVentures = ventures.filter(
+  (venture) => venture.stage !== 'archived',
+)
+
+export const archivedVentures = ventures.filter(
+  (venture) => venture.stage === 'archived',
+)
+
+/** Entries rendered in the Amble -> Sprint -> Sail stage columns. */
+export const pipelineVentures = ventures.filter(
+  (venture) => venture.track === 'internal' && venture.stage !== 'archived',
+)
 
 export const featuredVentures = ventures.filter((venture) => venture.featured)

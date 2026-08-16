@@ -1,27 +1,63 @@
-import { ventures, stageConfig } from '@/app/data/ventures'
+import {
+  archivedVentures,
+  getVenturesByTrack,
+  stageConfig,
+  trackConfig,
+  ventures,
+  type Venture,
+} from '@/app/data/ventures'
 
 export const revalidate = 3600
 
+function entry(v: Venture) {
+  return `- ${v.name} (${v.domain}) — ${v.description} [${stageConfig[v.stage].label}: ${v.status}]`
+}
+
 export function GET() {
+  const partner = getVenturesByTrack('partner').filter(
+    (v) => v.stage !== 'archived',
+  )
+  const internal = getVenturesByTrack('internal').filter(
+    (v) => v.stage !== 'archived',
+  )
+
   const lines: string[] = [
     '# Sprinter Studio',
     '',
-    `> One founder + AI agents building ${ventures.length} software ventures in public — zero employees. Every venture is real: live, in build, or in validation. The methodology (Amble → Sprint → Sail) is open source.`,
+    '> Sprinter Studio is the venture studio of Sprinter: products incubated with partners and internal experiments, each clearly labeled as one or the other — a public record of what is being tested, shipped, and stopped. Commercial training and workflow offers live at https://sprinter.ai.',
     '',
-    '## Ventures',
+    `## ${trackConfig.partner.plural}`,
     '',
-    ...ventures.map(
-      (v) =>
-        `- ${v.name} (${v.domain}) — ${v.description} [${stageConfig[v.stage].label}: ${v.status}]`,
-    ),
+    trackConfig.partner.definition,
     '',
-    '## Playbook',
+    ...(partner.length
+      ? partner.map(entry)
+      : [
+          'No partner incubation is published yet. When one is, it is listed here with the partner named.',
+        ]),
     '',
-    'Amble → Sprint → Sail — the stage-gate methodology behind every venture:',
-    '- Amble (ideate & validate): divergent exploration; score ideas, define ICP, validate demand. No code until the signal is clear.',
-    '- Sprint (build & deploy): focused execution; ship an MVP in days, with AI agents doing the heavy lifting.',
-    '- Sail (grow & scale): distribution and growth loops; optimize for revenue, automate everything that moves.',
-    'Ventures only advance through gates (build-ready, launch) with real market data. Full playbook: https://sprinter.studio/playbook',
+    `## ${trackConfig.internal.plural}`,
+    '',
+    trackConfig.internal.definition,
+    '',
+    ...internal.map(entry),
+    '',
+    '## Stopped and archived',
+    '',
+    'Recorded decisions that are no longer an active commercial path. The learning stays public.',
+    '',
+    ...(archivedVentures.length
+      ? archivedVentures.map(entry)
+      : ['- None recorded yet.']),
+    '',
+    '## How to read a stage',
+    '',
+    'Amble → Sprint → Sail is a confidence label, not a trophy. Work can advance, revise, pause, or stop as evidence changes.',
+    '- Amble: a question or hypothesis under investigation. No build commitment.',
+    '- Sprint: a bounded implementation intended to answer one consequential question. Shipping is not the gate; evidence is.',
+    '- Sail: a live property with an explicit reason to continue — repeated use, qualified demand, revenue, or strategic reuse. Sail does not imply meaningful revenue or a self-sustaining company.',
+    '- Archived: a recorded decision that no longer deserves active attention.',
+    'A public URL is evidence of execution, not of demand. Full method: https://sprinter.studio/playbook',
     '',
     '## Links',
     '',
@@ -29,7 +65,13 @@ export function GET() {
     '- Playbook: https://sprinter.studio/playbook',
     ...ventures.map((v) => `- ${v.name}: https://sprinter.studio/ventures/${v.slug}`),
     '- Source (built in public): https://github.com/tylerdr/sprinter-studio',
-    '- Sibling sites: https://sprinter.ai, https://sprinterconsulting.com, https://amble.so',
+    '',
+    '## Related properties',
+    '',
+    '- Sprinter — practical AI training and workflows: https://sprinter.ai',
+    '- Sprinter Consulting — the execution practice of Sprinter: https://sprinterconsulting.com',
+    '- Amble — the company brain: https://ambleideation.com',
+    '- Tyler Dreher — founder of Sprinter: https://tylerdreher.com',
     '',
   ]
 

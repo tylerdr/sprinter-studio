@@ -1,4 +1,4 @@
-import { stageConfig, ventures } from '@/app/data/ventures'
+import { stageConfig, trackConfig, ventures } from '@/app/data/ventures'
 import { ImageResponse } from 'next/og'
 
 export const alt = 'Sprinter Studio venture'
@@ -16,9 +16,12 @@ export default async function Image({ params }: Props) {
   const venture = ventures.find((v) => v.slug === slug)
   const accentColor = venture ? stageConfig[venture.stage].hex : '#00ff88'
   const name = venture?.name ?? 'Sprinter Studio'
+  const trackLabel = venture
+    ? trackConfig[venture.track].label
+    : 'the venture studio of Sprinter'
   const description =
     venture?.description ??
-    'The AI venture factory for a live portfolio of AI-native ventures.'
+    'An experiment record from Sprinter Studio, the venture studio of Sprinter.'
 
   return new ImageResponse(
     (
@@ -92,7 +95,7 @@ export default async function Image({ params }: Props) {
             }}
           >
             <span>sprinter.studio</span>
-            <span style={{ color: accentColor }}>AI venture factory</span>
+            <span style={{ color: accentColor }}>{trackLabel}</span>
           </div>
         </div>
       </div>

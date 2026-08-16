@@ -1,6 +1,8 @@
 # sprinter.studio
 
-sprinter.studio is the venture factory site for Sprinter's AI-native venture studio, showing the live portfolio of ventures built by one founder plus AI agents.
+sprinter.studio is the public site of Sprinter Studio, the venture studio of Sprinter. It publishes two clearly separated tracks — products incubated with partners, and internal experiments run on Sprinter's own bench — with the stage, status, and evidence behind each one, including what gets stopped.
+
+Commercial training and workflow offers live at [sprinter.ai](https://sprinter.ai); implementation work lives at [sprinterconsulting.com](https://sprinterconsulting.com).
 
 ## Stack
 

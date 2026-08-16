@@ -17,38 +17,42 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "Sprinter Studio — the venture studio of Sprinter";
+
 const description =
-  "Sprinter Studio is the public build log and R&D surface for Sprinter: a transparent ledger of product experiments, prototypes, live properties, reusable patterns, and the evidence used to continue or stop them.";
+  "The venture studio of Sprinter: partner incubations and internal experiments, clearly labeled — a public record of what we test, ship, and stop.";
+
+const longDescription =
+  "Sprinter Studio is the venture studio of Sprinter. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. Commercial training and workflow offers live at sprinter.ai.";
 
 export const metadata: Metadata = {
   title: {
-    default: "Sprinter Studio | Public AI Product Build Log",
+    default: title,
     template: "%s | Sprinter Studio",
   },
   description,
   metadataBase: new URL("https://sprinter.studio"),
   alternates: { canonical: "/" },
   keywords: [
-    "AI product build log",
-    "agent-assisted software development",
+    "venture studio",
+    "partner incubations",
+    "internal experiments",
     "AI product experiments",
     "venture studio playbook",
     "AI product validation",
     "Amble Sprint Sail",
   ],
   openGraph: {
-    title: "Sprinter Studio | Public AI Product Build Log",
+    title,
     description,
     url: "https://sprinter.studio",
     siteName: "Sprinter Studio",
     type: "website",
-    images: [{ url: "/og.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sprinter Studio | Public AI Product Build Log",
+    title,
     description,
-    images: ["/og.png"],
   },
   robots: {
     index: true,
@@ -81,17 +85,31 @@ export default function RootLayout({
         ],
       },
       {
+        "@type": "Organization",
+        "@id": "https://sprinter.studio/#organization",
+        name: "Sprinter Studio",
+        url: "https://sprinter.studio",
+        description: longDescription,
+        parentOrganization: { "@id": "https://sprinter.ai/#organization" },
+        founder: {
+          "@type": "Person",
+          name: "Tyler Dreher",
+          url: "https://tylerdreher.com",
+        },
+        sameAs: ["https://github.com/tylerdr/sprinter-studio"],
+      },
+      {
         "@type": "WebSite",
         "@id": "https://sprinter.studio/#website",
         name: "Sprinter Studio",
         url: "https://sprinter.studio",
         description,
-        publisher: { "@id": "https://sprinter.ai/#organization" },
+        publisher: { "@id": "https://sprinter.studio/#organization" },
         about: [
+          "Partner incubations",
+          "Internal experiments",
           "AI product experiments",
-          "Agent-assisted software development",
           "Product validation",
-          "Reusable software patterns",
         ],
       },
     ],
