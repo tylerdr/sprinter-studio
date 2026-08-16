@@ -85,25 +85,25 @@ const lessons = [
 
 const routes = [
   {
-    eyebrow: 'Multi-company owner',
-    title: 'Need an AI operating partner across a portfolio?',
-    body: 'Sprinter AI works with family offices, PE firms, holding companies, and their operators to create portfolio context, prioritize opportunities, and move the right work into use.',
-    href: 'https://sprinter.ai',
-    cta: 'See the portfolio offer',
+    eyebrow: 'Operating team',
+    title: 'Want your team to use ChatGPT, Claude, or Copilot better before buying anything else?',
+    body: 'Start with Sprinter’s private two-hour AI Productivity Workshop. It uses the tools and work the team already has, costs $2,500 for up to 12 people, and requires no new platform or integration.',
+    href: 'https://sprinter.ai/ai-productivity-workshop',
+    cta: 'See the team workshop',
   },
   {
-    eyebrow: 'Operating company',
-    title: 'Have one workflow that needs to be fixed?',
-    body: 'Sprinter Consulting audits the workflow, builds the system, and stays through adoption for established non-tech businesses.',
+    eyebrow: 'Multi-company owner',
+    title: 'Want the same practical AI baseline across five operating companies?',
+    body: 'The $10,000 Portfolio AI Training Pack gives five teams private workshops and gives the sponsor aggregate adoption and opportunity patterns — without employee surveillance or a mandated software stack.',
+    href: 'https://sprinter.ai/portfolio-ai-training-pack',
+    cta: 'See the five-company pack',
+  },
+  {
+    eyebrow: 'Implementation-ready workflow',
+    title: 'Has the work already earned setup, integration, or a custom system?',
+    body: 'Sprinter Consulting is the execution backend for a named workflow with a real owner, suitable access, repeatable demand, and a defensible implementation boundary.',
     href: 'https://sprinterconsulting.com',
     cta: 'See the execution practice',
-  },
-  {
-    eyebrow: 'Builder or collaborator',
-    title: 'Interested in the method and the code?',
-    body: 'Read the public playbook, inspect the repository, and follow the experiments as their status changes — including the ones that stop.',
-    href: 'https://github.com/tylerdr/sprinter-studio',
-    cta: 'Open the repository',
   },
 ] as const
 
@@ -126,7 +126,7 @@ const faqItems = [
   {
     question: 'Can Sprinter build a venture with me?',
     answer:
-      'Only selectively. The default business is cash-paid AI operating-partner and implementation work. A venture partnership requires unusual domain access, a clear owner, credible distribution, aligned economics, and a reason the opportunity should outrank existing commitments.',
+      'Only selectively. The default business is paid practical AI training, workflow setup, and implementation. A venture partnership requires unusual domain access, a clear owner, credible distribution, aligned economics, and a reason the opportunity should outrank existing commitments.',
   },
 ]
 
@@ -419,7 +419,7 @@ function CommercialRoutes() {
             Looking for Sprinter, not the lab?
           </p>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
-            Go to the surface built for the decision you need to make.
+            Start with the smallest useful purchase, not the biggest possible vision.
           </h2>
         </Reveal>
 
@@ -549,16 +549,17 @@ function FinalCta() {
         <Reveal>
           <Zap className="w-8 h-8 text-accent-green mx-auto" />
           <h2 className="mt-5 text-3xl md:text-5xl font-bold tracking-tight">
-            Follow the experiments. Hire the focused operating company.
+            Follow the experiments. Start with useful work.
           </h2>
           <p className="mt-5 max-w-2xl mx-auto text-text-muted leading-relaxed">
-            The studio makes the learning visible. Sprinter AI and Sprinter
-            Consulting are where that capability is applied to real operating
-            priorities.
+            The studio makes the learning visible. The commercial front door is
+            a private two-hour team workshop using the AI tools and work the
+            customer already has. Deeper setup or implementation comes only
+            after the work earns it.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
-              href="https://sprinter.ai"
+              href="https://sprinter.ai/ai-productivity-workshop"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -566,10 +567,10 @@ function FinalCta() {
                 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2',
               )}
             >
-              Portfolio AI operating partner <ArrowRight className="w-4 h-4" />
+              See the $2,500 workshop <ArrowRight className="w-4 h-4" />
             </a>
             <a
-              href="https://sprinterconsulting.com"
+              href="https://sprinter.ai/portfolio-ai-training-pack"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -577,9 +578,17 @@ function FinalCta() {
                 'border-border-subtle hover:bg-surface inline-flex items-center gap-2',
               )}
             >
-              Operating-company execution <ArrowRight className="w-4 h-4" />
+              See the five-company pack <ArrowRight className="w-4 h-4" />
             </a>
           </div>
+          <a
+            href="https://sprinterconsulting.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex text-sm text-text-muted hover:text-foreground"
+          >
+            Already have an implementation-ready workflow? Go to Sprinter Consulting.
+          </a>
         </Reveal>
       </div>
     </section>
@@ -603,12 +612,20 @@ function Footer() {
             Playbook
           </Link>
           <a
-            href="https://sprinter.ai"
+            href="https://sprinter.ai/ai-productivity-workshop"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Sprinter AI
+            Team workshop
+          </a>
+          <a
+            href="https://sprinter.ai/portfolio-ai-training-pack"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Portfolio pack
           </a>
           <a
             href="https://sprinterconsulting.com"
