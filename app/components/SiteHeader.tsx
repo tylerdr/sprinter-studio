@@ -81,12 +81,12 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <a
-            href="https://sprinter.ai"
+            href="https://sprinter.ai/ai-productivity-workshop"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:inline-flex min-h-11 items-center gap-1.5 bg-accent-green px-4 text-sm font-semibold text-background hover:bg-accent-green/90 transition-colors"
           >
-            Work with Sprinter
+            Start with the workshop
             <ArrowUpRight className="w-4 h-4" />
           </a>
           <button
@@ -131,23 +131,32 @@ export function SiteHeader() {
           </a>
           <div className="mt-5 border-t border-border-subtle pt-5 space-y-3">
             <a
-              href="https://sprinter.ai"
+              href="https://sprinter.ai/ai-productivity-workshop"
               target="_blank"
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center gap-2 bg-accent-green px-5 text-sm font-semibold text-background"
               onClick={() => setMenuOpen(false)}
             >
-              Portfolio AI operating partner
+              $2,500 AI Productivity Workshop
               <ArrowUpRight className="w-4 h-4" />
             </a>
             <a
-              href="https://sprinterconsulting.com"
+              href="https://sprinter.ai/portfolio-ai-training-pack"
               target="_blank"
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center border border-border-subtle px-5 text-sm text-foreground"
               onClick={() => setMenuOpen(false)}
             >
-              Operating-company execution
+              Five-company training pack
+            </a>
+            <a
+              href="https://sprinterconsulting.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-12 items-center justify-center text-sm text-text-muted"
+              onClick={() => setMenuOpen(false)}
+            >
+              Workflow setup and implementation
             </a>
           </div>
         </nav>
