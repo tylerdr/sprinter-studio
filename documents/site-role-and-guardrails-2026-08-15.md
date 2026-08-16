@@ -1,12 +1,25 @@
 # Sprinter Studio role and guardrails
 
-**Decision date:** 2026-08-16
+**Decision date:** 2026-08-16 · **Revised:** 2026-08-16 (D5 two-track identity folded in)
 
 ## One job
 
-`sprinter.studio` is the public R&D log for Sprinter. It records hypotheses, prototypes, live properties, reusable patterns, and the evidence used to advance, revise, pause, archive, or stop them.
+`sprinter.studio` is **Sprinter Studio — the venture studio of Sprinter**, working in the open. It incubates new products in two clearly separated tracks and publishes the record: hypotheses, prototypes, live properties, reusable patterns, and the evidence used to advance, revise, pause, archive, or stop them.
 
 It is not the master Sprinter company site, the first commercial offer, or a substitute for customer proof.
+
+## The two tracks (D5 — canon, not a suggestion)
+
+Every entry on the site sits under exactly one of these, labeled on its card. No unlabeled third bucket, no entry listed twice.
+
+| Track | Definition |
+| --- | --- |
+| **Partner incubations** | New products Sprinter incubates with a named partner who brings the domain and the demand. |
+| **Internal experiments** | Products Sprinter starts on its own bench, published while they are still unproven. |
+
+No partner incubation is published today. The section ships with an explicit empty state rather than borrowing an internal experiment to fill it — and the site says so in the ledger, the FAQ, `llms.txt`, and the chat prompt. **When a partner incubation is added, the partner must be named.**
+
+Any graduation sentence is scoped to internal experiments only, or omitted: nothing ratified says Sprinter carries a partner-built product into its own portfolio.
 
 ## Portfolio role
 
@@ -36,8 +49,8 @@ A workflow goes directly to Sprinter Consulting only when the buyer can name the
 
 The following framing is intentionally removed:
 
-- “One Founder. 19 Ventures. Zero Employees.”
-- “The AI Venture Factory” as the master identity
+- “One Founder. 19 Ventures. Zero Employees.” — and any “no employees” framing
+- “The AI Venture Factory” as the master identity (or anywhere at all)
 - A fixed 1–3 day idea-to-MVP claim
 - “AI agents run everything”
 - “The venture runs itself” at an arbitrary revenue threshold
@@ -51,7 +64,9 @@ These claims optimized for novelty at the expense of trust. A serious buyer or i
 
 ## New positioning
 
-> A public record of what we are testing, shipping, and stopping.
+> **H1:** Two tracks, one bench: products we build with partners, and experiments we run ourselves.
+>
+> **Subline:** Published while unproven — a public record of what we are testing, shipping, and stopping.
 
 Supporting contract:
 
@@ -123,8 +138,11 @@ Everything else stays in Amble, pauses, or stops.
 
 ## Commercial CTA standard
 
+Every cross-domain link appends `?utm_source=studio&utm_medium=site`. Keep the URLs in `lib/links.ts` rather than hard-coding them in components.
+
 The site may use these calls to action:
 
+- **Start with the free AI Skills Check** → `https://sprinter.ai/ai-skills-check` *(the primary top-of-funnel CTA)*
 - **Start with the workshop** → `https://sprinter.ai/ai-productivity-workshop`
 - **Train five companies** → `https://sprinter.ai/portfolio-ai-training-pack`
 - **Implement a proven workflow** → `https://sprinterconsulting.com`
@@ -135,18 +153,20 @@ Do not use generic “Work with Sprinter” copy when the exact destination can 
 
 ## Publishing checklist
 
-- [ ] Homepage and playbook use the same evidence-gated language
-- [ ] Header routes commercial visitors to the team workshop
-- [ ] Mobile navigation exposes the workshop, portfolio pack, and implementation backend
-- [ ] Every pipeline record has an honest current status
-- [ ] PortCo Audit is labeled archived and consolidated
-- [ ] Health-related experiments use careful scope and claims language
-- [ ] `ambleideation.com` is the canonical Amble link
-- [ ] Metadata describes a public build log, not an autonomous venture factory
-- [ ] Open Graph image is updated to match the public-build-log positioning
-- [ ] Mobile navigation and experiment detail pages are verified
+- [x] Homepage and playbook use the same evidence-gated language
+- [x] Every entry is labeled with its track, and the two tracks are visibly separated
+- [x] Header routes commercial visitors to the free AI Skills Check first
+- [x] Mobile navigation exposes the skills check, workshop, portfolio pack, and implementation backend
+- [x] Every pipeline record has an honest current status
+- [x] PortCo Audit is labeled archived, consolidated, and **visible** in a Stopped and archived section
+- [x] Health-related experiments use careful scope and claims language
+- [x] `ambleideation.com` is the canonical Amble link, labeled `Amble — the company brain` (D4)
+- [x] Metadata describes the venture studio, not an autonomous venture factory
+- [x] Open Graph images (root and per-experiment) match the positioning; the stale static `public/og.png` is deleted so the dynamic route is the one that renders
+- [x] `llms.txt` and the chat system prompt carry the same framing as the pages
+- [ ] Mobile navigation and experiment detail pages are verified in a browser
 - [ ] Existing indexed title/description changes are monitored after launch
-- [ ] Studio does not become a fifth commercial offer
+- [x] Studio does not become a fifth commercial offer
 
 ## What comes next
 
