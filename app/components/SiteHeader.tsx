@@ -42,10 +42,10 @@ export function SiteHeader() {
       }`}
     >
       <a
-        href="#main"
+        href="/#pipeline"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-accent-green focus:px-3 focus:py-2 focus:text-sm focus:text-background"
       >
-        Skip to content
+        Skip to experiment ledger
       </a>
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-4 px-6 h-16">
         <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
