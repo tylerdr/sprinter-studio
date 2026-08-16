@@ -1,7 +1,8 @@
 import { ventures } from '@/app/data/ventures'
 import type { MetadataRoute } from 'next'
 
-const lastModified = new Date('2026-07-01')
+// Build time: the ledger changes whenever the site is redeployed.
+const lastModified = new Date()
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://sprinter.studio'

@@ -1,5 +1,6 @@
 'use client'
 
+import { outbound } from '@/lib/links'
 import Link from 'next/link'
 import { ArrowUpRight, Github, Menu, X, Zap } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -42,17 +43,17 @@ export function SiteHeader() {
       }`}
     >
       <a
-        href="/#pipeline"
+        href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-accent-green focus:px-3 focus:py-2 focus:text-sm focus:text-background"
       >
-        Skip to experiment ledger
+        Skip to main content
       </a>
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-4 px-6 h-16">
         <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
           <Zap className="w-5 h-5 text-accent-green" />
           <span>sprinter.studio</span>
           <span className="hidden lg:inline font-mono text-[10px] uppercase tracking-widest text-text-muted font-normal">
-            public build log
+            the venture studio of Sprinter
           </span>
         </Link>
 
@@ -70,7 +71,7 @@ export function SiteHeader() {
             Playbook
           </Link>
           <a
-            href="https://github.com/tylerdr/sprinter-studio"
+            href={outbound.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-text-muted hover:text-foreground transition-colors flex items-center gap-1.5"
@@ -81,12 +82,12 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <a
-            href="https://sprinter.ai/ai-productivity-workshop"
+            href={outbound.skillsCheck}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:inline-flex min-h-11 items-center gap-1.5 bg-accent-green px-4 text-sm font-semibold text-background hover:bg-accent-green/90 transition-colors"
           >
-            Start with the workshop
+            Free AI Skills Check
             <ArrowUpRight className="w-4 h-4" />
           </a>
           <button
@@ -121,7 +122,7 @@ export function SiteHeader() {
             Playbook
           </Link>
           <a
-            href="https://github.com/tylerdr/sprinter-studio"
+            href={outbound.github}
             target="_blank"
             rel="noopener noreferrer"
             className="flex min-h-[48px] items-center text-sm text-text-muted hover:text-foreground"
@@ -131,26 +132,35 @@ export function SiteHeader() {
           </a>
           <div className="mt-5 border-t border-border-subtle pt-5 space-y-3">
             <a
-              href="https://sprinter.ai/ai-productivity-workshop"
+              href={outbound.skillsCheck}
               target="_blank"
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center gap-2 bg-accent-green px-5 text-sm font-semibold text-background"
               onClick={() => setMenuOpen(false)}
             >
-              $2,500 AI Productivity Workshop
+              Free AI Skills Check
               <ArrowUpRight className="w-4 h-4" />
             </a>
             <a
-              href="https://sprinter.ai/portfolio-ai-training-pack"
+              href={outbound.workshop}
               target="_blank"
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center border border-border-subtle px-5 text-sm text-foreground"
               onClick={() => setMenuOpen(false)}
             >
-              Five-company training pack
+              AI Productivity Workshop — $2,500
             </a>
             <a
-              href="https://sprinterconsulting.com"
+              href={outbound.portfolioPack}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-12 items-center justify-center border border-border-subtle px-5 text-sm text-foreground"
+              onClick={() => setMenuOpen(false)}
+            >
+              Portfolio AI Training Pack — $10,000
+            </a>
+            <a
+              href={outbound.consulting}
               target="_blank"
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center text-sm text-text-muted"
