@@ -1,28 +1,30 @@
 /**
- * Canonical positioning copy. Rendered in exactly three places — the shared
- * Footer, the homepage Co-build section, and /llms.txt — so the claim never
- * drifts between surfaces. See documents/DECISIONS.md for the ADR.
+ * Canonical Sprinter Studio positioning. Keep the homepage, footer, metadata,
+ * FAQ, and llms surface aligned to this language.
  */
 
 export const POSITIONING_STATEMENT =
-  'Sprinter Studio is a truth-labeled, services-backed venture portfolio. We build and operate our own products, take on selective client work, and co-build with domain insiders who bring distribution, cash, a real wedge, and clean IP.'
+  'Sprinter Studio is Sprinter’s public R&D log: a record of hypotheses, prototypes, live properties, reusable patterns, and stop decisions. A deployed site is evidence of execution, not proof of demand, revenue, or a standalone company.'
+
+export const OPERATING_CONSTRAINT_STATEMENT =
+  'Client delivery and validated products come first. Experiments earn continued attention only through useful evidence, reusable capability, qualified demand, strategic leverage, or revenue.'
 
 export const NOT_A_FUND_STATEMENT =
-  'Sprinter Studio is services-backed, not a fund. We do not raise outside capital, promise portfolio returns, or manage other people’s money.'
+  'Sprinter Studio is not a fund, a list of companies, or a claim that software runs itself. Sprinter does not raise capital here, promise portfolio returns, or manage other people’s money.'
 
-export const CO_BUILD_CTA_LABEL = 'Propose a product wedge'
+export const CO_BUILD_CTA_LABEL = 'Pressure-test a product wedge at sprinter.ai'
 
 export const CO_BUILD_CRITERIA = [
-  'You are a domain insider — you own the problem, not just an idea about it.',
-  'You have real distribution or design-partner access to the people who would use it.',
-  'You can fund the first bounded build.',
-  'There is one specific product wedge, not a general idea or a request to "see what AI can do."',
-  'Background IP and data rights are clean — no encumbrances, no disputes.',
+  'You are a domain insider who owns the workflow and can describe the current pain precisely.',
+  'You have real distribution, customer access, or committed design partners.',
+  'You can fund the first bounded decision and build stages.',
+  'There is one specific product wedge, not a broad request to “see what AI can do.”',
+  'Background IP, data, and commercial rights are clean and can be documented.',
 ] as const
 
 export const CO_BUILD_DISQUALIFIERS = [
-  'No named workflow, no user, and no sponsor — just an idea.',
-  'Unpaid speculative work, or a success-fee-only arrangement.',
-  'No access to the users, data, or people who make the decision.',
-  'A request for free product development with no cash, distribution, or clean IP behind it.',
+  'No named workflow, user, sponsor, or distribution path.',
+  'Unpaid speculative product development or success-fee-only work.',
+  'No access to representative users, data, documents, or decision makers.',
+  'A request to count a deployed site as a validated company before demand evidence exists.',
 ] as const
