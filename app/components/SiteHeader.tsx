@@ -138,7 +138,7 @@ export function SiteHeader() {
               className="flex min-h-12 items-center justify-center gap-2 bg-accent-green px-5 text-sm font-semibold text-background"
               onClick={() => setMenuOpen(false)}
             >
-              Free AI Skills Check
+              Start with the free AI Skills Check
               <ArrowUpRight className="w-4 h-4" />
             </a>
             <a

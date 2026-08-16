@@ -96,7 +96,7 @@ const routes = [
     title: 'Not sure where your team actually stands with the AI tools it already pays for?',
     body: 'The AI Skills Check takes five minutes, needs no email, and tells you whether individual AI use is occasional, productive, or repeatable. It is the smallest useful first step and it costs nothing.',
     href: outbound.skillsCheck,
-    cta: 'Start the free AI Skills Check',
+    cta: 'Start with the free AI Skills Check',
   },
   {
     eyebrow: 'Operating team',
@@ -675,7 +675,8 @@ function FinalCta() {
                 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2',
               )}
             >
-              Start the free AI Skills Check <ArrowRight className="w-4 h-4" />
+              Start with the free AI Skills Check{' '}
+              <ArrowRight className="w-4 h-4" />
             </a>
             <a
               href={outbound.workshop}
