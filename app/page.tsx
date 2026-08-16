@@ -1,12 +1,19 @@
 'use client'
 
-import { Pipeline } from '@/app/components/Pipeline'
+import { Pipeline, VentureList } from '@/app/components/Pipeline'
 import { PlaybookDiagram, PhaseGlyph } from '@/app/components/PlaybookDiagram'
 import { Reveal } from '@/app/components/Reveal'
-import { stageConfig } from '@/app/data/ventures'
+import {
+  activeVentures,
+  archivedVentures,
+  getVenturesByTrack,
+  stageConfig,
+  trackConfig,
+} from '@/app/data/ventures'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { outbound } from '@/lib/links'
 import { cn } from '@/lib/utils'
 import {
   ArrowRight,
@@ -85,29 +92,41 @@ const lessons = [
 
 const routes = [
   {
+    eyebrow: 'Start here · free',
+    title: 'Not sure where your team actually stands with the AI tools it already pays for?',
+    body: 'The AI Skills Check takes five minutes, needs no email, and tells you whether individual AI use is occasional, productive, or repeatable. It is the smallest useful first step and it costs nothing.',
+    href: outbound.skillsCheck,
+    cta: 'Start the free AI Skills Check',
+  },
+  {
     eyebrow: 'Operating team',
     title: 'Want your team to use ChatGPT, Claude, or Copilot better before buying anything else?',
-    body: 'Start with Sprinter’s private two-hour AI Productivity Workshop. It uses the tools and work the team already has, costs $2,500 for up to 12 people, and requires no new platform or integration.',
-    href: 'https://sprinter.ai/ai-productivity-workshop',
+    body: 'The AI Productivity Workshop is private, uses the tools and work the team already has, and requires no new platform or integration. $2,500 · two hours · up to 12 people.',
+    href: outbound.workshop,
     cta: 'See the team workshop',
   },
   {
     eyebrow: 'Multi-company owner',
     title: 'Want the same practical AI baseline across five operating companies?',
-    body: 'The $10,000 Portfolio AI Training Pack gives five teams private workshops and gives the sponsor aggregate adoption and opportunity patterns — without employee surveillance or a mandated software stack.',
-    href: 'https://sprinter.ai/portfolio-ai-training-pack',
+    body: 'The Portfolio AI Training Pack gives five teams private workshops and gives the sponsor aggregate adoption and opportunity patterns — without employee surveillance or a mandated software stack. $10,000 · five company workshops · aggregate sponsor readout.',
+    href: outbound.portfolioPack,
     cta: 'See the five-company pack',
   },
   {
     eyebrow: 'Implementation-ready workflow',
     title: 'Has the work already earned setup, integration, or a custom system?',
     body: 'Sprinter Consulting is the execution backend for a named workflow with a real owner, suitable access, repeatable demand, and a defensible implementation boundary.',
-    href: 'https://sprinterconsulting.com',
+    href: outbound.consulting,
     cta: 'See the execution practice',
   },
 ] as const
 
 const faqItems = [
+  {
+    question: 'What is the difference between the two tracks?',
+    answer:
+      'A partner incubation is a new product Sprinter incubates with a named partner who brings the domain and the demand. An internal experiment is a product Sprinter starts on its own bench, published while it is still unproven. Every entry on this site sits in exactly one track and is labeled with it. No partner incubation is published yet, so everything currently in the ledger is an internal experiment.',
+  },
   {
     question: 'Is every pipeline entry a company?',
     answer:
@@ -149,11 +168,12 @@ function Hero() {
       <div className="relative max-w-5xl mx-auto text-center py-20">
         <Reveal immediate duration={0.6} y={28}>
           <p className="text-sm md:text-base font-mono text-accent-green mb-5 tracking-wider uppercase">
-            Sprinter R&amp;D · public build log
+            The venture studio of Sprinter · partner incubations · internal
+            experiments
           </p>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
-            A public record of what we are testing, shipping, and{' '}
-            <span className="text-accent-green">stopping.</span>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance">
+            <span className="text-accent-green">Two tracks, one bench:</span>{' '}
+            products we build with partners, and experiments we run ourselves.
           </h1>
         </Reveal>
 
@@ -162,13 +182,24 @@ function Hero() {
           immediate
           duration={0.6}
           delay={0.18}
-          className="mt-8 text-lg md:text-xl text-text-muted max-w-3xl mx-auto leading-relaxed"
+          className="mt-7 text-lg md:text-xl text-foreground max-w-3xl mx-auto leading-relaxed"
         >
-          Sprinter Studio documents experiments in agent-assisted product
-          development. Entries range from raw hypotheses to live properties.
-          They are not all companies, and shipping one is not proof of demand.
-          The point is to learn quickly, tell the truth about status, and reuse
-          what survives in Sprinter&apos;s client work and validated products.
+          Published while unproven — a public record of what we are testing,
+          shipping, and stopping.
+        </Reveal>
+
+        <Reveal
+          as="p"
+          immediate
+          duration={0.6}
+          delay={0.26}
+          className="mt-6 text-base md:text-lg text-text-muted max-w-3xl mx-auto leading-relaxed"
+        >
+          Sprinter Studio incubates products with partners, runs internal
+          experiments, and says plainly which track each one is in — including
+          the ones that get stopped. Entries range from raw hypotheses to live
+          properties. They are not all companies, and shipping one is not proof
+          of demand.
         </Reveal>
 
         <Reveal
@@ -229,9 +260,10 @@ function WhatThisIs() {
               <h2 className="text-xl font-semibold">What this is</h2>
             </div>
             <p className="mt-5 text-text-muted leading-relaxed">
-              A transparent R&amp;D surface: hypotheses, prototypes, live
-              properties, operating notes, reusable infrastructure, and the
-              evidence used to decide what advances.
+              A venture studio working in the open, in two labeled tracks:
+              products incubated with partners, and experiments run on
+              Sprinter&apos;s own bench — with the evidence used to decide what
+              advances.
             </p>
           </div>
           <div className="border border-border-subtle bg-background p-7 md:p-9">
@@ -351,25 +383,97 @@ function Method() {
   )
 }
 
+function TrackHeading({
+  track,
+  count,
+}: {
+  track: 'partner' | 'internal'
+  count: number
+}) {
+  const config = trackConfig[track]
+  return (
+    <div className="max-w-3xl">
+      <div className="flex flex-wrap items-baseline gap-3">
+        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+          {config.plural}
+        </h3>
+        <span className="font-mono text-xs uppercase tracking-widest text-text-muted">
+          {count} {count === 1 ? 'entry' : 'entries'}
+        </span>
+      </div>
+      <p className="mt-3 text-text-muted leading-relaxed">{config.definition}</p>
+    </div>
+  )
+}
+
 function PipelineSection() {
+  const partnerVentures = getVenturesByTrack('partner').filter(
+    (venture) => venture.stage !== 'archived',
+  )
+  const internalVentures = activeVentures.filter(
+    (venture) => venture.track === 'internal',
+  )
+
   return (
     <section id="pipeline" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <Reveal className="max-w-3xl mb-12">
+        <Reveal className="max-w-3xl mb-14">
           <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
             Experiment ledger
           </p>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
-            Current entries, with their actual stage and status.
+            Current entries, with their track, stage and status.
           </h2>
           <p className="mt-5 text-text-muted leading-relaxed">
-            Inclusion means the experiment is recorded, not endorsed. Open an
-            entry to see the audience, monetization hypothesis, current signal,
-            and public site where one exists.
+            Every entry sits in exactly one track. Inclusion means the
+            experiment is recorded, not endorsed. Open an entry to see the
+            audience, monetization hypothesis, current signal, and public site
+            where one exists.
           </p>
         </Reveal>
 
-        <Pipeline />
+        <Reveal id="partner-incubations" className="scroll-mt-24">
+          <TrackHeading track="partner" count={partnerVentures.length} />
+          {partnerVentures.length === 0 ? (
+            <p className="mt-6 border border-border-subtle bg-surface/70 px-5 py-4 text-sm leading-relaxed text-text-muted">
+              No partner incubation is published yet. When one is, it appears
+              here with the partner named. Nothing below is a partner product.
+            </p>
+          ) : (
+            <div className="mt-6">
+              <VentureList ventures={partnerVentures} />
+            </div>
+          )}
+        </Reveal>
+
+        <Reveal
+          id="internal-experiments"
+          className="mt-16 scroll-mt-24"
+          y={0}
+        >
+          <TrackHeading track="internal" count={internalVentures.length} />
+        </Reveal>
+
+        <div className="mt-8">
+          <Pipeline />
+        </div>
+
+        {archivedVentures.length > 0 && (
+          <Reveal className="mt-16" y={0}>
+            <div className="max-w-3xl">
+              <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+                Stopped and archived
+              </h3>
+              <p className="mt-3 text-text-muted leading-relaxed">
+                Recorded decisions that are no longer an active commercial path.
+                The learning stays public.
+              </p>
+            </div>
+            <div className="mt-6 grid gap-2 md:grid-cols-3">
+              <VentureList ventures={archivedVentures} />
+            </div>
+          </Reveal>
+        )}
       </div>
     </section>
   )
@@ -416,14 +520,18 @@ function CommercialRoutes() {
       <div className="max-w-6xl mx-auto">
         <Reveal className="text-center max-w-3xl mx-auto">
           <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            Looking for Sprinter, not the lab?
+            Looking for Sprinter, not the studio?
           </p>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
-            Start with the smallest useful purchase, not the biggest possible vision.
+            Start with the smallest useful step, not the biggest possible vision.
           </h2>
+          <p className="mt-5 text-text-muted leading-relaxed">
+            The studio is where Sprinter&apos;s methods get proven. If you want
+            them applied to your team, start at Sprinter.
+          </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {routes.map((route, index) => (
             <Reveal key={route.href} delay={index * 0.08}>
               <Card className="h-full bg-surface border-border-subtle">
@@ -474,7 +582,7 @@ function BuiltBySection() {
           </p>
           <div className="flex flex-wrap items-center gap-5 pt-2">
             <a
-              href="https://tylerdreher.com"
+              href={outbound.tyler}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-accent-green hover:text-accent-green/80 inline-flex items-center gap-1.5"
@@ -482,7 +590,7 @@ function BuiltBySection() {
               About Tyler <ArrowUpRight className="w-4 h-4" />
             </a>
             <a
-              href="https://github.com/tylerdr/sprinter-studio"
+              href={outbound.github}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1.5"
@@ -553,13 +661,13 @@ function FinalCta() {
           </h2>
           <p className="mt-5 max-w-2xl mx-auto text-text-muted leading-relaxed">
             The studio makes the learning visible. The commercial front door is
-            a private two-hour team workshop using the AI tools and work the
-            customer already has. Deeper setup or implementation comes only
-            after the work earns it.
+            a free five-minute AI Skills Check, then a private two-hour team
+            workshop using the AI tools and work the customer already has.
+            Deeper setup or implementation comes only after the work earns it.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
-              href="https://sprinter.ai/ai-productivity-workshop"
+              href={outbound.skillsCheck}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -567,10 +675,10 @@ function FinalCta() {
                 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2',
               )}
             >
-              See the $2,500 workshop <ArrowRight className="w-4 h-4" />
+              Start the free AI Skills Check <ArrowRight className="w-4 h-4" />
             </a>
             <a
-              href="https://sprinter.ai/portfolio-ai-training-pack"
+              href={outbound.workshop}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -578,17 +686,27 @@ function FinalCta() {
                 'border-border-subtle hover:bg-surface inline-flex items-center gap-2',
               )}
             >
-              See the five-company pack <ArrowRight className="w-4 h-4" />
+              AI Productivity Workshop — $2,500 <ArrowRight className="w-4 h-4" />
             </a>
           </div>
-          <a
-            href="https://sprinterconsulting.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex text-sm text-text-muted hover:text-foreground"
-          >
-            Already have an implementation-ready workflow? Go to Sprinter Consulting.
-          </a>
+          <div className="mt-6 flex flex-col items-center gap-2 text-sm text-text-muted">
+            <a
+              href={outbound.portfolioPack}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground"
+            >
+              Own or sponsor several companies? Portfolio AI Training Pack — $10,000.
+            </a>
+            <a
+              href={outbound.consulting}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground"
+            >
+              Have a workflow that already earned implementation? Sprinter Consulting builds it.
+            </a>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -602,7 +720,9 @@ function Footer() {
         <div className="flex items-center gap-2">
           <Zap className="w-5 h-5 text-accent-green" />
           <span className="font-semibold">sprinter.studio</span>
-          <span className="text-text-muted text-sm ml-2">Public build log</span>
+          <span className="text-text-muted text-sm ml-2">
+            The venture studio of Sprinter
+          </span>
         </div>
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
           <Link href="#pipeline" className="hover:text-foreground transition-colors">
@@ -612,39 +732,55 @@ function Footer() {
             Playbook
           </Link>
           <a
-            href="https://sprinter.ai/ai-productivity-workshop"
+            href={outbound.skillsCheck}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Team workshop
+            Free AI Skills Check
           </a>
           <a
-            href="https://sprinter.ai/portfolio-ai-training-pack"
+            href={outbound.workshop}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Portfolio pack
+            AI Productivity Workshop
           </a>
           <a
-            href="https://sprinterconsulting.com"
+            href={outbound.portfolioPack}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Consulting
+            Portfolio AI Training Pack
           </a>
           <a
-            href="https://ambleideation.com"
+            href={outbound.consulting}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Amble
+            Sprinter Consulting — the execution practice of Sprinter
           </a>
           <a
-            href="https://github.com/tylerdr/sprinter-studio"
+            href={outbound.amble}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Amble — the company brain
+          </a>
+          <a
+            href={outbound.tyler}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Founded by Tyler Dreher
+          </a>
+          <a
+            href={outbound.github}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors flex items-center gap-1"
@@ -659,7 +795,7 @@ function Footer() {
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       <Hero />
       <WhatThisIs />
       <Separator className="bg-border-subtle" />

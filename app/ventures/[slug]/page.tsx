@@ -1,4 +1,4 @@
-import { ventures, stageConfig } from '@/app/data/ventures'
+import { ventures, stageConfig, trackConfig } from '@/app/data/ventures'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -6,6 +6,7 @@ import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 
@@ -43,23 +44,10 @@ export default async function VenturePage({
   const { slug } = await params
   const venture = ventures.find((item) => item.slug === slug)
 
-  if (!venture) {
-    return (
-      <main className="min-h-screen flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold">Experiment not found</h1>
-          <Link
-            href="/#pipeline"
-            className={cn(buttonVariants({ variant: 'outline' }))}
-          >
-            Back to experiment ledger
-          </Link>
-        </div>
-      </main>
-    )
-  }
+  if (!venture) notFound()
 
   const config = stageConfig[venture.stage]
+  const track = trackConfig[venture.track]
   const ventureIndex = ventures.findIndex((item) => item.slug === slug)
   const previous = ventureIndex > 0 ? ventures[ventureIndex - 1] : null
   const next =
@@ -89,6 +77,10 @@ export default async function VenturePage({
             property, validation surface, or active product. This record should
             change when the evidence does.
           </p>
+          <p className="mt-3 text-sm leading-relaxed text-text-muted">
+            <span className="text-foreground">{track.label}:</span>{' '}
+            {track.definition}
+          </p>
         </div>
 
         <Card className="bg-surface border-border-subtle">
@@ -109,6 +101,12 @@ export default async function VenturePage({
                 className="border-border-subtle text-text-muted"
               >
                 {venture.archetype}
+              </Badge>
+              <Badge
+                variant="outline"
+                className="border-border-subtle text-text-muted"
+              >
+                {track.label}
               </Badge>
             </div>
             <h1 className="text-3xl md:text-4xl font-semibold leading-none tracking-tight">
@@ -205,7 +203,10 @@ export default async function VenturePage({
                   'bg-accent-green text-background hover:bg-accent-green/90 inline-flex items-center gap-2',
                 )}
               >
-                Open public property <ExternalLink className="w-4 h-4" />
+                {venture.stage === 'archived'
+                  ? 'Where this demand goes now'
+                  : 'Open public property'}{' '}
+                <ExternalLink className="w-4 h-4" />
               </a>
             )}
           </CardContent>

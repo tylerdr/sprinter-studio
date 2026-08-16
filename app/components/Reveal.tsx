@@ -23,6 +23,7 @@ export function Reveal({
   y = 20,
   immediate = false,
   className,
+  id,
   as = 'div',
 }: {
   children: React.ReactNode
@@ -37,6 +38,7 @@ export function Reveal({
   /** Animate on mount even when already in view (hero entrances). */
   immediate?: boolean
   className?: string
+  id?: string
   as?: 'div' | 'p' | 'li'
 }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -123,7 +125,7 @@ export function Reveal({
   const Comp = as as 'div'
 
   return (
-    <Comp ref={ref} className={className}>
+    <Comp ref={ref} id={id} className={className}>
       {children}
     </Comp>
   )

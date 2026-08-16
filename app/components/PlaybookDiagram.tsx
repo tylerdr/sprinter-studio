@@ -1,4 +1,4 @@
-import { ventures, getVenturesByStage, stageConfig } from '@/app/data/ventures'
+import { pipelineVentures, stageConfig } from '@/app/data/ventures'
 
 /**
  * Hand-authored SVG diagram of the Amble → Sprint → Sail methodology.
@@ -79,7 +79,7 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
   const phases: Phase[] = ['amble', 'sprint', 'sail']
 
   return (
-    <div className="overflow-x-auto" role="img" aria-label="The Amble, Sprint, Sail methodology: ideas enter at Amble for validation, pass Gate 1 (build-ready) into Sprint for build and deploy, pass Gate 2 (launch) into Sail for growth and revenue.">
+    <div className="overflow-x-auto" role="img" aria-label="The Amble, Sprint, Sail decision framework: a question enters at Amble, passes Gate 1 (build-ready) into Sprint for a bounded test, and passes Gate 2 (launch) into Sail only when the evidence justifies continued investment. A stage is a confidence label, not a trophy; work can also revise, pause, or stop.">
       <svg
         viewBox={`0 0 960 ${height}`}
         fill="none"
@@ -114,7 +114,7 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
         {phases.map((phase) => {
           const x = NODE_X[phase]
           const hex = stageConfig[phase].hex
-          const count = getVenturesByStage(phase).length
+          const count = pipelineVentures.filter((v) => v.stage === phase).length
           const glyphOffset = 12 * glyphScale
           return (
             <g key={phase}>
@@ -157,7 +157,7 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
               <path key={`${x}-${y}`} d={`M${x - 5} ${y}h10M${x} ${y - 5}v10`} stroke="#222222" strokeWidth="1" />
             ))}
             <text x="944" y="20" className="font-mono" fontSize="9" letterSpacing="0.15em" fill="#444444" textAnchor="end">
-              FIG. 01 · VENTURE FLOW · N = {ventures.length}
+              FIG. 01 · VENTURE FLOW · N = {pipelineVentures.length}
             </text>
           </>
         )}
