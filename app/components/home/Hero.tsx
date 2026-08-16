@@ -2,8 +2,9 @@ import { buttonVariants } from '@/components/ui/button'
 import { Reveal } from '@/app/components/Reveal'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { NOT_A_FUND_STATEMENT } from '@/app/data/positioning'
+import { OPERATING_CONSTRAINT_STATEMENT } from '@/app/data/positioning'
 
 export function Hero() {
   return (
@@ -22,10 +23,12 @@ export function Hero() {
       </div>
       <div className="relative max-w-4xl mx-auto text-center space-y-8">
         <Reveal immediate duration={0.6} y={30}>
-          <p className="text-sm md:text-base font-mono text-accent-green mb-4 tracking-wider uppercase">Truth-Labeled Portfolio</p>
+          <p className="text-sm md:text-base font-mono text-accent-green mb-4 tracking-wider uppercase">
+            Sprinter&apos;s public R&amp;D log
+          </p>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-            A venture portfolio,{' '}
-            <span className="text-accent-green">labeled honestly.</span>
+            What we are testing, shipping,{' '}
+            <span className="text-accent-green">and stopping.</span>
           </h1>
         </Reveal>
 
@@ -36,8 +39,9 @@ export function Hero() {
           delay={0.2}
           className="text-lg md:text-xl text-text-muted max-w-2xl mx-auto"
         >
-          We build and operate our own products, take on selective client work, and co-build with domain
-          insiders who bring distribution, cash, a real wedge, and clean IP.
+          A truth-labeled record of hypotheses, prototypes, live properties, reusable patterns, and
+          stop decisions. A deployed site is evidence of execution — not proof of demand, revenue, or
+          a standalone company.
         </Reveal>
 
         <Reveal
@@ -47,7 +51,7 @@ export function Hero() {
           delay={0.3}
           className="text-sm text-text-muted/80 max-w-xl mx-auto"
         >
-          {NOT_A_FUND_STATEMENT}
+          {OPERATING_CONSTRAINT_STATEMENT}
         </Reveal>
 
         <Reveal
@@ -56,12 +60,28 @@ export function Hero() {
           delay={0.4}
           className="flex flex-wrap items-center justify-center gap-4"
         >
-          <Link href="/co-build" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold')}>
-            Propose a product wedge
+          <Link
+            href="/ventures"
+            className={cn(
+              buttonVariants({ size: 'lg' }),
+              'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2',
+            )}
+          >
+            Inspect the experiment ledger
+            <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
-          <Link href="/playbook" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'border-border-subtle hover:bg-surface')}>
-            Read the Playbook
-          </Link>
+          <a
+            href="https://sprinter.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants({ variant: 'outline', size: 'lg' }),
+              'border-border-subtle hover:bg-surface inline-flex items-center gap-2',
+            )}
+          >
+            Work with Sprinter
+            <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+          </a>
         </Reveal>
 
         <Reveal
@@ -73,15 +93,15 @@ export function Hero() {
         >
           <span className="inline-flex items-center gap-2">
             <span className="h-1 w-1 bg-accent-orange" aria-hidden="true" />
-            Owned products
+            Hypothesis before build
           </span>
           <span className="inline-flex items-center gap-2">
             <span className="h-1 w-1 bg-accent-blue" aria-hidden="true" />
-            Client work
+            Evidence before advancement
           </span>
           <span className="inline-flex items-center gap-2">
             <span className="h-1 w-1 bg-accent-green" aria-hidden="true" />
-            Selective co-build
+            Stop decisions published
           </span>
         </Reveal>
       </div>
