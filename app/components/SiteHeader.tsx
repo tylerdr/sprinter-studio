@@ -82,12 +82,12 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <a
-            href={outbound.skillsCheck}
+            href={outbound.executiveAccelerator}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:inline-flex min-h-11 items-center gap-1.5 bg-accent-green px-4 text-sm font-semibold text-background hover:bg-accent-green/90 transition-colors"
           >
-            Free AI Skills Check
+            Executive AI Accelerator
             <ArrowUpRight className="w-4 h-4" />
           </a>
           <button
@@ -132,32 +132,23 @@ export function SiteHeader() {
           </a>
           <div className="mt-5 border-t border-border-subtle pt-5 space-y-3">
             <a
-              href={outbound.skillsCheck}
+              href={outbound.executiveAccelerator}
               target="_blank"
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center gap-2 bg-accent-green px-5 text-sm font-semibold text-background"
               onClick={() => setMenuOpen(false)}
             >
-              Start with the free AI Skills Check
+              Executive AI Accelerator — $2,500
               <ArrowUpRight className="w-4 h-4" />
             </a>
             <a
-              href={outbound.workshop}
+              href={outbound.portfolioAccelerator}
               target="_blank"
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center border border-border-subtle px-5 text-sm text-foreground"
               onClick={() => setMenuOpen(false)}
             >
-              AI Productivity Workshop — $2,500
-            </a>
-            <a
-              href={outbound.portfolioPack}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex min-h-12 items-center justify-center border border-border-subtle px-5 text-sm text-foreground"
-              onClick={() => setMenuOpen(false)}
-            >
-              Portfolio AI Training Pack — $10,000
+              Five-leader portfolio pack — $10,000
             </a>
             <a
               href={outbound.consulting}

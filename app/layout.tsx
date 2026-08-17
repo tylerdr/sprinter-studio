@@ -23,7 +23,7 @@ const description =
   "The venture studio of Sprinter: partner incubations and internal experiments, clearly labeled — a public record of what we test, ship, and stop.";
 
 const longDescription =
-  "Sprinter Studio is the venture studio of Sprinter. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. Commercial training and workflow offers live at sprinter.ai.";
+  "Sprinter Studio is the venture studio of Sprinter. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. It is not itself a commercial offer: the Sprinter front door is the Executive AI Accelerator at sprinter.ai, and implementation-ready workflows move to Sprinter Consulting.";
 
 export const metadata: Metadata = {
   title: {
@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     "venture studio",
     "partner incubations",
     "internal experiments",
+    "agent-assisted software development",
     "AI product experiments",
     "venture studio playbook",
     "AI product validation",
