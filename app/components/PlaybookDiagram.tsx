@@ -78,8 +78,15 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
   const glyphScale = full ? 1.75 : 1.25
   const phases: Phase[] = ['amble', 'sprint', 'sail']
 
+  // The 960-unit viewBox needs min-w-[560px] for its 10px labels to be legible,
+  // so at 390px only ~61% of the rail is in view and Sail — the third stage of
+  // the model this diagram exists to explain — is always off-screen, inside an
+  // overflow-x-auto with no scroll affordance. No min-width scales out of that:
+  // fitting 960 units into 342px puts the labels at ~3.6px. Both call sites
+  // restate all three stages in text immediately below, so it starts at sm.
+  // Restoring it on phones needs a stacked mobile layout, not a width tweak.
   return (
-    <div className="overflow-x-auto" role="img" aria-label="The Amble, Sprint, Sail decision framework: a question enters at Amble, passes Gate 1 (build-ready) into Sprint for a bounded test, and passes Gate 2 (launch) into Sail only when the evidence justifies continued investment. A stage is a confidence label, not a trophy; work can also revise, pause, or stop.">
+    <div className="hidden overflow-x-auto sm:block" role="img" aria-label="The Amble, Sprint, Sail decision framework: a question enters at Amble, passes Gate 1 (build-ready) into Sprint for a bounded test, and passes Gate 2 (launch) into Sail only when the evidence justifies continued investment. A stage is a confidence label, not a trophy; work can also revise, pause, or stop.">
       <svg
         viewBox={`0 0 960 ${height}`}
         fill="none"

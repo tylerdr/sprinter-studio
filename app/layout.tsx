@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { Chat } from "@/app/components/Chat";
+import { SiteFooter } from "@/app/components/SiteFooter";
 import { SiteHeader } from "@/app/components/SiteHeader";
 
 import "./globals.css";
@@ -135,6 +136,7 @@ export default function RootLayout({
       <body className="antialiased">
         <SiteHeader />
         {children}
+        <SiteFooter />
         <Chat />
         <Analytics />
       </body>

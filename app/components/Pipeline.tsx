@@ -28,10 +28,12 @@ function VentureCard({ venture, index }: { venture: Venture; index: number }) {
                 {venture.domain} · {trackConfig[venture.track].label.toLowerCase()}
               </p>
             </div>
+            {/* Neutral, matching the venture detail page: painting the
+                archetype in the stage colour made one channel encode two
+                things, and the column already encodes stage. */}
             <Badge
               variant="outline"
-              className="text-[10px] shrink-0"
-              style={{ color: config.hex, borderColor: `${config.hex}40` }}
+              className="text-[10px] shrink-0 border-border-subtle text-text-muted"
             >
               {venture.archetype}
             </Badge>
