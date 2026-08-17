@@ -1,13 +1,11 @@
 'use client'
 
 import { Pipeline, VentureList } from '@/app/components/Pipeline'
-import { PlaybookDiagram, PhaseGlyph } from '@/app/components/PlaybookDiagram'
 import { Reveal } from '@/app/components/Reveal'
 import {
   activeVentures,
   archivedVentures,
   getVenturesByTrack,
-  stageConfig,
   trackConfig,
 } from '@/app/data/ventures'
 import { buttonVariants } from '@/components/ui/button'
@@ -29,44 +27,20 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 
-const stages = [
-  {
-    key: 'amble',
-    title: 'Amble',
-    subtitle: 'Question and validate',
-    description:
-      'A problem, audience, or distribution hypothesis under investigation. An entry here may never become software.',
-  },
-  {
-    key: 'sprint',
-    title: 'Sprint',
-    subtitle: 'Build the smallest test',
-    description:
-      'A bounded implementation intended to answer a specific question. Shipping is not the same as finding demand.',
-  },
-  {
-    key: 'sail',
-    title: 'Sail',
-    subtitle: 'Earn continued investment',
-    description:
-      'A live property with enough usage, revenue, strategic value, or reusable learning to justify continued work.',
-  },
-] as const
-
 const operatingRules = [
   {
     title: 'Client work and validated products come first.',
-    body: 'The studio does not get unlimited founder attention because an idea is interesting. Experiments must fit around the work customers already trust Sprinter to deliver.',
+    body: 'The Studio does not receive unlimited founder attention because an idea is interesting. Experiments must support current client delivery, validated products, reusable capability, qualified demand, or unusually valuable learning.',
     icon: ShieldCheck,
   },
   {
     title: 'AI accelerates the work; humans remain accountable.',
-    body: 'Agents can research, draft, code, test, and operate bounded workflows. Product judgment, safety, prioritization, and the decision to ship or stop remain human responsibilities.',
+    body: 'Agents can research, draft, code, test, and operate bounded workflows. Product judgment, safety, prioritization, customer relationships, and the decision to ship or stop remain human responsibilities.',
     icon: Workflow,
   },
   {
-    title: 'A deployed site is evidence of execution, not a business.',
-    body: 'The pipeline deliberately includes sketches, prototypes, tools, services, and live properties. Stage and status matter more than the number of entries.',
+    title: 'A deployed property is evidence of execution, not a business.',
+    body: 'The ledger includes hypotheses, prototypes, tools, services, infrastructure, and live properties. Stage, evidence, and the next decision matter more than the number of entries.',
     icon: FlaskConical,
   },
 ] as const
@@ -74,48 +48,41 @@ const operatingRules = [
 const lessons = [
   {
     title: 'Distribution is the gate.',
-    body: 'AI makes software cheaper to produce. It does not make attention, trust, access to buyers, or a painful workflow appear. Experiments without a credible path to demand should stop quickly.',
+    body: 'AI makes software cheaper to produce. It does not manufacture trust, access to buyers, or a painful workflow. Experiments without a credible path to demand should stop quickly.',
   },
   {
     title: 'Domain access beats generic cleverness.',
-    body: 'The strongest product opportunities come from operators who know the exceptions, economics, language, and buying process of a real industry — not from another horizontal AI wrapper.',
+    body: 'The strongest opportunities come from people who understand the exceptions, economics, language, and buying process of real work.',
   },
   {
-    title: 'Reuse should compound, not sameness.',
-    body: 'Shared components, integrations, evaluation patterns, and operating infrastructure should make each build faster. The product still has to reflect the specific workflow and user.',
+    title: 'Reuse should compound, not create sameness.',
+    body: 'Shared integrations, evaluation patterns, context structures, and operating infrastructure should make future delivery faster while each workflow remains specific to its user.',
   },
   {
-    title: 'Kill decisions are part of the output.',
-    body: 'A small experiment that invalidates a weak idea is useful. Keeping every property alive to inflate the portfolio would turn the build log into theater.',
+    title: 'Stop decisions are part of the output.',
+    body: 'A small experiment that invalidates a weak idea is useful. Keeping every property alive to inflate the portfolio would turn the ledger into theater.',
   },
 ] as const
 
 const routes = [
   {
-    eyebrow: 'Start here · free',
-    title: 'Not sure where your team actually stands with the AI tools it already pays for?',
-    body: 'The AI Skills Check takes five minutes, needs no email, and tells you whether individual AI use is occasional, productive, or repeatable. It is the smallest useful first step and it costs nothing.',
-    href: outbound.skillsCheck,
-    cta: 'Start with the free AI Skills Check',
+    eyebrow: 'One executive · $2,500',
+    title: 'Turn three recurring executive tasks into reliable AI workflows.',
+    body: 'The Executive AI Accelerator is two private 60-minute working sessions over one week using Claude Cowork, ChatGPT, Copilot, Gemini, or another approved tool. No workshop, new platform, or integration project.',
+    href: outbound.executiveAccelerator,
+    cta: 'See the Executive AI Accelerator',
   },
   {
-    eyebrow: 'Operating team',
-    title: 'Want your team to use ChatGPT, Claude, or Copilot better before buying anything else?',
-    body: 'The AI Productivity Workshop is private, uses the tools and work the team already has, and requires no new platform or integration. $2,500 · two hours · up to 12 people.',
-    href: outbound.workshop,
-    cta: 'See the team workshop',
-  },
-  {
-    eyebrow: 'Multi-company owner',
-    title: 'Want the same practical AI baseline across five operating companies?',
-    body: 'The Portfolio AI Training Pack gives five teams private workshops and gives the sponsor aggregate adoption and opportunity patterns — without employee surveillance or a mandated software stack. $10,000 · five company workshops · aggregate sponsor readout.',
-    href: outbound.portfolioPack,
-    cta: 'See the five-company pack',
+    eyebrow: 'Five leaders · $10,000',
+    title: 'Give five leaders private AI acceleration without organizing a workshop.',
+    body: 'Each management-company or operating-company executive schedules individually and works on the responsibilities they actually own. The sponsor receives an aggregate opportunity readout, not employee surveillance.',
+    href: outbound.portfolioAccelerator,
+    cta: 'See the five-leader portfolio pack',
   },
   {
     eyebrow: 'Implementation-ready workflow',
-    title: 'Has the work already earned setup, integration, or a custom system?',
-    body: 'Sprinter Consulting is the execution backend for a named workflow with a real owner, suitable access, repeatable demand, and a defensible implementation boundary.',
+    title: 'Has real use already revealed a workflow worth setting up or building?',
+    body: 'Sprinter Consulting is the execution backend for a named workflow with a real owner, repeated demand, suitable access, clear human-review boundaries, and defensible implementation economics.',
     href: outbound.consulting,
     cta: 'See the execution practice',
   },
@@ -123,29 +90,24 @@ const routes = [
 
 const faqItems = [
   {
-    question: 'What is the difference between the two tracks?',
+    question: 'Is every ledger entry a company?',
     answer:
-      'A partner incubation is a new product Sprinter incubates with a named partner who brings the domain and the demand. An internal experiment is a product Sprinter starts on its own bench, published while it is still unproven. Every entry on this site sits in exactly one track and is labeled with it. No partner incubation is published yet, so everything currently in the ledger is an internal experiment.',
+      'No. The ledger includes ideas, prototypes, tools, service concepts, content properties, infrastructure, and live products. The displayed track, stage, status, and evidence are the claim; the entry count is not company scale.',
   },
   {
-    question: 'Is every pipeline entry a company?',
+    question: 'Do autonomous agents run these products without people?',
     answer:
-      'No. The pipeline is an experiment ledger. It includes ideas, prototypes, tools, service concepts, content properties, infrastructure, and live products. The displayed stage and status are the claim; the entry count is not a valuation or operating-company count.',
-  },
-  {
-    question: 'Do autonomous agents run the ventures without people?',
-    answer:
-      'No. AI agents can perform substantial bounded work, but people choose the problems, approve consequential decisions, review quality, own customer relationships, and decide what receives further investment. The studio explores higher-leverage operating models without pretending accountability disappeared.',
+      'No. AI agents can perform substantial bounded work, but people choose the problems, approve consequential decisions, review quality, own customer relationships, and decide what receives further investment.',
   },
   {
     question: 'Why publish experiments that may fail?',
     answer:
-      'Because the learning is useful and public status creates discipline. The studio is more credible when it records weak signals, blocked monetization, paused work, and kill decisions rather than presenting every deployment as a success.',
+      'Because the learning can be useful and public status creates discipline. The Studio is more credible when it records weak signals, paused work, blocked monetization, and stop decisions rather than presenting every deployment as a success.',
   },
   {
     question: 'Can Sprinter build a venture with me?',
     answer:
-      'Only selectively. The default business is paid practical AI training, workflow setup, and implementation. A venture partnership requires unusual domain access, a clear owner, credible distribution, aligned economics, and a reason the opportunity should outrank existing commitments.',
+      'Only selectively. The default business is paid executive AI enablement and earned workflow implementation. A venture partnership requires unusual domain access, a clear owner, credible distribution, aligned economics, and a reason the opportunity should outrank existing commitments.',
   },
 ]
 
@@ -168,12 +130,11 @@ function Hero() {
       <div className="relative max-w-5xl mx-auto text-center py-20">
         <Reveal immediate duration={0.6} y={28}>
           <p className="text-sm md:text-base font-mono text-accent-green mb-5 tracking-wider uppercase">
-            The venture studio of Sprinter · partner incubations · internal
-            experiments
+            Sprinter R&amp;D · public experiment ledger
           </p>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance">
-            <span className="text-accent-green">Two tracks, one bench:</span>{' '}
-            products we build with partners, and experiments we run ourselves.
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
+            A public record of what we are testing, shipping, and{' '}
+            <span className="text-accent-green">stopping.</span>
           </h1>
         </Reveal>
 
@@ -182,24 +143,12 @@ function Hero() {
           immediate
           duration={0.6}
           delay={0.18}
-          className="mt-7 text-lg md:text-xl text-foreground max-w-3xl mx-auto leading-relaxed"
+          className="mt-8 text-lg md:text-xl text-text-muted max-w-3xl mx-auto leading-relaxed"
         >
-          Published while unproven — a public record of what we are testing,
-          shipping, and stopping.
-        </Reveal>
-
-        <Reveal
-          as="p"
-          immediate
-          duration={0.6}
-          delay={0.26}
-          className="mt-6 text-base md:text-lg text-text-muted max-w-3xl mx-auto leading-relaxed"
-        >
-          Sprinter Studio incubates products with partners, runs internal
-          experiments, and says plainly which track each one is in — including
-          the ones that get stopped. Entries range from raw hypotheses to live
-          properties. They are not all companies, and shipping one is not proof
-          of demand.
+          Sprinter Studio records product and operating experiments without
+          pretending every deployment is a company. The useful output is better
+          judgment, reusable capability, qualified demand, and explicit stop
+          decisions.
         </Reveal>
 
         <Reveal
@@ -239,9 +188,10 @@ function Hero() {
             Current operating rule
           </p>
           <p className="mt-2 text-sm leading-relaxed text-text-muted">
-            Client delivery and validated products come first. A studio
-            experiment earns more attention only through reusable learning,
-            qualified demand, strategic leverage, or revenue.
+            Executive enablement, cash-flowing client work, and validated product
+            obligations come first. Studio work earns attention only when it
+            supports those priorities or answers an unusually valuable question
+            cheaply.
           </p>
         </Reveal>
       </div>
@@ -260,10 +210,9 @@ function WhatThisIs() {
               <h2 className="text-xl font-semibold">What this is</h2>
             </div>
             <p className="mt-5 text-text-muted leading-relaxed">
-              A venture studio working in the open, in two labeled tracks:
-              products incubated with partners, and experiments run on
-              Sprinter&apos;s own bench — with the evidence used to decide what
-              advances.
+              A transparent R&amp;D surface: hypotheses, prototypes, live
+              properties, operating notes, reusable infrastructure, and the
+              evidence used to advance, revise, pause, or stop them.
             </p>
           </div>
           <div className="border border-border-subtle bg-background p-7 md:p-9">
@@ -272,10 +221,9 @@ function WhatThisIs() {
               <h2 className="text-xl font-semibold">What this is not</h2>
             </div>
             <p className="mt-5 text-text-muted leading-relaxed">
-              A claim that Sprinter operates dozens of mature companies, a
-              substitute for customer proof, or an invitation to fund every
-              idea. Volume is not the thesis. Better judgment and reusable
-              capability are.
+              Another commercial offer, a claim that Sprinter operates dozens of
+              mature companies, a substitute for customer proof, or permission
+              to keep every idea alive.
             </p>
           </div>
         </Reveal>
@@ -293,12 +241,12 @@ function OperatingRules() {
             The constraints
           </p>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
-            The studio is useful only when it makes Sprinter more focused.
+            The Studio is useful only when it makes Sprinter more focused.
           </h2>
           <p className="mt-5 text-lg text-text-muted leading-relaxed">
-            Cheap software production can create an expensive attention
-            problem. These rules keep experimentation from becoming the
-            business strategy.
+            Cheap software production can create an expensive attention problem.
+            These rules keep experimentation subordinate to the commercial
+            business and real customer obligations.
           </p>
         </Reveal>
 
@@ -315,62 +263,6 @@ function OperatingRules() {
                     </h3>
                     <p className="text-sm text-text-muted leading-relaxed">
                       {rule.body}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Method() {
-  return (
-    <section className="py-24 px-6 bg-surface/35">
-      <div className="max-w-6xl mx-auto">
-        <Reveal className="text-center max-w-3xl mx-auto">
-          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            How to read the stages
-          </p>
-          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
-            A stage is a confidence label, not a trophy.
-          </h2>
-          <p className="mt-5 text-text-muted leading-relaxed">
-            Amble → Sprint → Sail is a decision framework. Work can move
-            forward, move backward, pause, or stop as new evidence appears.
-          </p>
-        </Reveal>
-
-        <Reveal y={0} className="mt-12">
-          <PlaybookDiagram variant="compact" />
-        </Reveal>
-
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5">
-          {stages.map((stage, index) => {
-            const config = stageConfig[stage.key]
-            return (
-              <Reveal key={stage.key} delay={index * 0.1}>
-                <Card className="bg-background border-border-subtle h-full">
-                  <CardContent className="pt-6 space-y-4">
-                    <div className="flex items-center gap-3">
-                      <PhaseGlyph phase={stage.key} className="w-8 h-8 shrink-0" />
-                      <div>
-                        <h3
-                          className="text-xl font-semibold"
-                          style={{ color: config.hex }}
-                        >
-                          {stage.title}
-                        </h3>
-                        <p className="text-sm text-text-muted">
-                          {stage.subtitle}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="text-sm text-text-muted leading-relaxed">
-                      {stage.description}
                     </p>
                   </CardContent>
                 </Card>
@@ -422,13 +314,12 @@ function PipelineSection() {
             Experiment ledger
           </p>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
-            Current entries, with their track, stage and status.
+            Current entries, with their track, stage, and status.
           </h2>
           <p className="mt-5 text-text-muted leading-relaxed">
-            Every entry sits in exactly one track. Inclusion means the
-            experiment is recorded, not endorsed. Open an entry to see the
-            audience, monetization hypothesis, current signal, and public site
-            where one exists.
+            Inclusion means the work is recorded, not endorsed. Open an entry to
+            see the audience, monetization hypothesis, current signal, and what
+            remains unproven.
           </p>
         </Reveal>
 
@@ -520,18 +411,19 @@ function CommercialRoutes() {
       <div className="max-w-6xl mx-auto">
         <Reveal className="text-center max-w-3xl mx-auto">
           <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            Looking for Sprinter, not the studio?
+            Looking for Sprinter, not the lab?
           </p>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
-            Start with the smallest useful step, not the biggest possible vision.
+            Start with one executive, not a transformation program.
           </h2>
           <p className="mt-5 text-text-muted leading-relaxed">
-            The studio is where Sprinter&apos;s methods get proven. If you want
-            them applied to your team, start at Sprinter.
+            The Studio makes the build method visible. Sprinter is where that
+            capability is applied to real executive work and implementation-ready
+            workflows.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-5 lg:grid-cols-3">
           {routes.map((route, index) => (
             <Reveal key={route.href} delay={index * 0.08}>
               <Card className="h-full bg-surface border-border-subtle">
@@ -574,11 +466,11 @@ function BuiltBySection() {
           </p>
           <h2 className="text-3xl font-bold">Built under Tyler Dreher&apos;s direction.</h2>
           <p className="text-text-muted leading-relaxed">
-            Tyler is a mechanical engineer turned software founder. Sprinter
-            Studio is where he makes the evolving build system visible: the
-            hypotheses, the automation, the product judgment, and the decision
-            to keep or stop. AI expands the amount of work the system can do;
-            it does not replace responsibility for the result.
+            Tyler is a mechanical engineer turned software founder. Studio makes
+            the evolving build system visible: the hypotheses, automation,
+            product judgment, and decisions to continue or stop. AI expands the
+            amount of work the system can do; it does not replace responsibility
+            for the result.
           </p>
           <div className="flex flex-wrap items-center gap-5 pt-2">
             <a
@@ -657,17 +549,17 @@ function FinalCta() {
         <Reveal>
           <Zap className="w-8 h-8 text-accent-green mx-auto" />
           <h2 className="mt-5 text-3xl md:text-5xl font-bold tracking-tight">
-            Follow the experiments. Start with useful work.
+            Follow the experiments. Start with one executive and real work.
           </h2>
           <p className="mt-5 max-w-2xl mx-auto text-text-muted leading-relaxed">
-            The studio makes the learning visible. The commercial front door is
-            a free five-minute AI Skills Check, then a private two-hour team
-            workshop using the AI tools and work the customer already has.
-            Deeper setup or implementation comes only after the work earns it.
+            The commercial front door is the $2,500 Executive AI Accelerator:
+            two private 60-minute calls and three repeatable Claude or ChatGPT
+            workflows. Deeper setup or implementation comes only after real use
+            earns it.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
-              href={outbound.skillsCheck}
+              href={outbound.executiveAccelerator}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -675,11 +567,11 @@ function FinalCta() {
                 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2',
               )}
             >
-              Start with the free AI Skills Check{' '}
+              Executive AI Accelerator — $2,500
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
-              href={outbound.workshop}
+              href={outbound.portfolioAccelerator}
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
@@ -687,27 +579,18 @@ function FinalCta() {
                 'border-border-subtle hover:bg-surface inline-flex items-center gap-2',
               )}
             >
-              AI Productivity Workshop — $2,500 <ArrowRight className="w-4 h-4" />
+              Five-leader portfolio pack — $10,000
+              <ArrowRight className="w-4 h-4" />
             </a>
           </div>
-          <div className="mt-6 flex flex-col items-center gap-2 text-sm text-text-muted">
-            <a
-              href={outbound.portfolioPack}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground"
-            >
-              Own or sponsor several companies? Portfolio AI Training Pack — $10,000.
-            </a>
-            <a
-              href={outbound.consulting}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground"
-            >
-              Have a workflow that already earned implementation? Sprinter Consulting builds it.
-            </a>
-          </div>
+          <a
+            href={outbound.consulting}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex text-sm text-text-muted hover:text-foreground"
+          >
+            Have an implementation-ready workflow? Sprinter Consulting builds it.
+          </a>
         </Reveal>
       </div>
     </section>
@@ -722,7 +605,7 @@ function Footer() {
           <Zap className="w-5 h-5 text-accent-green" />
           <span className="font-semibold">sprinter.studio</span>
           <span className="text-text-muted text-sm ml-2">
-            The venture studio of Sprinter
+            Public R&amp;D and experiment ledger
           </span>
         </div>
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
@@ -733,28 +616,20 @@ function Footer() {
             Playbook
           </Link>
           <a
-            href={outbound.skillsCheck}
+            href={outbound.executiveAccelerator}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Free AI Skills Check
+            Executive AI Accelerator
           </a>
           <a
-            href={outbound.workshop}
+            href={outbound.portfolioAccelerator}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            AI Productivity Workshop
-          </a>
-          <a
-            href={outbound.portfolioPack}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            Portfolio AI Training Pack
+            Portfolio accelerator
           </a>
           <a
             href={outbound.consulting}
@@ -762,7 +637,7 @@ function Footer() {
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Sprinter Consulting — the execution practice of Sprinter
+            Sprinter Consulting
           </a>
           <a
             href={outbound.amble}
@@ -770,7 +645,7 @@ function Footer() {
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Amble — the company brain
+            Amble
           </a>
           <a
             href={outbound.tyler}
@@ -778,7 +653,7 @@ function Footer() {
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Founded by Tyler Dreher
+            Tyler Dreher
           </a>
           <a
             href={outbound.github}
@@ -801,8 +676,6 @@ export default function Home() {
       <WhatThisIs />
       <Separator className="bg-border-subtle" />
       <OperatingRules />
-      <Separator className="bg-border-subtle" />
-      <Method />
       <Separator className="bg-border-subtle" />
       <PipelineSection />
       <Separator className="bg-border-subtle" />
