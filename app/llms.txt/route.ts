@@ -9,22 +9,31 @@ import {
 
 export const revalidate = 3600
 
-function entry(v: Venture) {
-  return `- ${v.name} (${v.domain}) — ${v.description} [${stageConfig[v.stage].label}: ${v.status}]`
+function entry(venture: Venture) {
+  return `- ${venture.name} (${venture.domain}) — ${venture.description} [${stageConfig[venture.stage].label}: ${venture.status}]`
 }
 
 export function GET() {
   const partner = getVenturesByTrack('partner').filter(
-    (v) => v.stage !== 'archived',
+    (venture) => venture.stage !== 'archived',
   )
   const internal = getVenturesByTrack('internal').filter(
-    (v) => v.stage !== 'archived',
+    (venture) => venture.stage !== 'archived',
   )
 
   const lines: string[] = [
     '# Sprinter Studio',
     '',
-    '> Sprinter Studio is the venture studio of Sprinter: products incubated with partners and internal experiments, each clearly labeled as one or the other — a public record of what is being tested, shipped, and stopped. Commercial training and workflow offers live at https://sprinter.ai.',
+    '> Sprinter Studio is the public R&D and experiment ledger behind Sprinter: hypotheses, prototypes, live properties, reusable patterns, and the evidence used to continue, pause, archive, or stop them. It is not another commercial offer.',
+    '',
+    '## Current commercial routing',
+    '',
+    '- Executive AI Accelerator, $2,500: https://sprinter.ai/executive-ai-accelerator',
+    '- Portfolio Executive AI Accelerator, $10,000 for five individually scheduled leaders: https://sprinter.ai/portfolio-executive-ai-accelerator',
+    '- Workflow setup and implementation after the need is proven: https://sprinterconsulting.com',
+    '- Founder background and writing: https://tylerdreher.com',
+    '',
+    'The Executive AI Accelerator is the default first purchase: one executive, two private 60-minute working sessions over one week, and three repeatable Claude Cowork, ChatGPT, Copilot, Gemini, or other approved AI workflows. No workshop cohort, Sprinter platform, integration, or long-term contract is required.',
     '',
     `## ${trackConfig.partner.plural}`,
     '',
@@ -63,15 +72,18 @@ export function GET() {
     '',
     '- Home: https://sprinter.studio/',
     '- Playbook: https://sprinter.studio/playbook',
-    ...ventures.map((v) => `- ${v.name}: https://sprinter.studio/ventures/${v.slug}`),
-    '- Source (built in public): https://github.com/tylerdr/sprinter-studio',
+    ...ventures.map(
+      (venture) =>
+        `- ${venture.name}: https://sprinter.studio/ventures/${venture.slug}`,
+    ),
+    '- Source: https://github.com/tylerdr/sprinter-studio',
     '',
     '## Related properties',
     '',
-    '- Sprinter — practical AI training and workflows: https://sprinter.ai',
-    '- Sprinter Consulting — the execution practice of Sprinter: https://sprinterconsulting.com',
-    '- Amble — the company brain: https://ambleideation.com',
-    '- Tyler Dreher — founder of Sprinter: https://tylerdreher.com',
+    '- Sprinter — private executive AI enablement and portfolio acceleration: https://sprinter.ai',
+    '- Sprinter Consulting — implementation after a workflow earns it: https://sprinterconsulting.com',
+    '- Amble — shared context and reusable operating capability: https://ambleideation.com',
+    '- Tyler Dreher — founder, writing, and selected work: https://tylerdreher.com',
     '',
   ]
 
