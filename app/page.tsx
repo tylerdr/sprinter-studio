@@ -1,11 +1,13 @@
 'use client'
 
 import { Pipeline, VentureList } from '@/app/components/Pipeline'
+import { PlaybookDiagram, PhaseGlyph } from '@/app/components/PlaybookDiagram'
 import { Reveal } from '@/app/components/Reveal'
 import {
   activeVentures,
   archivedVentures,
   getVenturesByTrack,
+  stageConfig,
   trackConfig,
 } from '@/app/data/ventures'
 import { buttonVariants } from '@/components/ui/button'
@@ -26,6 +28,30 @@ import {
 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+
+const stages = [
+  {
+    key: 'amble',
+    title: 'Amble',
+    subtitle: 'Question and validate',
+    description:
+      'A problem, audience, or distribution hypothesis under investigation. An entry here may never become software.',
+  },
+  {
+    key: 'sprint',
+    title: 'Sprint',
+    subtitle: 'Build the smallest test',
+    description:
+      'A bounded implementation intended to answer a specific question. Shipping is not the same as finding demand.',
+  },
+  {
+    key: 'sail',
+    title: 'Sail',
+    subtitle: 'Earn continued investment',
+    description:
+      'A live property with enough usage, revenue, strategic value, or reusable learning to justify continued work.',
+  },
+] as const
 
 const operatingRules = [
   {
@@ -90,6 +116,11 @@ const routes = [
 
 const faqItems = [
   {
+    question: 'What is the difference between the two tracks?',
+    answer:
+      'A partner incubation is a new product Sprinter incubates with a named partner who brings the domain and the demand. An internal experiment is a product Sprinter starts on its own bench, published while it is still unproven. Every entry on this site sits in exactly one track and is labeled with it. No partner incubation is published yet, so everything currently in the ledger is an internal experiment.',
+  },
+  {
     question: 'Is every ledger entry a company?',
     answer:
       'No. The ledger includes ideas, prototypes, tools, service concepts, content properties, infrastructure, and live products. The displayed track, stage, status, and evidence are the claim; the entry count is not company scale.',
@@ -130,11 +161,12 @@ function Hero() {
       <div className="relative max-w-5xl mx-auto text-center py-20">
         <Reveal immediate duration={0.6} y={28}>
           <p className="text-sm md:text-base font-mono text-accent-green mb-5 tracking-wider uppercase">
-            Sprinter R&amp;D · public experiment ledger
+            The venture studio of Sprinter · partner incubations · internal
+            experiments
           </p>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
-            A public record of what we are testing, shipping, and{' '}
-            <span className="text-accent-green">stopping.</span>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance">
+            <span className="text-accent-green">Two tracks, one bench:</span>{' '}
+            products we build with partners, and experiments we run ourselves.
           </h1>
         </Reveal>
 
@@ -143,12 +175,24 @@ function Hero() {
           immediate
           duration={0.6}
           delay={0.18}
-          className="mt-8 text-lg md:text-xl text-text-muted max-w-3xl mx-auto leading-relaxed"
+          className="mt-7 text-lg md:text-xl text-foreground max-w-3xl mx-auto leading-relaxed"
         >
-          Sprinter Studio records product and operating experiments without
-          pretending every deployment is a company. The useful output is better
-          judgment, reusable capability, qualified demand, and explicit stop
-          decisions.
+          Published while unproven — a public record of what we are testing,
+          shipping, and stopping.
+        </Reveal>
+
+        <Reveal
+          as="p"
+          immediate
+          duration={0.6}
+          delay={0.26}
+          className="mt-6 text-base md:text-lg text-text-muted max-w-3xl mx-auto leading-relaxed"
+        >
+          Sprinter Studio incubates products with partners, runs internal
+          experiments, and says plainly which track each one is in — including
+          the ones that get stopped. Entries range from raw hypotheses to live
+          properties. They are not all companies, and shipping one is not proof
+          of demand.
         </Reveal>
 
         <Reveal
@@ -210,9 +254,10 @@ function WhatThisIs() {
               <h2 className="text-xl font-semibold">What this is</h2>
             </div>
             <p className="mt-5 text-text-muted leading-relaxed">
-              A transparent R&amp;D surface: hypotheses, prototypes, live
-              properties, operating notes, reusable infrastructure, and the
-              evidence used to advance, revise, pause, or stop them.
+              A venture studio working in the open, in two labeled tracks:
+              products incubated with partners, and experiments run on
+              Sprinter&apos;s own bench — with the evidence used to decide what
+              advances.
             </p>
           </div>
           <div className="border border-border-subtle bg-background p-7 md:p-9">
@@ -295,6 +340,62 @@ function TrackHeading({
       </div>
       <p className="mt-3 text-text-muted leading-relaxed">{config.definition}</p>
     </div>
+  )
+}
+
+function Method() {
+  return (
+    <section className="py-24 px-6 bg-surface/35">
+      <div className="max-w-6xl mx-auto">
+        <Reveal className="text-center max-w-3xl mx-auto">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
+            How to read the stages
+          </p>
+          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+            A stage is a confidence label, not a trophy.
+          </h2>
+          <p className="mt-5 text-text-muted leading-relaxed">
+            Amble → Sprint → Sail is a decision framework. Work can move
+            forward, move backward, pause, or stop as new evidence appears.
+          </p>
+        </Reveal>
+
+        <Reveal y={0} className="mt-12">
+          <PlaybookDiagram variant="compact" />
+        </Reveal>
+
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5">
+          {stages.map((stage, index) => {
+            const config = stageConfig[stage.key]
+            return (
+              <Reveal key={stage.key} delay={index * 0.1}>
+                <Card className="bg-background border-border-subtle h-full">
+                  <CardContent className="pt-6 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <PhaseGlyph phase={stage.key} className="w-8 h-8 shrink-0" />
+                      <div>
+                        <h3
+                          className="text-xl font-semibold"
+                          style={{ color: config.hex }}
+                        >
+                          {stage.title}
+                        </h3>
+                        <p className="text-sm text-text-muted">
+                          {stage.subtitle}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-text-muted leading-relaxed">
+                      {stage.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Reveal>
+            )
+          })}
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -605,7 +706,7 @@ function Footer() {
           <Zap className="w-5 h-5 text-accent-green" />
           <span className="font-semibold">sprinter.studio</span>
           <span className="text-text-muted text-sm ml-2">
-            Public R&amp;D and experiment ledger
+            The venture studio of Sprinter
           </span>
         </div>
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
@@ -676,6 +777,8 @@ export default function Home() {
       <WhatThisIs />
       <Separator className="bg-border-subtle" />
       <OperatingRules />
+      <Separator className="bg-border-subtle" />
+      <Method />
       <Separator className="bg-border-subtle" />
       <PipelineSection />
       <Separator className="bg-border-subtle" />

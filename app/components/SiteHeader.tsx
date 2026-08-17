@@ -53,7 +53,7 @@ export function SiteHeader() {
           <Zap className="w-5 h-5 text-accent-green" />
           <span>sprinter.studio</span>
           <span className="hidden lg:inline font-mono text-[10px] uppercase tracking-widest text-text-muted font-normal">
-            public R&amp;D and experiment ledger
+            the venture studio of Sprinter
           </span>
         </Link>
 

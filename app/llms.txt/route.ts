@@ -24,7 +24,7 @@ export function GET() {
   const lines: string[] = [
     '# Sprinter Studio',
     '',
-    '> Sprinter Studio is the public R&D and experiment ledger behind Sprinter: hypotheses, prototypes, live properties, reusable patterns, and the evidence used to continue, pause, archive, or stop them. It is not another commercial offer.',
+    '> Sprinter Studio is the venture studio of Sprinter: products incubated with partners and internal experiments, each clearly labeled as one or the other — a public record of what is being tested, shipped, and stopped. Studio is not itself a commercial offer: the Sprinter front door is the Executive AI Accelerator at https://sprinter.ai/executive-ai-accelerator.',
     '',
     '## Current commercial routing',
     '',

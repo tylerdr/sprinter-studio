@@ -4,9 +4,20 @@
 
 ## One job
 
-`sprinter.studio` is Sprinter's public R&D and experiment ledger. It records hypotheses, prototypes, live properties, reusable patterns, and the evidence used to advance, revise, pause, archive, or stop them.
+`sprinter.studio` is **Sprinter Studio — the venture studio of Sprinter**, working in the open. It incubates new products in two clearly separated tracks and publishes the record: hypotheses, prototypes, live properties, reusable patterns, and the evidence used to advance, revise, pause, archive, or stop them.
 
 It is not the master Sprinter company site, a fifth commercial offer, a substitute for customer proof, or permission to keep every experiment alive.
+
+## The two tracks
+
+| Track | Definition |
+| --- | --- |
+| **Partner incubations** | New products Sprinter incubates with a named partner who brings the domain and the demand. |
+| **Internal experiments** | Products Sprinter starts on its own bench, published while they are still unproven. |
+
+No partner incubation is published today. The section ships with an explicit empty state rather than borrowing an internal experiment to fill it — and the site says so in the ledger, the FAQ, `llms.txt`, and the chat prompt. **When a partner incubation is added, the partner must be named.**
+
+Any graduation sentence is scoped to internal experiments only, or omitted: nothing ratified says Sprinter carries a partner-built product into its own portfolio.
 
 ## Portfolio role
 
@@ -34,7 +45,7 @@ The old AI Productivity Workshop and Portfolio AI Training Pack are superseded.
 
 ## Positioning
 
-> **A public record of what we are testing, shipping, and stopping.**
+> **The venture studio of Sprinter: partner incubations and internal experiments, clearly labeled — a public record of what we test, ship, and stop.**
 
 Supporting contract:
 
@@ -133,7 +144,7 @@ Do not use generic “Work with Sprinter” copy when the exact destination can 
 
 ## Publishing checklist
 
-- [x] Homepage presents Studio as public R&D, not another commercial offer
+- [x] Homepage presents Studio as the venture studio's two labeled tracks, not another commercial offer
 - [x] Header routes commercial visitors to the Executive AI Accelerator
 - [x] Mobile navigation exposes the single-executive and five-leader offers
 - [x] Commercial route cards point to accelerator, portfolio pack, and Consulting
