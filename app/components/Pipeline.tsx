@@ -1,6 +1,6 @@
 "use client"
 
-import { ventures, stageConfig } from "@/app/data/ventures"
+import { pipelineVentures, stageConfig, trackConfig } from "@/app/data/ventures"
 import type { Venture } from "@/app/data/ventures"
 import { PhaseGlyph } from "@/app/components/PlaybookDiagram"
 import { Reveal } from "@/app/components/Reveal"
@@ -24,7 +24,9 @@ function VentureCard({ venture, index }: { venture: Venture; index: number }) {
               <p className="font-medium text-sm text-foreground truncate group-hover:text-primary transition-colors">
                 {venture.name}
               </p>
-              <p className="text-xs text-muted-foreground truncate">{venture.domain}</p>
+              <p className="text-xs text-muted-foreground truncate">
+                {venture.domain} · {trackConfig[venture.track].label.toLowerCase()}
+              </p>
             </div>
             <Badge
               variant="outline"
@@ -44,12 +46,22 @@ function VentureCard({ venture, index }: { venture: Venture; index: number }) {
   )
 }
 
+export function VentureList({ ventures: items }: { ventures: Venture[] }) {
+  return (
+    <>
+      {items.map((venture, i) => (
+        <VentureCard key={venture.slug} venture={venture} index={i} />
+      ))}
+    </>
+  )
+}
+
 export function Pipeline() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4">
       {stages.map((stage) => {
         const config = stageConfig[stage]
-        const stageVentures = ventures.filter((v) => v.stage === stage)
+        const stageVentures = pipelineVentures.filter((v) => v.stage === stage)
 
         return (
           <div key={stage} className="space-y-3">
@@ -67,9 +79,7 @@ export function Pipeline() {
               </Badge>
             </div>
             <div className="space-y-2">
-              {stageVentures.map((venture, i) => (
-                <VentureCard key={venture.slug} venture={venture} index={i} />
-              ))}
+              <VentureList ventures={stageVentures} />
             </div>
           </div>
         )

@@ -1,21 +1,157 @@
 'use client'
 
-import { buttonVariants } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import { Pipeline } from '@/app/components/Pipeline'
+import { Pipeline, VentureList } from '@/app/components/Pipeline'
 import { PlaybookDiagram, PhaseGlyph } from '@/app/components/PlaybookDiagram'
 import { Reveal } from '@/app/components/Reveal'
-import { featuredVentures, ventures, stageConfig } from '@/app/data/ventures'
+import {
+  activeVentures,
+  archivedVentures,
+  getVenturesByTrack,
+  stageConfig,
+  trackConfig,
+} from '@/app/data/ventures'
+import { buttonVariants } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import { outbound } from '@/lib/links'
+import { cn } from '@/lib/utils'
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle2,
+  FlaskConical,
+  Github,
+  ShieldCheck,
+  Workflow,
+  XCircle,
+  Zap,
+} from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Zap, Github, ExternalLink } from 'lucide-react'
-import { cn } from '@/lib/utils'
+
+const stages = [
+  {
+    key: 'amble',
+    title: 'Amble',
+    subtitle: 'Question and validate',
+    description:
+      'A problem, audience, or distribution hypothesis under investigation. An entry here may never become software.',
+  },
+  {
+    key: 'sprint',
+    title: 'Sprint',
+    subtitle: 'Build the smallest test',
+    description:
+      'A bounded implementation intended to answer a specific question. Shipping is not the same as finding demand.',
+  },
+  {
+    key: 'sail',
+    title: 'Sail',
+    subtitle: 'Earn continued investment',
+    description:
+      'A live property with enough usage, revenue, strategic value, or reusable learning to justify continued work.',
+  },
+] as const
+
+const operatingRules = [
+  {
+    title: 'Client work and validated products come first.',
+    body: 'The studio does not get unlimited founder attention because an idea is interesting. Experiments must fit around the work customers already trust Sprinter to deliver.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'AI accelerates the work; humans remain accountable.',
+    body: 'Agents can research, draft, code, test, and operate bounded workflows. Product judgment, safety, prioritization, and the decision to ship or stop remain human responsibilities.',
+    icon: Workflow,
+  },
+  {
+    title: 'A deployed site is evidence of execution, not a business.',
+    body: 'The pipeline deliberately includes sketches, prototypes, tools, services, and live properties. Stage and status matter more than the number of entries.',
+    icon: FlaskConical,
+  },
+] as const
+
+const lessons = [
+  {
+    title: 'Distribution is the gate.',
+    body: 'AI makes software cheaper to produce. It does not make attention, trust, access to buyers, or a painful workflow appear. Experiments without a credible path to demand should stop quickly.',
+  },
+  {
+    title: 'Domain access beats generic cleverness.',
+    body: 'The strongest product opportunities come from operators who know the exceptions, economics, language, and buying process of a real industry — not from another horizontal AI wrapper.',
+  },
+  {
+    title: 'Reuse should compound, not sameness.',
+    body: 'Shared components, integrations, evaluation patterns, and operating infrastructure should make each build faster. The product still has to reflect the specific workflow and user.',
+  },
+  {
+    title: 'Kill decisions are part of the output.',
+    body: 'A small experiment that invalidates a weak idea is useful. Keeping every property alive to inflate the portfolio would turn the build log into theater.',
+  },
+] as const
+
+const routes = [
+  {
+    eyebrow: 'Start here · free',
+    title: 'Not sure where your team actually stands with the AI tools it already pays for?',
+    body: 'The AI Skills Check takes five minutes, needs no email, and tells you whether individual AI use is occasional, productive, or repeatable. It is the smallest useful first step and it costs nothing.',
+    href: outbound.skillsCheck,
+    cta: 'Start with the free AI Skills Check',
+  },
+  {
+    eyebrow: 'Operating team',
+    title: 'Want your team to use ChatGPT, Claude, or Copilot better before buying anything else?',
+    body: 'The AI Productivity Workshop is private, uses the tools and work the team already has, and requires no new platform or integration. $2,500 · two hours · up to 12 people.',
+    href: outbound.workshop,
+    cta: 'See the team workshop',
+  },
+  {
+    eyebrow: 'Multi-company owner',
+    title: 'Want the same practical AI baseline across five operating companies?',
+    body: 'The Portfolio AI Training Pack gives five teams private workshops and gives the sponsor aggregate adoption and opportunity patterns — without employee surveillance or a mandated software stack. $10,000 · five company workshops · aggregate sponsor readout.',
+    href: outbound.portfolioPack,
+    cta: 'See the five-company pack',
+  },
+  {
+    eyebrow: 'Implementation-ready workflow',
+    title: 'Has the work already earned setup, integration, or a custom system?',
+    body: 'Sprinter Consulting is the execution backend for a named workflow with a real owner, suitable access, repeatable demand, and a defensible implementation boundary.',
+    href: outbound.consulting,
+    cta: 'See the execution practice',
+  },
+] as const
+
+const faqItems = [
+  {
+    question: 'What is the difference between the two tracks?',
+    answer:
+      'A partner incubation is a new product Sprinter incubates with a named partner who brings the domain and the demand. An internal experiment is a product Sprinter starts on its own bench, published while it is still unproven. Every entry on this site sits in exactly one track and is labeled with it. No partner incubation is published yet, so everything currently in the ledger is an internal experiment.',
+  },
+  {
+    question: 'Is every pipeline entry a company?',
+    answer:
+      'No. The pipeline is an experiment ledger. It includes ideas, prototypes, tools, service concepts, content properties, infrastructure, and live products. The displayed stage and status are the claim; the entry count is not a valuation or operating-company count.',
+  },
+  {
+    question: 'Do autonomous agents run the ventures without people?',
+    answer:
+      'No. AI agents can perform substantial bounded work, but people choose the problems, approve consequential decisions, review quality, own customer relationships, and decide what receives further investment. The studio explores higher-leverage operating models without pretending accountability disappeared.',
+  },
+  {
+    question: 'Why publish experiments that may fail?',
+    answer:
+      'Because the learning is useful and public status creates discipline. The studio is more credible when it records weak signals, blocked monetization, paused work, and kill decisions rather than presenting every deployment as a success.',
+  },
+  {
+    question: 'Can Sprinter build a venture with me?',
+    answer:
+      'Only selectively. The default business is paid practical AI training, workflow setup, and implementation. A venture partnership requires unusual domain access, a clear owner, credible distribution, aligned economics, and a reason the opportunity should outrank existing commitments.',
+  },
+]
 
 function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center px-6 overflow-hidden">
+    <section className="relative min-h-[88vh] overflow-hidden px-6 pt-24 flex items-center">
       <div className="absolute inset-0" aria-hidden="true">
         <Image
           src="/hero-texture.webp"
@@ -23,19 +159,21 @@ function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-40"
+          className="object-cover opacity-30"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/20 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,136,0.05)_0%,_transparent_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/45 to-background" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,136,0.06)_0%,_transparent_70%)]" />
       </div>
-      <div className="relative max-w-4xl mx-auto text-center space-y-8">
-        <Reveal immediate duration={0.6} y={30}>
-          <p className="text-sm md:text-base font-mono text-accent-green mb-4 tracking-wider uppercase">The AI Venture Factory</p>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-            One Founder.{' '}
-            <span className="text-accent-green">{ventures.length} Ventures.</span>
-            <br />
-            Zero Employees.
+
+      <div className="relative max-w-5xl mx-auto text-center py-20">
+        <Reveal immediate duration={0.6} y={28}>
+          <p className="text-sm md:text-base font-mono text-accent-green mb-5 tracking-wider uppercase">
+            The venture studio of Sprinter · partner incubations · internal
+            experiments
+          </p>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance">
+            <span className="text-accent-green">Two tracks, one bench:</span>{' '}
+            products we build with partners, and experiments we run ourselves.
           </h1>
         </Reveal>
 
@@ -43,320 +181,379 @@ function Hero() {
           as="p"
           immediate
           duration={0.6}
-          delay={0.2}
-          className="text-lg md:text-xl text-text-muted max-w-2xl mx-auto"
+          delay={0.18}
+          className="mt-7 text-lg md:text-xl text-foreground max-w-3xl mx-auto leading-relaxed"
         >
-          Sprinter Studio is a real venture factory where autonomous AI agents build, deploy, and grow software companies around the clock. Every venture below is real — live, in build, or in validation.
+          Published while unproven — a public record of what we are testing,
+          shipping, and stopping.
+        </Reveal>
+
+        <Reveal
+          as="p"
+          immediate
+          duration={0.6}
+          delay={0.26}
+          className="mt-6 text-base md:text-lg text-text-muted max-w-3xl mx-auto leading-relaxed"
+        >
+          Sprinter Studio incubates products with partners, runs internal
+          experiments, and says plainly which track each one is in — including
+          the ones that get stopped. Entries range from raw hypotheses to live
+          properties. They are not all companies, and shipping one is not proof
+          of demand.
         </Reveal>
 
         <Reveal
           immediate
           duration={0.6}
-          delay={0.4}
-          className="flex flex-wrap items-center justify-center gap-4"
+          delay={0.34}
+          className="mt-9 flex flex-wrap items-center justify-center gap-4"
         >
-          <Link href="#pipeline" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold')}>
-            See the Venture Pipeline
+          <Link
+            href="#pipeline"
+            className={cn(
+              buttonVariants({ size: 'lg' }),
+              'bg-accent-green text-background hover:bg-accent-green/90 font-semibold',
+            )}
+          >
+            Read the experiment ledger
           </Link>
-          <Link href="/playbook" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'border-border-subtle hover:bg-surface')}>
-            How We Build This Fast
+          <Link
+            href="/playbook"
+            className={cn(
+              buttonVariants({ variant: 'outline', size: 'lg' }),
+              'border-border-subtle hover:bg-surface',
+            )}
+          >
+            Read the build method
           </Link>
         </Reveal>
 
         <Reveal
           immediate
           duration={0.6}
-          delay={0.6}
+          delay={0.5}
           y={0}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 pt-4 font-mono text-xs uppercase tracking-widest text-text-muted"
+          className="mt-8 mx-auto max-w-3xl border border-border-subtle bg-surface/70 px-5 py-4 text-left"
         >
-          <span className="inline-flex items-center gap-2">
-            <span className="h-1 w-1 bg-accent-orange" aria-hidden="true" />
-            SaaS · SEO · Services · Marketplaces
-          </span>
-          <span className="inline-flex items-center gap-2">
-            <span className="h-1 w-1 bg-accent-blue" aria-hidden="true" />
-            Agents shipping around the clock
-          </span>
-          <span className="inline-flex items-center gap-2">
-            <span className="h-1 w-1 bg-accent-green" aria-hidden="true" />
-            Built in public
-          </span>
+          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
+            Current operating rule
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-text-muted">
+            Client delivery and validated products come first. A studio
+            experiment earns more attention only through reusable learning,
+            qualified demand, strategic leverage, or revenue.
+          </p>
         </Reveal>
       </div>
     </section>
   )
 }
 
-function StageDistribution() {
-  const stages = ['amble', 'sprint', 'sail'] as const
-  const distribution = stages.map((stage) => ({
-    stage,
-    label: stageConfig[stage].label,
-    hex: stageConfig[stage].hex,
-    count: ventures.filter((v) => v.stage === stage).length,
-  }))
-  const total = distribution.reduce((sum, d) => sum + d.count, 0)
-
+function WhatThisIs() {
   return (
-    <div className="max-w-3xl mx-auto space-y-2.5">
-      <div className="flex items-baseline justify-between font-mono text-[10px] uppercase tracking-widest text-text-muted">
-        <span>Pipeline by stage</span>
-        <span>N = {total}</span>
+    <section className="py-20 px-6 bg-surface/45">
+      <div className="max-w-6xl mx-auto">
+        <Reveal className="grid gap-6 md:grid-cols-2">
+          <div className="border border-accent-green/25 bg-background p-7 md:p-9">
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-accent-green" />
+              <h2 className="text-xl font-semibold">What this is</h2>
+            </div>
+            <p className="mt-5 text-text-muted leading-relaxed">
+              A venture studio working in the open, in two labeled tracks:
+              products incubated with partners, and experiments run on
+              Sprinter&apos;s own bench — with the evidence used to decide what
+              advances.
+            </p>
+          </div>
+          <div className="border border-border-subtle bg-background p-7 md:p-9">
+            <div className="flex items-center gap-3">
+              <XCircle className="w-5 h-5 text-text-muted" />
+              <h2 className="text-xl font-semibold">What this is not</h2>
+            </div>
+            <p className="mt-5 text-text-muted leading-relaxed">
+              A claim that Sprinter operates dozens of mature companies, a
+              substitute for customer proof, or an invitation to fund every
+              idea. Volume is not the thesis. Better judgment and reusable
+              capability are.
+            </p>
+          </div>
+        </Reveal>
       </div>
-      <div className="flex h-1.5 gap-px" role="img" aria-label={distribution.map((d) => `${d.label}: ${d.count}`).join(', ')}>
-        {distribution.map((d) => (
-          <div
-            key={d.stage}
-            className="opacity-80"
-            style={{ width: `${(d.count / total) * 100}%`, backgroundColor: d.hex }}
-          />
-        ))}
+    </section>
+  )
+}
+
+function OperatingRules() {
+  return (
+    <section className="py-24 px-6">
+      <div className="max-w-6xl mx-auto">
+        <Reveal className="max-w-3xl">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
+            The constraints
+          </p>
+          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+            The studio is useful only when it makes Sprinter more focused.
+          </h2>
+          <p className="mt-5 text-lg text-text-muted leading-relaxed">
+            Cheap software production can create an expensive attention
+            problem. These rules keep experimentation from becoming the
+            business strategy.
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {operatingRules.map((rule, index) => {
+            const Icon = rule.icon
+            return (
+              <Reveal key={rule.title} delay={index * 0.08}>
+                <Card className="h-full bg-surface border-border-subtle">
+                  <CardContent className="pt-7 space-y-4">
+                    <Icon className="w-6 h-6 text-accent-green" />
+                    <h3 className="text-xl font-semibold leading-snug">
+                      {rule.title}
+                    </h3>
+                    <p className="text-sm text-text-muted leading-relaxed">
+                      {rule.body}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Reveal>
+            )
+          })}
+        </div>
       </div>
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
-        {distribution.map((d) => (
-          <span key={d.stage} className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-text-muted">
-            <span className="h-1.5 w-1.5" style={{ backgroundColor: d.hex }} aria-hidden="true" />
-            {d.label} {d.count}
-          </span>
-        ))}
+    </section>
+  )
+}
+
+function Method() {
+  return (
+    <section className="py-24 px-6 bg-surface/35">
+      <div className="max-w-6xl mx-auto">
+        <Reveal className="text-center max-w-3xl mx-auto">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
+            How to read the stages
+          </p>
+          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+            A stage is a confidence label, not a trophy.
+          </h2>
+          <p className="mt-5 text-text-muted leading-relaxed">
+            Amble → Sprint → Sail is a decision framework. Work can move
+            forward, move backward, pause, or stop as new evidence appears.
+          </p>
+        </Reveal>
+
+        <Reveal y={0} className="mt-12">
+          <PlaybookDiagram variant="compact" />
+        </Reveal>
+
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5">
+          {stages.map((stage, index) => {
+            const config = stageConfig[stage.key]
+            return (
+              <Reveal key={stage.key} delay={index * 0.1}>
+                <Card className="bg-background border-border-subtle h-full">
+                  <CardContent className="pt-6 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <PhaseGlyph phase={stage.key} className="w-8 h-8 shrink-0" />
+                      <div>
+                        <h3
+                          className="text-xl font-semibold"
+                          style={{ color: config.hex }}
+                        >
+                          {stage.title}
+                        </h3>
+                        <p className="text-sm text-text-muted">
+                          {stage.subtitle}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-text-muted leading-relaxed">
+                      {stage.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Reveal>
+            )
+          })}
+        </div>
       </div>
+    </section>
+  )
+}
+
+function TrackHeading({
+  track,
+  count,
+}: {
+  track: 'partner' | 'internal'
+  count: number
+}) {
+  const config = trackConfig[track]
+  return (
+    <div className="max-w-3xl">
+      <div className="flex flex-wrap items-baseline gap-3">
+        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+          {config.plural}
+        </h3>
+        <span className="font-mono text-xs uppercase tracking-widest text-text-muted">
+          {count} {count === 1 ? 'entry' : 'entries'}
+        </span>
+      </div>
+      <p className="mt-3 text-text-muted leading-relaxed">{config.definition}</p>
     </div>
   )
 }
 
-function ByTheNumbers() {
-  const stats = [
-    { value: `${ventures.length}`, label: 'Ventures in Pipeline' },
-    { value: '6', label: 'Business Archetypes' },
-    { value: '24/7', label: 'Agent Uptime' },
-    { value: '1', label: 'Human Founder' },
-  ]
-
-  return (
-    <section className="py-16 px-6 bg-surface/50">
-      <div className="max-w-5xl mx-auto space-y-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 0.1} y={15} className="text-center space-y-1">
-              <p className="text-3xl md:text-4xl font-bold font-mono text-accent-green">{stat.value}</p>
-              <p className="text-sm text-text-muted">{stat.label}</p>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal delay={0.3} y={0}>
-          <StageDistribution />
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
-function WhyAIAgents() {
-  const comparisons = [
-    {
-      traditional: 'Hire a team of 5–10 to launch one product',
-      studio: `One founder + AI agents run ${ventures.length} ventures at once`,
-    },
-    {
-      traditional: '6–12 months from idea to MVP',
-      studio: 'Idea to deployed MVP in 1–3 days',
-    },
-    {
-      traditional: '$50K–$500K burn before first revenue signal',
-      studio: 'Near-zero marginal cost per venture',
-    },
-    {
-      traditional: 'Kill decisions based on gut feel',
-      studio: 'Stage-gate model: real market data before any kill',
-    },
-    {
-      traditional: 'One bet. Hope it works.',
-      studio: 'Portfolio of bets. Math works in your favor.',
-    },
-  ]
-
-  return (
-    <section className="py-24 px-6">
-      <div className="max-w-5xl mx-auto">
-        <Reveal className="text-center mb-12 space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Why AI Agents Change the Math
-          </h2>
-          <p className="text-text-muted max-w-2xl mx-auto">
-            Traditional startups bet everything on one idea with a big team and a long runway.
-            We run dozens of experiments simultaneously at near-zero cost — and only scale what works.
-          </p>
-        </Reveal>
-
-        <div className="space-y-3">
-          {comparisons.map((row, i) => (
-            <Reveal
-              key={i}
-              delay={i * 0.08}
-              x={-10}
-              y={0}
-              className="grid grid-cols-1 md:grid-cols-2 gap-3"
-            >
-              <div className="bg-surface border border-border-subtle rounded-lg px-5 py-3 flex items-center gap-3">
-                <span className="text-red-400/70 text-lg shrink-0">✕</span>
-                <p className="text-sm text-text-muted">{row.traditional}</p>
-              </div>
-              <div className="bg-surface border border-accent-green/20 rounded-lg px-5 py-3 flex items-center gap-3">
-                <span className="text-accent-green text-lg shrink-0">✓</span>
-                <p className="text-sm text-foreground">{row.studio}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function HowWeBuild() {
-  const phases = [
-    {
-      phase: 'amble',
-      title: 'Amble',
-      subtitle: 'Ideate & Validate',
-      description: 'Divergent exploration. Score ideas, define ICP, validate demand. No code until the signal is clear.',
-      color: '#ff6600',
-    },
-    {
-      phase: 'sprint',
-      title: 'Sprint',
-      subtitle: 'Build & Deploy',
-      description: 'Focused execution. Ship an MVP in days, not months. AI agents handle the heavy lifting.',
-      color: '#0066ff',
-    },
-    {
-      phase: 'sail',
-      title: 'Sail',
-      subtitle: 'Grow & Scale',
-      description: 'Distribution and growth loops. Optimize for revenue. Automate everything that moves.',
-      color: '#00ff88',
-    },
-  ] as const
-
-  return (
-    <section className="py-24 px-6">
-      <div className="max-w-6xl mx-auto">
-        <Reveal className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">How We Build</h2>
-          <p className="text-text-muted max-w-xl mx-auto">
-            Three phases. One methodology. Repeatable venture creation at AI speed.
-          </p>
-        </Reveal>
-
-        <Reveal y={0} className="mb-12">
-          <PlaybookDiagram variant="compact" />
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {phases.map((phase, i) => (
-            <Reveal key={phase.title} delay={i * 0.15} y={30}>
-              <Card className="bg-surface border-border-subtle h-full">
-                <CardContent className="pt-6 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <PhaseGlyph phase={phase.phase} className="w-8 h-8 shrink-0" />
-                    <div>
-                      <h3 className="text-xl font-semibold" style={{ color: phase.color }}>
-                        {phase.title}
-                      </h3>
-                      <p className="text-sm text-text-muted">{phase.subtitle}</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-text-muted leading-relaxed">{phase.description}</p>
-                  {i < 2 && (
-                    <div className="hidden md:flex justify-end pt-2">
-                      <ArrowRight className="w-4 h-4 text-text-muted" />
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function PipelineSection() {
+  const partnerVentures = getVenturesByTrack('partner').filter(
+    (venture) => venture.stage !== 'archived',
+  )
+  const internalVentures = activeVentures.filter(
+    (venture) => venture.track === 'internal',
+  )
+
   return (
     <section id="pipeline" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <Reveal className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Live Pipeline</h2>
-          <p className="text-text-muted">
-            Where every venture stands across the factory right now.
+        <Reveal className="max-w-3xl mb-14">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
+            Experiment ledger
+          </p>
+          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+            Current entries, with their track, stage and status.
+          </h2>
+          <p className="mt-5 text-text-muted leading-relaxed">
+            Every entry sits in exactly one track. Inclusion means the
+            experiment is recorded, not endorsed. Open an entry to see the
+            audience, monetization hypothesis, current signal, and public site
+            where one exists.
           </p>
         </Reveal>
 
-        <Pipeline />
+        <Reveal id="partner-incubations" className="scroll-mt-24">
+          <TrackHeading track="partner" count={partnerVentures.length} />
+          {partnerVentures.length === 0 ? (
+            <p className="mt-6 border border-border-subtle bg-surface/70 px-5 py-4 text-sm leading-relaxed text-text-muted">
+              No partner incubation is published yet. When one is, it appears
+              here with the partner named. Nothing below is a partner product.
+            </p>
+          ) : (
+            <div className="mt-6">
+              <VentureList ventures={partnerVentures} />
+            </div>
+          )}
+        </Reveal>
+
+        <Reveal
+          id="internal-experiments"
+          className="mt-16 scroll-mt-24"
+          y={0}
+        >
+          <TrackHeading track="internal" count={internalVentures.length} />
+        </Reveal>
+
+        <div className="mt-8">
+          <Pipeline />
+        </div>
+
+        {archivedVentures.length > 0 && (
+          <Reveal className="mt-16" y={0}>
+            <div className="max-w-3xl">
+              <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+                Stopped and archived
+              </h3>
+              <p className="mt-3 text-text-muted leading-relaxed">
+                Recorded decisions that are no longer an active commercial path.
+                The learning stays public.
+              </p>
+            </div>
+            <div className="mt-6 grid gap-2 md:grid-cols-3">
+              <VentureList ventures={archivedVentures} />
+            </div>
+          </Reveal>
+        )}
       </div>
     </section>
   )
 }
 
-function VenturePortfolio() {
+function Lessons() {
+  return (
+    <section className="py-24 px-6 bg-surface/40">
+      <div className="max-w-6xl mx-auto">
+        <Reveal className="max-w-3xl">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
+            What the work keeps teaching us
+          </p>
+          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+            The useful output is the pattern, not the property count.
+          </h2>
+        </Reveal>
+
+        <div className="mt-12 grid gap-px border border-border-subtle bg-border-subtle md:grid-cols-2">
+          {lessons.map((lesson, index) => (
+            <Reveal key={lesson.title} delay={index * 0.06}>
+              <article className="h-full bg-background p-7 md:p-9">
+                <p className="font-mono text-xs text-accent-green">
+                  0{index + 1}
+                </p>
+                <h3 className="mt-4 text-2xl font-semibold">
+                  {lesson.title}
+                </h3>
+                <p className="mt-4 text-text-muted leading-relaxed">
+                  {lesson.body}
+                </p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function CommercialRoutes() {
   return (
     <section className="py-24 px-6">
-      <div className="max-w-6xl mx-auto space-y-10">
-        <Reveal className="text-center space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">Portfolio Snapshot</h2>
-          <p className="text-text-muted max-w-2xl mx-auto">
-            A mix of launched assets, active builds, and fresh bets moving through the factory right now.
+      <div className="max-w-6xl mx-auto">
+        <Reveal className="text-center max-w-3xl mx-auto">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
+            Looking for Sprinter, not the studio?
+          </p>
+          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+            Start with the smallest useful step, not the biggest possible vision.
+          </h2>
+          <p className="mt-5 text-text-muted leading-relaxed">
+            The studio is where Sprinter&apos;s methods get proven. If you want
+            them applied to your team, start at Sprinter.
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {featuredVentures.map((venture, index) => (
-            <Reveal key={venture.slug} delay={index * 0.06}>
-              <Card className={cn('bg-surface border-border-subtle overflow-hidden', venture.screenshot && 'h-full')}>
-                {venture.screenshot && (
-                  <div className="relative w-full aspect-[16/10] border-b border-border-subtle overflow-hidden">
-                    <div
-                      className="absolute inset-x-0 top-0 h-1 z-10"
-                      style={{ backgroundColor: stageConfig[venture.stage].hex }}
-                    />
-                    <Image
-                      src={venture.screenshot}
-                      alt={`${venture.name} screenshot`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-                <CardContent className={cn('space-y-4', venture.screenshot ? 'pt-4 h-full flex flex-col' : 'pt-6')}>
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <Link href={`/ventures/${venture.slug}`} className="text-lg font-semibold hover:text-accent-green transition-colors">
-                        {venture.name}
-                      </Link>
-                      <p className="text-sm text-text-muted">{venture.domain}</p>
-                    </div>
-                    <Badge variant="outline" className="border-border-subtle text-text-muted shrink-0">
-                      {venture.stage}
-                    </Badge>
-                  </div>
-
-                  <p className="text-sm text-text-muted leading-relaxed">{venture.description}</p>
-                  {venture.icp && <p className="text-xs text-text-muted"><span className="text-foreground font-medium">ICP:</span> {venture.icp}</p>}
-                  {venture.monetization && <p className="text-xs text-text-muted"><span className="text-foreground font-medium">Monetization:</span> {venture.monetization}</p>}
-
-                  <div className={cn('flex items-center justify-between gap-3 pt-2', venture.screenshot && 'mt-auto')}>
-                    <Link href={`/ventures/${venture.slug}`} className="text-sm text-accent-green hover:text-accent-green/80 inline-flex items-center gap-1">
-                      View venture <ArrowRight className="w-4 h-4" />
-                    </Link>
-                    {venture.url && (
-                      <a href={venture.url} target="_blank" rel="noopener noreferrer" className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1">
-                        Live <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    )}
-                  </div>
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {routes.map((route, index) => (
+            <Reveal key={route.href} delay={index * 0.08}>
+              <Card className="h-full bg-surface border-border-subtle">
+                <CardContent className="flex h-full flex-col pt-7">
+                  <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
+                    {route.eyebrow}
+                  </p>
+                  <h3 className="mt-4 text-2xl font-semibold leading-snug">
+                    {route.title}
+                  </h3>
+                  <p className="mt-4 text-sm text-text-muted leading-relaxed">
+                    {route.body}
+                  </p>
+                  <a
+                    href={route.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto pt-7 text-sm text-accent-green hover:text-accent-green/80 inline-flex items-center gap-1.5"
+                  >
+                    {route.cta}
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
                 </CardContent>
               </Card>
             </Reveal>
@@ -367,196 +564,38 @@ function VenturePortfolio() {
   )
 }
 
-function ResultsSoFar() {
-  const results = [
-    { metric: 'Ventures in the pipeline', value: `${ventures.length}`, detail: 'Live, in build, or in validation — each with its own domain, repo, and AI operator' },
-    { metric: 'Time from idea to live MVP', value: '1–3 days', detail: 'Not weeks. Not months. Days — including deploy and SEO basics' },
-    { metric: 'Business archetypes covered', value: '6', detail: 'SaaS, SEO/affiliate, services, marketplaces, consumer apps, infrastructure' },
-    { metric: 'Total human employees', value: '0', detail: 'One founder sets direction. AI agents handle everything else.' },
-    { metric: 'Stages in the methodology', value: '3', detail: 'Amble → Sprint → Sail — every venture moves through the same stage gates' },
-    { metric: 'Stack shared across ventures', value: '1', detail: 'Same Sprinter Platform foundation reused venture to venture, not rebuilt from zero' },
-  ]
-
-  return (
-    <section className="py-24 px-6">
-      <div className="max-w-5xl mx-auto space-y-12">
-        <Reveal className="text-center space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">Results So Far</h2>
-          <p className="text-text-muted max-w-2xl mx-auto">
-            We don&apos;t hide behind &ldquo;stealth mode.&rdquo; Here&apos;s what the factory has actually produced — built in the open, every step logged.
-          </p>
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {results.map((item, i) => (
-            <Reveal
-              key={item.metric}
-              delay={i * 0.08}
-              y={15}
-              className="bg-surface border border-border-subtle rounded-lg p-5 space-y-1.5"
-            >
-              <div className="flex items-baseline gap-3">
-                <span className="text-2xl font-bold font-mono text-accent-green">{item.value}</span>
-                <span className="text-sm font-medium text-foreground">{item.metric}</span>
-              </div>
-              <p className="text-xs text-text-muted leading-relaxed">{item.detail}</p>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function PlaybookCTA() {
-  return (
-    <section className="py-24 px-6">
-      <div className="max-w-3xl mx-auto text-center space-y-6">
-        <Reveal className="space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            The playbook is open source.
-          </h2>
-          <p className="text-text-muted max-w-lg mx-auto">
-            Amble → Sprint → Sail. The exact methodology we use to go from raw idea to deployed, in-market product in days — not months.
-          </p>
-          <Link href="/playbook" className={cn(buttonVariants({ size: 'lg' }), 'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2')}>
-            Read the Playbook <ArrowRight className="w-4 h-4" />
-          </Link>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
-function FollowTheBuild() {
-  return (
-    <section className="py-24 px-6 bg-surface/50">
-      <div className="max-w-3xl mx-auto text-center space-y-8">
-        <Reveal className="space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Follow the Build
-          </h2>
-          <p className="text-text-muted max-w-lg mx-auto">
-            This is a live experiment. New ventures launch regularly. Failures are documented publicly.
-            Follow along as we prove (or disprove) whether one founder + AI agents can build
-            a growing constellation of vertical software businesses.
-          </p>
-        </Reveal>
-
-        <Reveal
-          delay={0.15}
-          y={15}
-          className="flex flex-wrap items-center justify-center gap-4"
-        >
-          <a
-            href="https://github.com/tylerdr/sprinter-studio"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(buttonVariants({ size: 'lg', variant: 'outline' }), 'border-border-subtle hover:bg-surface inline-flex items-center gap-2')}
-          >
-            <Github className="w-5 h-5" /> Star on GitHub
-          </a>
-        </Reveal>
-
-        <Reveal as="p" delay={0.3} y={0} className="text-xs text-text-muted">
-          Every commit, every launch, every kill decision — all in public.
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
-function Footer() {
-  return (
-    <footer className="border-t border-border-subtle py-12 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-2">
-          <Zap className="w-5 h-5 text-accent-green" />
-          <span className="font-semibold">sprinter.studio</span>
-          <span className="text-text-muted text-sm ml-2">Built by Sprinter Studio</span>
-        </div>
-        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
-          <Link href="#pipeline" className="hover:text-foreground transition-colors">Pipeline</Link>
-          <Link href="/playbook" className="hover:text-foreground transition-colors">Playbook</Link>
-          <a href="https://sprinter.ai" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Sprinter AI</a>
-          <a href="https://sprinterconsulting.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Consulting</a>
-          <a href="https://amble.so" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Amble</a>
-          <a href="https://github.com/tylerdr/sprinter-studio" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors flex items-center gap-1">
-            <Github className="w-4 h-4" /> GitHub
-          </a>
-        </nav>
-      </div>
-    </footer>
-  )
-}
-
-const faqItems = [
-  {
-    question: 'What is an AI venture studio?',
-    answer:
-      'An AI venture studio uses autonomous AI agents to build, launch, and operate multiple software businesses simultaneously. Instead of hiring teams for each product, AI agents handle coding, content, SEO, outreach, and operations 24/7 — letting a single founder run dozens of ventures at once.',
-  },
-  {
-    question: 'How does the Amble → Sprint → Sail methodology work?',
-    answer:
-      'Amble is the ideation phase: exploring ideas, scoring them, and validating demand before writing any code. Sprint is focused build: shipping an MVP in days using AI agents. Sail is growth: deploying distribution playbooks (SEO, outreach, content) to drive revenue. Ventures only advance through stage gates with real data.',
-  },
-  {
-    question: 'How many ventures does Sprinter Studio run?',
-    answer:
-      'The public pipeline tracks every venture across six archetypes: SEO/affiliate sites, productized services, SaaS tools, marketplaces, consumer apps, and infrastructure products. New ventures enter the pipeline regularly as the factory accelerates.',
-  },
-  {
-    question: 'Can I use the Sprinter Studio playbook for my own projects?',
-    answer:
-      'Yes. The playbook is published openly. It covers the full methodology — from idea scoring and ICP definition through MVP deployment and growth loops. Read it at /playbook.',
-  },
-]
-
 function BuiltBySection() {
   return (
-    <section className="py-24 px-6">
+    <section className="py-24 px-6 bg-surface/40">
       <div className="max-w-3xl mx-auto">
-        <Reveal className="bg-surface border border-border-subtle rounded-xl p-8 md:p-10 space-y-5">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-accent-green/10 flex items-center justify-center text-accent-green text-xl font-bold shrink-0">
-              T
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold">Tyler Dreher</h3>
-              <p className="text-sm text-text-muted">Founder &amp; Sole Operator</p>
-            </div>
-          </div>
-          <p className="text-sm text-text-muted leading-relaxed">
-            I&apos;ve always been a builder. I trained as a mechanical engineer (Auburn), worked on
-            machinery at ExxonMobil, and ran a construction company on the side — and at every one of
-            them, the software the work actually needed didn&apos;t exist. So I taught myself to build
-            it, and I never stopped.
+        <Reveal className="border border-border-subtle bg-background p-8 md:p-10 space-y-5">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
+            The accountable human
           </p>
-          <p className="text-sm text-text-muted leading-relaxed">
-            When I saw how much faster I could build with AI, the question got bigger:{' '}
-            <span className="text-foreground font-medium">what if you ran a venture studio like a
-            factory — and staffed the floor with AI agents instead of people?</span> Sprinter Studio
-            is the experiment. I set direction, make the hard calls, and let the system compound —
-            building toward a growing constellation of vertical software businesses that get better
-            every week.
+          <h2 className="text-3xl font-bold">Built under Tyler Dreher&apos;s direction.</h2>
+          <p className="text-text-muted leading-relaxed">
+            Tyler is a mechanical engineer turned software founder. Sprinter
+            Studio is where he makes the evolving build system visible: the
+            hypotheses, the automation, the product judgment, and the decision
+            to keep or stop. AI expands the amount of work the system can do;
+            it does not replace responsibility for the result.
           </p>
-          <div className="flex items-center gap-4 pt-2">
+          <div className="flex flex-wrap items-center gap-5 pt-2">
             <a
-              href="https://github.com/tylerdr"
+              href={outbound.tyler}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+              className="text-sm text-accent-green hover:text-accent-green/80 inline-flex items-center gap-1.5"
             >
-              <Github className="w-4 h-4" /> GitHub
+              About Tyler <ArrowUpRight className="w-4 h-4" />
             </a>
             <a
-              href="https://github.com/tylerdr/sprinter-studio"
+              href={outbound.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1.5 transition-colors"
+              className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1.5"
             >
-              <ExternalLink className="w-4 h-4" /> View source
+              <Github className="w-4 h-4" /> View source
             </a>
           </div>
         </Reveal>
@@ -568,24 +607,24 @@ function BuiltBySection() {
 function FAQSection() {
   return (
     <section className="py-24 px-6">
-      <div className="max-w-3xl mx-auto space-y-10">
-        <Reveal className="text-center space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
-          <p className="text-text-muted">
-            How the factory works — in plain language.
-          </p>
+      <div className="max-w-3xl mx-auto">
+        <Reveal className="text-center">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+            Frequently asked questions
+          </h2>
         </Reveal>
 
-        <div className="space-y-6">
-          {faqItems.map((item, i) => (
-            <Reveal key={i} delay={i * 0.08} y={15}>
-              <Card className="bg-surface border-border-subtle">
-                <CardContent className="pt-6 space-y-2">
-                  <h3 className="text-lg font-semibold">{item.question}</h3>
-                  <p className="text-sm text-text-muted leading-relaxed">{item.answer}</p>
-                </CardContent>
-              </Card>
-            </Reveal>
+        <div className="mt-10 border-t border-border-subtle">
+          {faqItems.map((item) => (
+            <details key={item.question} className="group border-b border-border-subtle py-5">
+              <summary className="cursor-pointer list-none flex items-start justify-between gap-5 text-lg font-semibold">
+                {item.question}
+                <span className="text-accent-green group-open:rotate-45 transition-transform">+</span>
+              </summary>
+              <p className="pt-4 pb-2 text-text-muted leading-relaxed">
+                {item.answer}
+              </p>
+            </details>
           ))}
         </div>
 
@@ -603,7 +642,7 @@ function FAQSection() {
                   text: item.answer,
                 },
               })),
-            }),
+            }).replace(/</g, '\\u003c'),
           }}
         />
       </div>
@@ -611,29 +650,170 @@ function FAQSection() {
   )
 }
 
+function FinalCta() {
+  return (
+    <section className="py-24 px-6 border-t border-border-subtle">
+      <div className="max-w-4xl mx-auto text-center">
+        <Reveal>
+          <Zap className="w-8 h-8 text-accent-green mx-auto" />
+          <h2 className="mt-5 text-3xl md:text-5xl font-bold tracking-tight">
+            Follow the experiments. Start with useful work.
+          </h2>
+          <p className="mt-5 max-w-2xl mx-auto text-text-muted leading-relaxed">
+            The studio makes the learning visible. The commercial front door is
+            a free five-minute AI Skills Check, then a private two-hour team
+            workshop using the AI tools and work the customer already has.
+            Deeper setup or implementation comes only after the work earns it.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href={outbound.skillsCheck}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                buttonVariants({ size: 'lg' }),
+                'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2',
+              )}
+            >
+              Start with the free AI Skills Check{' '}
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href={outbound.workshop}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                buttonVariants({ variant: 'outline', size: 'lg' }),
+                'border-border-subtle hover:bg-surface inline-flex items-center gap-2',
+              )}
+            >
+              AI Productivity Workshop — $2,500 <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+          <div className="mt-6 flex flex-col items-center gap-2 text-sm text-text-muted">
+            <a
+              href={outbound.portfolioPack}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground"
+            >
+              Own or sponsor several companies? Portfolio AI Training Pack — $10,000.
+            </a>
+            <a
+              href={outbound.consulting}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground"
+            >
+              Have a workflow that already earned implementation? Sprinter Consulting builds it.
+            </a>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-border-subtle py-12 px-6">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex items-center gap-2">
+          <Zap className="w-5 h-5 text-accent-green" />
+          <span className="font-semibold">sprinter.studio</span>
+          <span className="text-text-muted text-sm ml-2">
+            The venture studio of Sprinter
+          </span>
+        </div>
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
+          <Link href="#pipeline" className="hover:text-foreground transition-colors">
+            Experiment ledger
+          </Link>
+          <Link href="/playbook" className="hover:text-foreground transition-colors">
+            Playbook
+          </Link>
+          <a
+            href={outbound.skillsCheck}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Free AI Skills Check
+          </a>
+          <a
+            href={outbound.workshop}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            AI Productivity Workshop
+          </a>
+          <a
+            href={outbound.portfolioPack}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Portfolio AI Training Pack
+          </a>
+          <a
+            href={outbound.consulting}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Sprinter Consulting — the execution practice of Sprinter
+          </a>
+          <a
+            href={outbound.amble}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Amble — the company brain
+          </a>
+          <a
+            href={outbound.tyler}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Founded by Tyler Dreher
+          </a>
+          <a
+            href={outbound.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors flex items-center gap-1"
+          >
+            <Github className="w-4 h-4" /> GitHub
+          </a>
+        </nav>
+      </div>
+    </footer>
+  )
+}
+
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main id="main" className="min-h-screen">
       <Hero />
-      <ByTheNumbers />
+      <WhatThisIs />
       <Separator className="bg-border-subtle" />
-      <WhyAIAgents />
+      <OperatingRules />
       <Separator className="bg-border-subtle" />
-      <HowWeBuild />
+      <Method />
       <Separator className="bg-border-subtle" />
       <PipelineSection />
       <Separator className="bg-border-subtle" />
-      <VenturePortfolio />
+      <Lessons />
       <Separator className="bg-border-subtle" />
-      <ResultsSoFar />
-      <Separator className="bg-border-subtle" />
-      <PlaybookCTA />
+      <CommercialRoutes />
       <Separator className="bg-border-subtle" />
       <BuiltBySection />
       <Separator className="bg-border-subtle" />
-      <FollowTheBuild />
-      <Separator className="bg-border-subtle" />
       <FAQSection />
+      <FinalCta />
       <Footer />
     </main>
   )
