@@ -512,7 +512,7 @@ function CommercialRoutes() {
       <div className="max-w-6xl mx-auto">
         <Reveal className="text-center max-w-3xl mx-auto">
           <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            Looking for Sprinter, not the lab?
+            Looking for Sprinter, not the studio?
           </p>
           <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
             Start with one executive, not a transformation program.
@@ -738,7 +738,7 @@ function Footer() {
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Sprinter Consulting
+            Sprinter Consulting — the execution practice of Sprinter
           </a>
           <a
             href={outbound.amble}
@@ -746,7 +746,7 @@ function Footer() {
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Amble
+            Amble — the company brain
           </a>
           <a
             href={outbound.tyler}
@@ -754,7 +754,7 @@ function Footer() {
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Tyler Dreher
+            Founded by Tyler Dreher
           </a>
           <a
             href={outbound.github}

@@ -1,6 +1,6 @@
 # Sprinter Studio role and guardrails
 
-**Decision date:** 2026-08-17
+**Decision date:** 2026-08-16 (D5 two-track identity, ratified by Tyler) · **Revised:** 2026-08-17 (D17 accelerator routing only — the two-track identity is unchanged and was restored after the PR attempted to rewrite it)
 
 ## One job
 
@@ -8,7 +8,7 @@
 
 It is not the master Sprinter company site, a fifth commercial offer, a substitute for customer proof, or permission to keep every experiment alive.
 
-## The two tracks
+## The two tracks (D5 — canon, not a suggestion)
 
 | Track | Definition |
 | --- | --- |

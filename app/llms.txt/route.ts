@@ -82,7 +82,7 @@ export function GET() {
     '',
     '- Sprinter — private executive AI enablement and portfolio acceleration: https://sprinter.ai',
     '- Sprinter Consulting — implementation after a workflow earns it: https://sprinterconsulting.com',
-    '- Amble — shared context and reusable operating capability: https://ambleideation.com',
+    '- Amble — the company brain: https://ambleideation.com',
     '- Tyler Dreher — founder, writing, and selected work: https://tylerdreher.com',
     '',
   ]
