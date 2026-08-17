@@ -96,7 +96,7 @@ const decisions = [
 
 export default function PlaybookPage() {
   return (
-    <main id="main" className="min-h-screen py-12 px-6">
+    <main id="main" className="min-h-screen px-6 pt-28 pb-24 lg:pb-16">
       <div className="max-w-3xl mx-auto">
         <Link
           href="/"

@@ -54,12 +54,13 @@ export default async function VenturePage({
     ventureIndex < ventures.length - 1 ? ventures[ventureIndex + 1] : null
 
   return (
-    <main id="main" className="min-h-screen py-12 px-6">
+    <main id="main" className="min-h-screen px-6 pt-28 pb-24 lg:pb-16">
       <div className="max-w-3xl mx-auto">
         <Link
           href="/#pipeline"
           className={cn(
             buttonVariants({ variant: 'ghost', size: 'sm' }),
+            'min-h-11',
             'mb-8 text-text-muted hover:text-foreground inline-flex items-center gap-2',
           )}
         >
@@ -115,7 +116,10 @@ export default async function VenturePage({
             <p className="text-text-muted">{venture.domain}</p>
           </CardHeader>
 
-          {venture.screenshot && (
+          {/* An archived record's thumbnail keeps advertising whatever the
+              site last shipped — PortCo Audit's still shows a "Buy Workshop"
+              button for a retired offer. Don't show it. */}
+          {venture.screenshot && venture.stage !== 'archived' && (
             <div className="px-4">
               <div className="relative w-full aspect-[16/10] rounded-lg border border-border-subtle overflow-hidden">
                 <div
@@ -130,9 +134,6 @@ export default async function VenturePage({
                   className="object-cover"
                 />
               </div>
-              <p className="mt-2 text-xs font-mono text-text-muted">
-                {venture.domain}
-              </p>
             </div>
           )}
 
@@ -218,6 +219,7 @@ export default async function VenturePage({
               href={`/ventures/${previous.slug}`}
               className={cn(
                 buttonVariants({ variant: 'ghost', size: 'sm' }),
+            'min-h-11',
                 'text-text-muted hover:text-foreground inline-flex items-center gap-2',
               )}
             >
@@ -232,6 +234,7 @@ export default async function VenturePage({
               href={`/ventures/${next.slug}`}
               className={cn(
                 buttonVariants({ variant: 'ghost', size: 'sm' }),
+            'min-h-11',
                 'text-text-muted hover:text-foreground inline-flex items-center gap-2',
               )}
             >

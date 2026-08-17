@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -24,6 +24,12 @@ const description =
 
 const longDescription =
   "Sprinter Studio is the venture studio of Sprinter. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. It is not itself a commercial offer: the Sprinter front door is the Executive AI Accelerator at sprinter.ai, and implementation-ready workflows move to Sprinter Consulting.";
+
+// Matches --background so mobile browser chrome doesn't frame the near-black
+// page in white.
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+};
 
 export const metadata: Metadata = {
   title: {

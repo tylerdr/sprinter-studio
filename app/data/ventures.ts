@@ -343,7 +343,7 @@ export const stageConfig = {
     color: 'text-accent-blue',
     bg: 'bg-accent-blue/10',
     border: 'border-accent-blue/30',
-    hex: '#0066ff',
+    hex: '#4d94ff',
   },
   sail: {
     label: 'Sail',

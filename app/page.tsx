@@ -772,7 +772,7 @@ function Footer() {
 
 export default function Home() {
   return (
-    <main id="main" className="min-h-screen">
+    <main id="main" className="min-h-screen pb-24 lg:pb-0">
       <Hero />
       <WhatThisIs />
       <Separator className="bg-border-subtle" />

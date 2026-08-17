@@ -66,7 +66,7 @@ export function Chat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-20 right-4 z-50 w-[360px] max-w-[calc(100vw-2rem)]"
+            className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-4 z-50 w-[360px] max-w-[calc(100vw-2rem)]"
           >
             <Card className="bg-surface border-border-subtle flex flex-col h-[480px] overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 border-b border-border-subtle">
@@ -159,7 +159,7 @@ export function Chat() {
       </AnimatePresence>
 
       <motion.div
-        className="fixed bottom-4 right-4 z-50"
+        className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-50"
         whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
         whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
       >

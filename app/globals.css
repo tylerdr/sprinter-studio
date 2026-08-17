@@ -48,7 +48,7 @@
 
   /* Custom accent colors */
   --color-accent-green: #00ff88;
-  --color-accent-blue: #0066ff;
+  --color-accent-blue: #4d94ff; /* was #0066ff — 3.9:1 on the near-black surface, unusable as text (Sprint status + column headings) */
   --color-accent-orange: #ff6600;
   --color-surface: #111111;
   --color-surface-raised: #1a1a1a;
@@ -57,6 +57,7 @@
 }
 
 :root {
+  color-scheme: dark;
   --background: #0a0a0a;
   --foreground: #ffffff;
   --card: #111111;
