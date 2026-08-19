@@ -7,8 +7,6 @@ import {
   type Venture,
 } from '@/app/data/ventures'
 
-export const revalidate = 3600
-
 function entry(venture: Venture) {
   return `- ${venture.name} (${venture.domain}) — ${venture.description} [${stageConfig[venture.stage].label}: ${venture.status}]`
 }
@@ -24,7 +22,7 @@ export function GET() {
   const lines: string[] = [
     '# Sprinter Studio',
     '',
-    '> Sprinter Studio is the venture studio of Sprinter: products incubated with partners and internal experiments, each clearly labeled as one or the other — a public record of what is being tested, shipped, and stopped. Studio is not itself a commercial offer: the Sprinter front door is the Executive AI Accelerator at https://sprinter.ai/executive-ai-accelerator.',
+    '> Sprinter Studio is the venture studio inside the Sprinter ecosystem: products incubated with partners and internal experiments, each clearly labeled as one or the other — a public record of what is being tested, shipped, and stopped. Studio is not itself a fund or commercial offer. The parent system is explained at https://sprinter.ai; focused offers remain on dedicated routes.',
     '',
     '## Current commercial routing',
     '',
@@ -80,9 +78,9 @@ export function GET() {
     '',
     '## Related properties',
     '',
-    '- Sprinter — private executive AI enablement and portfolio acceleration: https://sprinter.ai',
+    '- Sprinter — AI-native product building for multi-entity operators: https://sprinter.ai',
     '- Sprinter Consulting — implementation after a workflow earns it: https://sprinterconsulting.com',
-    '- Amble — the company brain: https://ambleideation.com',
+    '- Amble — the company brain, built by Sprinter: https://ambleideation.com',
     '- Tyler Dreher — founder, writing, and selected work: https://tylerdreher.com',
     '',
   ]

@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
-import { Chat } from "@/app/components/Chat";
 import { SiteFooter } from "@/app/components/SiteFooter";
 import { SiteHeader } from "@/app/components/SiteHeader";
 
@@ -24,7 +23,7 @@ const description =
   "The venture studio of Sprinter: partner incubations and internal experiments, clearly labeled — a public record of what we test, ship, and stop.";
 
 const longDescription =
-  "Sprinter Studio is the venture studio of Sprinter. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. It is not itself a commercial offer: the Sprinter front door is the Executive AI Accelerator at sprinter.ai, and implementation-ready workflows move to Sprinter Consulting.";
+  "Sprinter Studio is the venture studio inside the Sprinter ecosystem. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. It is not itself a fund or commercial offer: Sprinter.ai explains the wider build system, focused offers live on dedicated routes, and implementation-ready workflows move to Sprinter Consulting.";
 
 // Matches --background so mobile browser chrome doesn't frame the near-black
 // page in white.
@@ -137,7 +136,6 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <SiteFooter />
-        <Chat />
         <Analytics />
       </body>
     </html>

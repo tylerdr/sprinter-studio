@@ -6,6 +6,15 @@
 
 ---
 
+## 2026-08-19 06:47 UTC — Finish and cut over the five portfolio sites
+
+**Tyler's exact words:**
+> finish fixing all and cutting them over once fully validated on vercel deploy domains.
+
+**Context:** Isolated branch `fix/production-cutover-20260818`; current public and Vercel state is being reconciled after the August 12 stopping-point handoff.
+**Action taken:** Started a five-site source, browser, CI, Vercel, DNS, rollback, and proof-safety audit before implementation or cutover.
+**Spec impact:** Pending exact-head audit; no product-scope decision recorded yet.
+
 ## YYYY-MM-DD HH:MM UTC — [brief topic]
 
 **Tyler's exact words:**

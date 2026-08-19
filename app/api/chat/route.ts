@@ -3,7 +3,6 @@ import { openai } from '@ai-sdk/openai'
 import { google } from '@ai-sdk/google'
 import { streamText, createUIMessageStreamResponse, convertToModelMessages } from 'ai'
 
-export const runtime = 'edge'
 export const maxDuration = 30
 
 function resolveModel() {
