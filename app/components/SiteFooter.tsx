@@ -7,7 +7,7 @@ import { outbound } from '@/lib/links'
  * Lives in the root layout, not on the homepage. It used to be a local
  * function inside page.tsx's <main>, which meant /playbook and every
  * /ventures/[slug] page dead-ended at their prev/next row with no brand,
- * no nav, and no route to the commercial front door.
+ * no nav, and no route back to the parent Sprinter system.
  */
 export function SiteFooter() {
   return (
@@ -57,7 +57,7 @@ export function SiteFooter() {
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
-            Amble — the company brain
+            Amble — the company brain, built by Sprinter
           </a>
           <a
             href={outbound.tyler}

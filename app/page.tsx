@@ -653,10 +653,10 @@ function FinalCta() {
             Follow the experiments. Start with one executive and real work.
           </h2>
           <p className="mt-5 max-w-2xl mx-auto text-text-muted leading-relaxed">
-            The commercial front door is the $2,500 Executive AI Accelerator:
-            two private 60-minute calls and three repeatable Claude or ChatGPT
-            workflows. Deeper setup or implementation comes only after real use
-            earns it.
+            Sprinter.ai explains the wider product-building system. When this
+            focused entry offer fits, the $2,500 Executive AI Accelerator turns
+            one executive&apos;s recurring work into three repeatable workflows.
+            Deeper setup or implementation comes only after real use earns it.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
