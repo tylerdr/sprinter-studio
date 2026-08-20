@@ -9,6 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,50 +47,63 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  /* Custom accent colors */
-  --color-accent-green: #00ff88;
-  --color-accent-blue: #4d94ff; /* was #0066ff — 3.9:1 on the near-black surface, unusable as text (Sprint status + column headings) */
-  --color-accent-orange: #ff6600;
-  --color-surface: #111111;
-  --color-surface-raised: #1a1a1a;
-  --color-text-muted: #888888;
-  --color-border-subtle: #222222;
+  /* The builder's board (D19): shared ground and chalk tokens. */
+  --color-board: #0e0d0b;
+  --color-board-2: #14130f;
+  --color-board-3: #1b1915;
+  --color-chalk: #f2efe7;
+  --color-chalk-2: #b9b3a6;
+  /* chalk-3 is ~4.6:1 — never set type below 12px in it. */
+  --color-chalk-3: #837d70;
+  --color-hairline: rgba(242, 239, 231, 0.13);
+  --color-hairline-strong: rgba(242, 239, 231, 0.3);
+
+  /* Studio's chalk sticks: green accent, amber for status labels. */
+  --color-chalk-green: #8fd8ab;
+  --color-chalk-green-deep: #4f9c72;
+  --color-chalk-amber: #e2c185;
+
+  /* Legacy utility names, repointed to board tokens. */
+  --color-surface: var(--color-board-2);
+  --color-surface-raised: var(--color-board-3);
+  --color-text-muted: var(--color-chalk-2);
+  --color-border-subtle: var(--color-hairline);
 }
 
 :root {
   color-scheme: dark;
-  --background: #0a0a0a;
-  --foreground: #ffffff;
-  --card: #111111;
-  --card-foreground: #ffffff;
-  --popover: #111111;
-  --popover-foreground: #ffffff;
-  --primary: #00ff88;
-  --primary-foreground: #0a0a0a;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #ffffff;
-  --muted: #1a1a1a;
-  --muted-foreground: #888888;
-  --accent: #1a1a1a;
-  --accent-foreground: #ffffff;
-  --destructive: #ff4444;
-  --border: #222222;
-  --input: #222222;
-  --ring: #00ff88;
-  --chart-1: #00ff88;
-  --chart-2: #0066ff;
-  --chart-3: #ff6600;
-  --chart-4: #8b5cf6;
-  --chart-5: #ec4899;
-  --radius: 0.625rem;
-  --sidebar: #111111;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #00ff88;
-  --sidebar-primary-foreground: #0a0a0a;
-  --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #222222;
-  --sidebar-ring: #00ff88;
+  --background: #0e0d0b;
+  --foreground: #f2efe7;
+  --card: #14130f;
+  --card-foreground: #f2efe7;
+  --popover: #14130f;
+  --popover-foreground: #f2efe7;
+  --primary: #8fd8ab;
+  --primary-foreground: #0e0d0b;
+  --secondary: #1b1915;
+  --secondary-foreground: #f2efe7;
+  --muted: #1b1915;
+  --muted-foreground: #b9b3a6;
+  --accent: #1b1915;
+  --accent-foreground: #f2efe7;
+  --destructive: #d08770;
+  --border: rgba(242, 239, 231, 0.13);
+  --input: rgba(242, 239, 231, 0.13);
+  --ring: #8fd8ab;
+  --chart-1: #8fd8ab;
+  --chart-2: #e2c185;
+  --chart-3: #4f9c72;
+  --chart-4: #b9b3a6;
+  --chart-5: #837d70;
+  --radius: 0.25rem;
+  --sidebar: #14130f;
+  --sidebar-foreground: #f2efe7;
+  --sidebar-primary: #8fd8ab;
+  --sidebar-primary-foreground: #0e0d0b;
+  --sidebar-accent: #1b1915;
+  --sidebar-accent-foreground: #f2efe7;
+  --sidebar-border: rgba(242, 239, 231, 0.13);
+  --sidebar-ring: #8fd8ab;
 }
 
 @layer base {
@@ -107,4 +121,39 @@
       scroll-behavior: smooth;
     }
   }
+}
+
+/* Chalk-dust grain — one fixed layer, kept faint on the dark ground. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Workshop-board graph paper. Use on at most one or two surfaces per
+   page (hero and/or final CTA), always with this fade mask. */
+.bg-chalk-grid {
+  background-image:
+    linear-gradient(var(--color-hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-hairline) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    ellipse 85% 70% at 50% 30%,
+    black 25%,
+    transparent 78%
+  );
+}
+
+::selection {
+  background: var(--color-chalk-green);
+  color: var(--color-board);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-chalk-green);
+  outline-offset: 2px;
 }

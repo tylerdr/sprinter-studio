@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import { SiteFooter } from "@/app/components/SiteFooter";
@@ -17,6 +17,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz"],
+});
+
 const title = "Sprinter Studio — the venture studio of Sprinter";
 
 const description =
@@ -25,10 +31,10 @@ const description =
 const longDescription =
   "Sprinter Studio is the venture studio inside the Sprinter ecosystem. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. It is not itself a fund or commercial offer: Sprinter.ai explains the wider build system, focused offers live on dedicated routes, and implementation-ready workflows move to Sprinter Consulting.";
 
-// Matches --background so mobile browser chrome doesn't frame the near-black
+// Matches --background so mobile browser chrome doesn't frame the board-black
 // page in white.
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#0e0d0b",
 };
 
 export const metadata: Metadata = {
@@ -123,7 +129,10 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`dark ${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      className={`dark ${geistSans.variable} ${geistMono.variable} ${fraunces.variable}`}
+    >
       <head>
         <script
           type="application/ld+json"
