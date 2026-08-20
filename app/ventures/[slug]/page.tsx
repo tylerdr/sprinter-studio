@@ -68,15 +68,14 @@ export default async function VenturePage({
           Back to experiment ledger
         </Link>
 
-        <div className="mb-5 border border-border-subtle bg-surface px-5 py-4">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-accent-green">
+        <div className="mb-5 border-y border-border-subtle px-1 py-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-chalk-green">
             Experiment record
           </p>
           <p className="mt-2 text-sm leading-relaxed text-text-muted">
             Stage and status describe the current evidence, not the maturity or
             value of a company. A public URL may be a prototype, tool, content
-            property, validation surface, or active product. This record should
-            change when the evidence does.
+            property, or active product.
           </p>
           <p className="mt-3 text-sm leading-relaxed text-text-muted">
             <span className="text-foreground">{track.label}:</span>{' '}
@@ -110,10 +109,10 @@ export default async function VenturePage({
                 {track.label}
               </Badge>
             </div>
-            <h1 className="text-3xl md:text-4xl font-semibold leading-none tracking-tight">
+            <h1 className="font-display text-3xl md:text-4xl font-medium leading-none tracking-tight">
               {venture.name}
             </h1>
-            <p className="text-text-muted">{venture.domain}</p>
+            <p className="font-mono text-sm text-text-muted">{venture.domain}</p>
           </CardHeader>
 
           {/* An archived record's thumbnail keeps advertising whatever the
@@ -139,10 +138,12 @@ export default async function VenturePage({
 
           <CardContent className="space-y-6">
             <div>
-              <p className="text-sm font-medium text-text-muted mb-1">
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-text-muted mb-1">
                 Current status
               </p>
-              <p style={{ color: config.hex }}>{venture.status}</p>
+              <p className="font-mono text-sm" style={{ color: config.hex }}>
+                {venture.status}
+              </p>
             </div>
 
             <Separator className="bg-border-subtle" />
@@ -201,7 +202,7 @@ export default async function VenturePage({
                 rel="noopener noreferrer"
                 className={cn(
                   buttonVariants(),
-                  'bg-accent-green text-background hover:bg-accent-green/90 inline-flex items-center gap-2',
+                  'inline-flex items-center gap-2',
                 )}
               >
                 {venture.stage === 'archived'

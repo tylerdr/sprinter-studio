@@ -71,7 +71,7 @@ export function Chat() {
             <Card className="bg-surface border-border-subtle flex flex-col h-[480px] overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 border-b border-border-subtle">
                 <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${chatAvailable ? 'bg-accent-green' : 'bg-text-muted'}`} />
+                  <div className={`w-2 h-2 rounded-full ${chatAvailable ? 'bg-chalk-green' : 'bg-text-muted'}`} />
                   <span className="text-sm font-medium">Sprinter Studio AI</span>
                 </div>
                 <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setIsOpen(false)} aria-label="Close chat">
@@ -99,7 +99,7 @@ export function Chat() {
                       <div
                         className={`max-w-[85%] rounded-lg px-3 py-2 text-sm whitespace-pre-wrap ${
                           m.role === 'user'
-                            ? 'bg-accent-green text-background'
+                            ? 'bg-chalk-green text-background'
                             : 'bg-surface-raised text-foreground'
                         }`}
                       >
@@ -137,14 +137,14 @@ export function Chat() {
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Ask about Sprinter Studio..."
                         aria-label="Ask about Sprinter Studio"
-                        className="flex-1 bg-surface-raised border border-border-subtle rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-accent-green placeholder:text-text-muted"
+                        className="flex-1 bg-surface-raised border border-border-subtle rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-chalk-green placeholder:text-text-muted"
                         disabled={isLoading}
                       />
                       <Button
                         type="submit"
                         size="icon"
                         aria-label="Send message"
-                        className="bg-accent-green text-background hover:bg-accent-green/90 shrink-0"
+                        className="bg-chalk-green text-background hover:bg-chalk-green/90 shrink-0"
                         disabled={isLoading || !inputValue.trim()}
                       >
                         <Send className="w-4 h-4" />
@@ -169,7 +169,7 @@ export function Chat() {
           aria-label={isOpen ? 'Close chat' : 'Open chat'}
           aria-expanded={isOpen}
           aria-controls="sprinter-chat-panel"
-          className="h-12 w-12 rounded-full bg-accent-green text-background hover:bg-accent-green/90 shadow-lg"
+          className="h-12 w-12 rounded-full bg-chalk-green text-background hover:bg-chalk-green/90 shadow-lg"
         >
           {isOpen ? <X className="w-5 h-5" /> : <MessageCircle className="w-5 h-5" />}
         </Button>

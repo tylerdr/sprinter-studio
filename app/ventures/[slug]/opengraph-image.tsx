@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 export default async function Image({ params }: Props) {
   const { slug } = await params
   const venture = ventures.find((v) => v.slug === slug)
-  const accentColor = venture ? stageConfig[venture.stage].hex : '#00ff88'
+  const accentColor = venture ? stageConfig[venture.stage].hex : '#8fd8ab'
   const name = venture?.name ?? 'Sprinter Studio'
   const trackLabel = venture
     ? trackConfig[venture.track].label
@@ -30,8 +30,8 @@ export default async function Image({ params }: Props) {
           width: '100%',
           height: '100%',
           display: 'flex',
-          backgroundColor: '#0a0a0a',
-          color: '#f5f5f5',
+          backgroundColor: '#0e0d0b',
+          color: '#f2efe7',
           fontFamily: 'sans-serif',
         }}
       >
@@ -65,7 +65,7 @@ export default async function Image({ params }: Props) {
               style={{
                 fontSize: 84,
                 lineHeight: 0.94,
-                fontWeight: 800,
+                fontWeight: 500,
                 letterSpacing: 0,
                 maxWidth: 940,
               }}
@@ -76,7 +76,7 @@ export default async function Image({ params }: Props) {
               style={{
                 fontSize: 34,
                 lineHeight: 1.25,
-                color: '#a3a3a3',
+                color: '#b9b3a6',
                 marginTop: 32,
                 maxWidth: 900,
               }}
@@ -89,7 +89,7 @@ export default async function Image({ params }: Props) {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              color: '#737373',
+              color: '#837d70',
               fontFamily: 'monospace',
               fontSize: 24,
             }}

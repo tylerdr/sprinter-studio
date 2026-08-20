@@ -1,5 +1,5 @@
 import { PlaybookDiagram, PhaseGlyph } from '@/app/components/PlaybookDiagram'
-import { Badge } from '@/components/ui/badge'
+import { stageConfig } from '@/app/data/ventures'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
@@ -102,25 +102,21 @@ export default function PlaybookPage() {
           href="/"
           className="text-sm text-text-muted hover:text-foreground transition-colors"
         >
-          ← Back to the build log
+          ← Back to the studio
         </Link>
 
         <Section>
-          <Badge
-            variant="outline"
-            className="border-accent-green/40 text-accent-green mb-4"
-          >
-            The Playbook
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-chalk-green mb-4">
+            § 00 — The playbook
+          </p>
+          <h1 className="text-4xl md:text-6xl font-display font-medium mb-6 tracking-tight">
             Amble → Sprint → Sail is a decision system.
           </h1>
           <p className="text-lg text-text-muted leading-relaxed">
             AI makes it easier to produce software. That increases the need for
             judgment, constraints, distribution, evidence, and honest stop
             rules. This playbook is how Sprinter Studio turns an idea into the
-            next responsible decision — not how it pretends every deployment is
-            a company.
+            next responsible decision.
           </p>
           <p className="text-lg text-text-muted leading-relaxed mt-4">
             Work can advance, move backward, pause, or stop at every stage. The
@@ -134,7 +130,7 @@ export default function PlaybookPage() {
         <Separator className="bg-border-subtle" />
 
         <Section>
-          <h2 className="text-2xl md:text-4xl font-bold mb-8">
+          <h2 className="text-2xl md:text-4xl font-display font-medium mb-8">
             The four rules underneath the stages
           </h2>
           <div className="grid gap-4 md:grid-cols-2">
@@ -160,8 +156,8 @@ export default function PlaybookPage() {
             <PhaseGlyph phase="amble" className="w-9 h-9 shrink-0" />
             <div>
               <h2
-                className="text-2xl md:text-3xl font-bold"
-                style={{ color: '#ff6600' }}
+                className="text-2xl md:text-3xl font-display font-medium"
+                style={{ color: stageConfig.amble.hex }}
               >
                 Phase 1: Amble
               </h2>
@@ -182,19 +178,19 @@ export default function PlaybookPage() {
                 <h3 className="font-semibold text-foreground">Useful activities</h3>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#ff6600' }}>→</span> Observe or map the current workflow and its exceptions
+                    <span style={{ color: stageConfig.amble.hex }}>→</span> Observe or map the current workflow and its exceptions
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#ff6600' }}>→</span> Interview users, buyers, partners, and people who tried alternatives
+                    <span style={{ color: stageConfig.amble.hex }}>→</span> Interview users, buyers, partners, and people who tried alternatives
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#ff6600' }}>→</span> Define the value, risk, owner, and distribution hypothesis
+                    <span style={{ color: stageConfig.amble.hex }}>→</span> Define the value, risk, owner, and distribution hypothesis
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#ff6600' }}>→</span> Test demand with a conversation, service, prototype, or manual concierge flow
+                    <span style={{ color: stageConfig.amble.hex }}>→</span> Test demand with a conversation, service, prototype, or manual concierge flow
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#ff6600' }}>→</span> Write the failure conditions before writing the product scope
+                    <span style={{ color: stageConfig.amble.hex }}>→</span> Write the failure conditions before writing the product scope
                   </li>
                 </ul>
               </CardContent>
@@ -210,7 +206,7 @@ export default function PlaybookPage() {
                     <li key={item} className="flex items-start gap-2">
                       <Check
                         className="w-4 h-4 mt-0.5 shrink-0"
-                        style={{ color: '#ff6600' }}
+                        style={{ color: stageConfig.amble.hex }}
                         aria-hidden="true"
                       />
                       {item}
@@ -229,8 +225,8 @@ export default function PlaybookPage() {
             <PhaseGlyph phase="sprint" className="w-9 h-9 shrink-0" />
             <div>
               <h2
-                className="text-2xl md:text-3xl font-bold"
-                style={{ color: '#0066ff' }}
+                className="text-2xl md:text-3xl font-display font-medium"
+                style={{ color: stageConfig.sprint.hex }}
               >
                 Phase 2: Sprint
               </h2>
@@ -252,19 +248,19 @@ export default function PlaybookPage() {
                 <h3 className="font-semibold text-foreground">Useful activities</h3>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#0066ff' }}>→</span> Define the workflow, inputs, outputs, owner, and human-review points
+                    <span style={{ color: stageConfig.sprint.hex }}>→</span> Define the workflow, inputs, outputs, owner, and human-review points
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#0066ff' }}>→</span> Build only the path required to test the primary hypothesis
+                    <span style={{ color: stageConfig.sprint.hex }}>→</span> Build only the path required to test the primary hypothesis
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#0066ff' }}>→</span> Instrument usage, errors, quality, latency, and value signals
+                    <span style={{ color: stageConfig.sprint.hex }}>→</span> Instrument usage, errors, quality, latency, and value signals
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#0066ff' }}>→</span> Put the system in front of the intended user or buyer
+                    <span style={{ color: stageConfig.sprint.hex }}>→</span> Put the system in front of the intended user or buyer
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#0066ff' }}>→</span> Record what is still manual, fragile, unsafe, or unproven
+                    <span style={{ color: stageConfig.sprint.hex }}>→</span> Record what is still manual, fragile, unsafe, or unproven
                   </li>
                 </ul>
               </CardContent>
@@ -280,7 +276,7 @@ export default function PlaybookPage() {
                     <li key={item} className="flex items-start gap-2">
                       <Check
                         className="w-4 h-4 mt-0.5 shrink-0"
-                        style={{ color: '#0066ff' }}
+                        style={{ color: stageConfig.sprint.hex }}
                         aria-hidden="true"
                       />
                       {item}
@@ -299,8 +295,8 @@ export default function PlaybookPage() {
             <PhaseGlyph phase="sail" className="w-9 h-9 shrink-0" />
             <div>
               <h2
-                className="text-2xl md:text-3xl font-bold"
-                style={{ color: '#00ff88' }}
+                className="text-2xl md:text-3xl font-display font-medium"
+                style={{ color: stageConfig.sail.hex }}
               >
                 Phase 3: Sail
               </h2>
@@ -321,19 +317,19 @@ export default function PlaybookPage() {
                 <h3 className="font-semibold text-foreground">Useful activities</h3>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#00ff88' }}>→</span> Run the most credible distribution channel consistently
+                    <span style={{ color: stageConfig.sail.hex }}>→</span> Run the most credible distribution channel consistently
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#00ff88' }}>→</span> Improve activation, retention, willingness to pay, and operating reliability
+                    <span style={{ color: stageConfig.sail.hex }}>→</span> Improve activation, retention, willingness to pay, and operating reliability
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#00ff88' }}>→</span> Automate bounded work only after the process is understood
+                    <span style={{ color: stageConfig.sail.hex }}>→</span> Automate bounded work only after the process is understood
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#00ff88' }}>→</span> Track support burden, quality, risk, revenue, and strategic reuse
+                    <span style={{ color: stageConfig.sail.hex }}>→</span> Track support burden, quality, risk, revenue, and strategic reuse
                   </li>
                   <li className="flex items-start gap-2">
-                    <span style={{ color: '#00ff88' }}>→</span> Revisit whether this work still outranks other uses of attention
+                    <span style={{ color: stageConfig.sail.hex }}>→</span> Revisit whether this work still outranks other uses of attention
                   </li>
                 </ul>
               </CardContent>
@@ -349,7 +345,7 @@ export default function PlaybookPage() {
                     <li key={item} className="flex items-start gap-2">
                       <Check
                         className="w-4 h-4 mt-0.5 shrink-0"
-                        style={{ color: '#00ff88' }}
+                        style={{ color: stageConfig.sail.hex }}
                         aria-hidden="true"
                       />
                       {item}
@@ -364,7 +360,7 @@ export default function PlaybookPage() {
         <Separator className="bg-border-subtle" />
 
         <Section>
-          <h2 className="text-2xl md:text-4xl font-bold mb-4">
+          <h2 className="text-2xl md:text-4xl font-display font-medium mb-4">
             Every review ends in a decision
           </h2>
           <p className="text-text-muted leading-relaxed max-w-2xl">
@@ -377,7 +373,7 @@ export default function PlaybookPage() {
               return (
                 <Card key={decision.title} className="bg-surface border-border-subtle">
                   <CardContent className="pt-6">
-                    <Icon className="w-5 h-5 text-accent-green" />
+                    <Icon className="w-5 h-5 text-chalk-green" />
                     <h3 className="mt-4 text-lg font-semibold text-foreground">
                       {decision.title}
                     </h3>
@@ -394,7 +390,7 @@ export default function PlaybookPage() {
         <Separator className="bg-border-subtle" />
 
         <Section>
-          <h2 className="text-2xl md:text-4xl font-bold mb-6">
+          <h2 className="text-2xl md:text-4xl font-display font-medium mb-6">
             What should compound across experiments
           </h2>
           <div className="space-y-5 text-text-muted leading-relaxed">
@@ -424,7 +420,7 @@ export default function PlaybookPage() {
         <Separator className="bg-border-subtle" />
 
         <section className="py-16 text-center space-y-6">
-          <h2 className="text-2xl md:text-4xl font-bold">
+          <h2 className="text-2xl md:text-4xl font-display font-medium">
             Read the method against the actual ledger.
           </h2>
           <p className="text-text-muted max-w-lg mx-auto">
@@ -435,7 +431,7 @@ export default function PlaybookPage() {
             href="/#pipeline"
             className={cn(
               buttonVariants({ size: 'lg' }),
-              'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2',
+              'font-semibold inline-flex items-center gap-2',
             )}
           >
             View the experiment ledger <ArrowRight className="w-4 h-4" />

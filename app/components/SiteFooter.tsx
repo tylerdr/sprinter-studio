@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Github, Zap } from 'lucide-react'
+import { Github } from 'lucide-react'
 
 import { outbound } from '@/lib/links'
 
@@ -14,8 +14,9 @@ export function SiteFooter() {
     <footer className="border-t border-border-subtle py-12 px-6">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-2">
-          <Zap className="w-5 h-5 text-accent-green" />
-          <span className="font-semibold">sprinter.studio</span>
+          <span className="font-semibold">
+            sprinter<span className="text-chalk-green">.</span>studio
+          </span>
           <span className="text-text-muted text-sm ml-2">
             The venture studio of Sprinter
           </span>

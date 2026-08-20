@@ -2,18 +2,15 @@
 
 import { useEffect, useRef } from 'react'
 
-const FALLBACK_REVEAL_MS = 2500
 const EASE = 'cubic-bezier(0.21, 0.55, 0.28, 1)'
 
 /**
- * Fail-open scroll reveal. Server HTML ships fully visible — no
- * `opacity:0` ever reaches SSR/static output, so crawlers, no-JS
- * contexts, and anything reading the page before hydration always see
- * the content. Only elements still below the viewport at hydration get
- * the entrance state (applied imperatively, so React never renders a
- * hidden frame); a timer reveals everything for inert contexts (audits,
- * screenshots, JS crawlers that never interact) and real user input
- * cancels that shortcut so the observer drives the entrance.
+ * Entrance rise that only ever animates transform. Opacity is never
+ * touched — not on the scroll path and not on the mount path — so server
+ * HTML, pre-hydration paints, inert captures, and full-page screenshots
+ * always show every element. An element the observer never reaches is
+ * merely offset by its entrance distance, not hidden, which is why no
+ * reveal-fallback timer is needed.
  */
 export function Reveal({
   children,
@@ -53,17 +50,14 @@ export function Reveal({
       return
     }
 
-    const hide = () => {
-      el.style.opacity = '0'
+    const offset = () => {
       el.style.transform = `translate(${x}px, ${y}px)`
     }
-    const show = () => {
-      el.style.transition = `opacity ${duration}s ${EASE} ${delay}s, transform ${duration}s ${EASE} ${delay}s`
-      el.style.opacity = '1'
+    const settle = () => {
+      el.style.transition = `transform ${duration}s ${EASE} ${delay}s`
       el.style.transform = 'translate(0px, 0px)'
     }
     const reset = () => {
-      el.style.removeProperty('opacity')
       el.style.removeProperty('transform')
       el.style.removeProperty('transition')
     }
@@ -72,10 +66,10 @@ export function Reveal({
     // they opted into an immediate mount entrance.
     if (el.getBoundingClientRect().top < window.innerHeight - 40) {
       if (!immediate) return
-      hide()
+      offset()
       let raf2 = 0
       const raf1 = requestAnimationFrame(() => {
-        raf2 = requestAnimationFrame(show)
+        raf2 = requestAnimationFrame(settle)
       })
       return () => {
         cancelAnimationFrame(raf1)
@@ -84,40 +78,21 @@ export function Reveal({
       }
     }
 
-    hide()
-
-    // Bare `scroll` is deliberately not in this list: hash navigation,
-    // scroll restoration, and capture tooling fire it programmatically.
-    const inputEvents = ['pointerdown', 'pointermove', 'wheel', 'touchstart', 'keydown'] as const
+    offset()
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) reveal()
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observer.disconnect()
+          settle()
+        }
       },
       { rootMargin: '0px 0px -60px 0px' },
     )
-
-    const teardown = () => {
-      observer.disconnect()
-      window.clearTimeout(fallback)
-      for (const event of inputEvents) {
-        window.removeEventListener(event, cancelFallback)
-      }
-    }
-    const reveal = () => {
-      teardown()
-      show()
-    }
-
     observer.observe(el)
-    const fallback = window.setTimeout(reveal, FALLBACK_REVEAL_MS)
-    const cancelFallback = () => window.clearTimeout(fallback)
-    for (const event of inputEvents) {
-      window.addEventListener(event, cancelFallback, { once: true, passive: true })
-    }
 
     return () => {
-      teardown()
+      observer.disconnect()
       reset()
     }
   }, [delay, duration, immediate, x, y])

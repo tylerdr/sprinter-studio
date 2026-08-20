@@ -330,42 +330,17 @@ export const trackConfig = {
   },
 } as const
 
+/**
+ * Stage colors follow the D19 chalk grammar: chalk-green for shipped and
+ * earning (Sail/Revenue), chalk-amber for in-build (Sprint), chalk-3 for
+ * queued and archived (Amble/Archived). chalk-3 text must stay ≥ 12px.
+ */
 export const stageConfig = {
-  amble: {
-    label: 'Amble',
-    color: 'text-accent-orange',
-    bg: 'bg-accent-orange/10',
-    border: 'border-accent-orange/30',
-    hex: '#ff6600',
-  },
-  sprint: {
-    label: 'Sprint',
-    color: 'text-accent-blue',
-    bg: 'bg-accent-blue/10',
-    border: 'border-accent-blue/30',
-    hex: '#4d94ff',
-  },
-  sail: {
-    label: 'Sail',
-    color: 'text-accent-green',
-    bg: 'bg-accent-green/10',
-    border: 'border-accent-green/30',
-    hex: '#00ff88',
-  },
-  revenue: {
-    label: 'Revenue',
-    color: 'text-accent-green',
-    bg: 'bg-accent-green/10',
-    border: 'border-accent-green/30',
-    hex: '#00ff88',
-  },
-  archived: {
-    label: 'Archived',
-    color: 'text-text-muted',
-    bg: 'bg-text-muted/10',
-    border: 'border-text-muted/30',
-    hex: '#888888',
-  },
+  amble: { label: 'Amble', hex: '#837d70' },
+  sprint: { label: 'Sprint', hex: '#e2c185' },
+  sail: { label: 'Sail', hex: '#8fd8ab' },
+  revenue: { label: 'Revenue', hex: '#8fd8ab' },
+  archived: { label: 'Archived', hex: '#837d70' },
 } as const
 
 export function getVenturesByStage(stage: Venture['stage']) {
