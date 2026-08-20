@@ -39,7 +39,7 @@ function VentureCard({ venture, index }: { venture: Venture; index: number }) {
             </Badge>
           </div>
           <p className="text-xs text-muted-foreground mt-2 line-clamp-2">{venture.description}</p>
-          <p className="text-[10px] mt-1.5" style={{ color: config.hex }}>
+          <p className="font-mono text-xs mt-1.5" style={{ color: config.hex }}>
             {venture.status}
           </p>
         </div>
@@ -69,7 +69,10 @@ export function Pipeline() {
           <div key={stage} className="space-y-3">
             <div className="flex items-center gap-2 mb-4 pb-3 border-b" style={{ borderColor: `${config.hex}40` }}>
               <PhaseGlyph phase={stage} className="w-5 h-5 shrink-0" />
-              <h3 className="text-lg font-semibold" style={{ color: config.hex }}>
+              <h3
+                className="font-mono text-sm font-semibold uppercase tracking-[0.14em]"
+                style={{ color: config.hex }}
+              >
                 {config.label}
               </h3>
               <Badge

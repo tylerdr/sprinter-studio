@@ -2,7 +2,7 @@
 
 import { outbound } from '@/lib/links'
 import Link from 'next/link'
-import { ArrowUpRight, Github, Menu, X, Zap } from 'lucide-react'
+import { ArrowUpRight, Github, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export function SiteHeader() {
@@ -36,23 +36,24 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         scrolled || menuOpen
-          ? 'bg-background/85 backdrop-blur-md border-b border-border-subtle shadow-sm'
+          ? 'bg-background border-b border-border-subtle'
           : 'bg-transparent'
       }`}
     >
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-accent-green focus:px-3 focus:py-2 focus:text-sm focus:text-background"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-chalk-green focus:px-3 focus:py-2 focus:text-sm focus:text-background"
       >
         Skip to main content
       </a>
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-4 px-6 h-16">
         <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
-          <Zap className="w-5 h-5 text-accent-green" />
-          <span>sprinter.studio</span>
-          <span className="hidden lg:inline font-mono text-[10px] uppercase tracking-widest text-text-muted font-normal">
+          <span>
+            sprinter<span className="text-chalk-green">.</span>studio
+          </span>
+          <span className="hidden lg:inline font-mono text-[11px] uppercase tracking-[0.14em] text-text-muted font-normal">
             the venture studio of Sprinter
           </span>
         </Link>
@@ -85,7 +86,7 @@ export function SiteHeader() {
             href={outbound.executiveAccelerator}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex min-h-11 items-center gap-1.5 bg-accent-green px-4 text-sm font-semibold text-background hover:bg-accent-green/90 transition-colors"
+            className="hidden sm:inline-flex min-h-11 items-center gap-1.5 rounded-sm bg-chalk-green px-4 text-sm font-semibold text-background hover:bg-chalk-green/85 transition-colors"
           >
             Executive AI Accelerator
             <ArrowUpRight className="w-4 h-4" />
@@ -135,7 +136,7 @@ export function SiteHeader() {
               href={outbound.executiveAccelerator}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-12 items-center justify-center gap-2 bg-accent-green px-5 text-sm font-semibold text-background"
+              className="flex min-h-12 items-center justify-center gap-2 rounded-sm bg-chalk-green px-5 text-sm font-semibold text-background"
               onClick={() => setMenuOpen(false)}
             >
               Executive AI Accelerator — $2,500
@@ -145,7 +146,7 @@ export function SiteHeader() {
               href={outbound.portfolioAccelerator}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-12 items-center justify-center border border-border-subtle px-5 text-sm text-foreground"
+              className="flex min-h-12 items-center justify-center rounded-sm border border-hairline-strong px-5 text-sm text-foreground"
               onClick={() => setMenuOpen(false)}
             >
               Five-leader portfolio pack — $10,000

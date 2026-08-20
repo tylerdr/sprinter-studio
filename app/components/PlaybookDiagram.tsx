@@ -94,12 +94,12 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
         aria-hidden="true"
       >
         {/* Datum rail */}
-        <text x="40" y={railY - 12} className="font-mono" fontSize="10" letterSpacing="0.2em" fill="#555555">IDEAS</text>
-        <text x="916" y={railY - 12} className="font-mono" fontSize="10" letterSpacing="0.2em" fill="#555555" textAnchor="end">REVENUE</text>
-        <line x1="40" y1={railY} x2="914" y2={railY} stroke="#222222" strokeWidth="1" />
-        <path d={`M914 ${railY - 5}l9 5-9 5Z`} fill="#444444" />
+        <text x="40" y={railY - 12} className="font-mono" fontSize="10" letterSpacing="0.2em" fill="#837d70">IDEAS</text>
+        <text x="916" y={railY - 12} className="font-mono" fontSize="10" letterSpacing="0.2em" fill="#837d70" textAnchor="end">REVENUE</text>
+        <line x1="40" y1={railY} x2="914" y2={railY} stroke="rgba(242, 239, 231, 0.13)" strokeWidth="1" />
+        <path d={`M914 ${railY - 5}l9 5-9 5Z`} fill="#837d70" />
         {CHEVRON_X.map((x) => (
-          <path key={x} d={`M${x} ${railY - 4}l5 4-5 4`} stroke="#444444" strokeWidth="1" />
+          <path key={x} d={`M${x} ${railY - 4}l5 4-5 4`} stroke="#837d70" strokeWidth="1" />
         ))}
 
         {/* Gate checkpoints */}
@@ -107,13 +107,13 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
           <g key={gate.id}>
             <path
               d={`M${gate.x} ${railY - 12}l12 12-12 12-12-12Z`}
-              fill="#0a0a0a"
-              stroke="#888888"
+              fill="#0e0d0b"
+              stroke="#b9b3a6"
               strokeWidth="1.5"
             />
-            <path d={`M${gate.x - 4} ${railY}l3 3 5.5-6`} stroke="#888888" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-            <text x={gate.x} y={railY - 26} className="font-mono" fontSize={full ? 10 : 9} letterSpacing="0.2em" fill="#aaaaaa" textAnchor="middle">{gate.id}</text>
-            <text x={gate.x} y={railY + 32} className="font-mono" fontSize={full ? 9 : 8} letterSpacing="0.15em" fill="#666666" textAnchor="middle">{gate.label}</text>
+            <path d={`M${gate.x - 4} ${railY}l3 3 5.5-6`} stroke="#b9b3a6" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+            <text x={gate.x} y={railY - 26} className="font-mono" fontSize={full ? 10 : 9} letterSpacing="0.2em" fill="#b9b3a6" textAnchor="middle">{gate.id}</text>
+            <text x={gate.x} y={railY + 32} className="font-mono" fontSize={full ? 9 : 8} letterSpacing="0.15em" fill="#837d70" textAnchor="middle">{gate.label}</text>
           </g>
         ))}
 
@@ -127,14 +127,14 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
             <g key={phase}>
               {full && (
                 <>
-                  <line x1={x} y1={railY - nodeR - 10} x2={x} y2={railY - nodeR - 28} stroke="#333333" strokeWidth="1" />
-                  <text x={x} y={railY - nodeR - 36} className="font-mono" fontSize="10" letterSpacing="0.15em" fill="#888888" textAnchor="middle">
+                  <line x1={x} y1={railY - nodeR - 10} x2={x} y2={railY - nodeR - 28} stroke="rgba(242, 239, 231, 0.13)" strokeWidth="1" />
+                  <text x={x} y={railY - nodeR - 36} className="font-mono" fontSize="10" letterSpacing="0.15em" fill="#b9b3a6" textAnchor="middle">
                     {count} {count === 1 ? 'VENTURE' : 'VENTURES'}
                   </text>
                 </>
               )}
               <circle cx={x} cy={railY} r={ringR} stroke={hex} strokeWidth="1" strokeDasharray="2 5" opacity="0.35" />
-              <circle cx={x} cy={railY} r={nodeR} fill="#0a0a0a" stroke={hex} strokeWidth="1.5" />
+              <circle cx={x} cy={railY} r={nodeR} fill="#0e0d0b" stroke={hex} strokeWidth="1.5" />
               <g
                 transform={`translate(${x - glyphOffset} ${railY - glyphOffset}) scale(${glyphScale})`}
                 stroke={hex}
@@ -145,10 +145,10 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
                 <GlyphPaths phase={phase} />
               </g>
               {full && (
-                <text x={x} y={railY + nodeR + 34} className="font-mono" fontSize="10" letterSpacing="0.25em" fill="#555555" textAnchor="middle">{phaseMeta[phase].phase}</text>
+                <text x={x} y={railY + nodeR + 34} className="font-mono" fontSize="10" letterSpacing="0.25em" fill="#837d70" textAnchor="middle">{phaseMeta[phase].phase}</text>
               )}
               <text x={x} y={railY + nodeR + (full ? 58 : 30)} className="font-mono" fontSize={full ? 20 : 14} fontWeight="600" letterSpacing="0.15em" fill={hex} textAnchor="middle">{phaseMeta[phase].name}</text>
-              <text x={x} y={railY + nodeR + (full ? 76 : 46)} className="font-mono" fontSize={full ? 10 : 9} letterSpacing="0.15em" fill="#888888" textAnchor="middle">{phaseMeta[phase].sub}</text>
+              <text x={x} y={railY + nodeR + (full ? 76 : 46)} className="font-mono" fontSize={full ? 10 : 9} letterSpacing="0.15em" fill="#b9b3a6" textAnchor="middle">{phaseMeta[phase].sub}</text>
             </g>
           )
         })}
@@ -161,9 +161,9 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
               [16, 284],
               [944, 284],
             ].map(([x, y]) => (
-              <path key={`${x}-${y}`} d={`M${x - 5} ${y}h10M${x} ${y - 5}v10`} stroke="#222222" strokeWidth="1" />
+              <path key={`${x}-${y}`} d={`M${x - 5} ${y}h10M${x} ${y - 5}v10`} stroke="rgba(242, 239, 231, 0.13)" strokeWidth="1" />
             ))}
-            <text x="944" y="20" className="font-mono" fontSize="9" letterSpacing="0.15em" fill="#444444" textAnchor="end">
+            <text x="944" y="20" className="font-mono" fontSize="9" letterSpacing="0.15em" fill="#837d70" textAnchor="end">
               FIG. 01 · VENTURE FLOW · N = {pipelineVentures.length}
             </text>
           </>
