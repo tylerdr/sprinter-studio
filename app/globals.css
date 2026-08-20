@@ -72,6 +72,22 @@
 
 :root {
   color-scheme: dark;
+
+  /* Emitted brand tokens. @theme inline does not emit custom properties,
+     and the theme aliases plus the hand-authored CSS below reference
+     these via var() — they must exist at runtime. */
+  --color-board: #0e0d0b;
+  --color-board-2: #14130f;
+  --color-board-3: #1b1915;
+  --color-chalk: #f2efe7;
+  --color-chalk-2: #b9b3a6;
+  --color-chalk-3: #837d70;
+  --color-hairline: rgba(242, 239, 231, 0.13);
+  --color-hairline-strong: rgba(242, 239, 231, 0.3);
+  --color-chalk-green: #8fd8ab;
+  --color-chalk-green-deep: #4f9c72;
+  --color-chalk-amber: #e2c185;
+
   --background: #0e0d0b;
   --foreground: #f2efe7;
   --card: #14130f;

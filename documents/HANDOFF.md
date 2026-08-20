@@ -18,6 +18,7 @@
 
 ## Pick up here (priority order)
 - [ ] Run the local gates serially (lint, `tsc --noEmit`/build, Playwright e2e) — deliberately not run in this session per shared-box memory policy
+- [ ] Per D19's own post-merge instruction: verify **computed styles** against the deployed URL (board ground, chalk-green focus outline, grid texture) — not just a Ready status. Brand tokens are emitted in `:root` because `@theme inline` does not emit custom properties
 - [ ] Visual review on a Vercel preview, then Tyler/orchestrator decides the merge (merge publishes live immediately)
 - [ ] Optional: delete unused `public/hero-texture.webp`; consider mono-hostname OutboundLink pattern for external links portfolio-wide
 
