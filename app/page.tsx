@@ -11,22 +11,10 @@ import {
   trackConfig,
 } from '@/app/data/ventures'
 import { buttonVariants } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { outbound } from '@/lib/links'
 import { cn } from '@/lib/utils'
-import {
-  ArrowRight,
-  ArrowUpRight,
-  CheckCircle2,
-  FlaskConical,
-  Github,
-  ShieldCheck,
-  Workflow,
-  XCircle,
-  Zap,
-} from 'lucide-react'
-import Image from 'next/image'
+import { ArrowRight, ArrowUpRight, Github } from 'lucide-react'
 import Link from 'next/link'
 
 const stages = [
@@ -56,18 +44,15 @@ const stages = [
 const operatingRules = [
   {
     title: 'Client work and validated products come first.',
-    body: 'The Studio does not receive unlimited founder attention because an idea is interesting. Experiments must support current client delivery, validated products, reusable capability, qualified demand, or unusually valuable learning.',
-    icon: ShieldCheck,
+    body: 'An experiment earns attention by supporting delivery, building reusable capability, meeting qualified demand, or answering a valuable question cheaply — and hands it back when it stops.',
   },
   {
     title: 'AI accelerates the work; humans remain accountable.',
     body: 'Agents can research, draft, code, test, and operate bounded workflows. Product judgment, safety, prioritization, customer relationships, and the decision to ship or stop remain human responsibilities.',
-    icon: Workflow,
   },
   {
     title: 'A deployed property is evidence of execution, not a business.',
     body: 'The ledger includes hypotheses, prototypes, tools, services, infrastructure, and live properties. Stage, evidence, and the next decision matter more than the number of entries.',
-    icon: FlaskConical,
   },
 ] as const
 
@@ -142,30 +127,39 @@ const faqItems = [
   },
 ]
 
+/** `§ 01 — LABEL` mono eyebrow: the board's section-index annotation. */
+function Eyebrow({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <p
+      className={cn(
+        'font-mono text-[11px] uppercase tracking-[0.14em] text-chalk-green',
+        className,
+      )}
+    >
+      {children}
+    </p>
+  )
+}
+
 function Hero() {
   return (
     <section className="relative min-h-[88vh] overflow-hidden px-6 pt-24 flex items-center">
-      <div className="absolute inset-0" aria-hidden="true">
-        <Image
-          src="/hero-texture.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/45 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,136,0.06)_0%,_transparent_70%)]" />
-      </div>
+      <div className="absolute inset-0 bg-chalk-grid" aria-hidden="true" />
 
       <div className="relative max-w-5xl mx-auto text-center py-20">
         <Reveal immediate duration={0.6} y={28}>
-          <p className="text-sm md:text-base font-mono text-accent-green mb-5 tracking-wider uppercase">
+          <Eyebrow className="mb-6">
             The venture studio of Sprinter · partner incubations · internal
             experiments
-          </p>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-balance">
-            <span className="text-accent-green">Two tracks, one bench:</span>{' '}
+          </Eyebrow>
+          <h1 className="font-display text-4xl md:text-6xl font-medium tracking-tight text-balance leading-[1.08]">
+            <span className="text-chalk-green">Two tracks, one bench:</span>{' '}
             products we build with partners, and experiments we run ourselves.
           </h1>
         </Reveal>
@@ -203,10 +197,7 @@ function Hero() {
         >
           <Link
             href="#pipeline"
-            className={cn(
-              buttonVariants({ size: 'lg' }),
-              'bg-accent-green text-background hover:bg-accent-green/90 font-semibold',
-            )}
+            className={cn(buttonVariants({ size: 'lg' }), 'font-semibold')}
           >
             Read the experiment ledger
           </Link>
@@ -214,7 +205,7 @@ function Hero() {
             href="/playbook"
             className={cn(
               buttonVariants({ variant: 'outline', size: 'lg' }),
-              'border-border-subtle hover:bg-surface',
+              'border-hairline-strong hover:border-chalk-green',
             )}
           >
             Read the build method
@@ -222,54 +213,59 @@ function Hero() {
         </Reveal>
 
         <Reveal
+          as="p"
           immediate
           duration={0.6}
           delay={0.5}
           y={0}
-          className="mt-8 mx-auto max-w-3xl border border-border-subtle bg-surface/70 px-5 py-4 text-left"
+          className="mt-10 text-sm text-text-muted"
         >
-          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            Current operating rule
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-text-muted">
-            Executive enablement, cash-flowing client work, and validated product
-            obligations come first. Studio work earns attention only when it
-            supports those priorities or answers an unusually valuable question
-            cheaply.
-          </p>
+          Client work and validated products come first — studio experiments
+          earn their place.
         </Reveal>
       </div>
     </section>
   )
 }
 
-function WhatThisIs() {
+function TwoTracks() {
   return (
-    <section className="py-20 px-6 bg-surface/45">
+    <section className="py-24 px-6 bg-surface/45">
       <div className="max-w-6xl mx-auto">
-        <Reveal className="grid gap-6 md:grid-cols-2">
-          <div className="border border-accent-green/25 bg-background p-7 md:p-9">
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-accent-green" />
-              <h2 className="text-xl font-semibold">What this is</h2>
+        <Reveal className="max-w-3xl">
+          <Eyebrow>§ 01 — The two tracks</Eyebrow>
+          <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
+            One studio. Two clearly labeled tracks.
+          </h2>
+        </Reveal>
+
+        <Reveal y={0} className="mt-10 border-t border-border-subtle">
+          <div className="grid gap-3 border-b border-border-subtle py-8 md:grid-cols-[16rem_1fr] md:gap-8">
+            <h3 className="font-display text-2xl font-medium">
+              Partner incubations
+            </h3>
+            <div>
+              <p className="text-text-muted leading-relaxed">
+                {trackConfig.partner.definition}
+              </p>
+              <p className="mt-3 text-sm text-chalk-3">
+                No partner incubation is published yet. When one is, it appears
+                in the ledger with the partner named.
+              </p>
             </div>
-            <p className="mt-5 text-text-muted leading-relaxed">
-              A venture studio working in the open, in two labeled tracks:
-              products incubated with partners, and experiments run on
-              Sprinter&apos;s own bench — with the evidence used to decide what
-              advances.
-            </p>
           </div>
-          <div className="border border-border-subtle bg-background p-7 md:p-9">
-            <div className="flex items-center gap-3">
-              <XCircle className="w-5 h-5 text-text-muted" />
-              <h2 className="text-xl font-semibold">What this is not</h2>
+          <div className="grid gap-3 border-b border-border-subtle py-8 md:grid-cols-[16rem_1fr] md:gap-8">
+            <h3 className="font-display text-2xl font-medium">
+              Internal experiments
+            </h3>
+            <div>
+              <p className="text-text-muted leading-relaxed">
+                {trackConfig.internal.definition}
+              </p>
+              <p className="mt-3 text-sm text-chalk-3">
+                Everything currently in the ledger is an internal experiment.
+              </p>
             </div>
-            <p className="mt-5 text-text-muted leading-relaxed">
-              Another commercial offer, a claim that Sprinter operates dozens of
-              mature companies, a substitute for customer proof, or permission
-              to keep every idea alive.
-            </p>
           </div>
         </Reveal>
       </div>
@@ -282,38 +278,32 @@ function OperatingRules() {
     <section className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal className="max-w-3xl">
-          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            The constraints
-          </p>
-          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+          <Eyebrow>§ 02 — How the studio decides</Eyebrow>
+          <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
             The Studio is useful only when it makes Sprinter more focused.
           </h2>
           <p className="mt-5 text-lg text-text-muted leading-relaxed">
-            Cheap software production can create an expensive attention problem.
-            These rules keep experimentation subordinate to the commercial
-            business and real customer obligations.
+            Cheap software makes attention the scarce resource. Three rules
+            decide where it goes.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {operatingRules.map((rule, index) => {
-            const Icon = rule.icon
-            return (
-              <Reveal key={rule.title} delay={index * 0.08}>
-                <Card className="h-full bg-surface border-border-subtle">
-                  <CardContent className="pt-7 space-y-4">
-                    <Icon className="w-6 h-6 text-accent-green" />
-                    <h3 className="text-xl font-semibold leading-snug">
-                      {rule.title}
-                    </h3>
-                    <p className="text-sm text-text-muted leading-relaxed">
-                      {rule.body}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            )
-          })}
+        <div className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-3">
+          {operatingRules.map((rule, index) => (
+            <Reveal key={rule.title} delay={index * 0.08}>
+              <div className="h-full border-t border-hairline-strong pt-6">
+                <p className="font-mono text-xs text-chalk-green">
+                  0{index + 1}
+                </p>
+                <h3 className="mt-3 text-xl font-semibold leading-snug">
+                  {rule.title}
+                </h3>
+                <p className="mt-4 text-sm text-text-muted leading-relaxed">
+                  {rule.body}
+                </p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -331,10 +321,10 @@ function TrackHeading({
   return (
     <div className="max-w-3xl">
       <div className="flex flex-wrap items-baseline gap-3">
-        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+        <h3 className="font-display text-2xl md:text-3xl font-medium tracking-tight">
           {config.plural}
         </h3>
-        <span className="font-mono text-xs uppercase tracking-widest text-text-muted">
+        <span className="font-mono text-xs uppercase tracking-[0.14em] text-text-muted">
           {count} {count === 1 ? 'entry' : 'entries'}
         </span>
       </div>
@@ -348,10 +338,8 @@ function Method() {
     <section className="py-24 px-6 bg-surface/35">
       <div className="max-w-6xl mx-auto">
         <Reveal className="text-center max-w-3xl mx-auto">
-          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            How to read the stages
-          </p>
-          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+          <Eyebrow>§ 03 — Amble → Sprint → Sail</Eyebrow>
+          <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
             A stage is a confidence label, not a trophy.
           </h2>
           <p className="mt-5 text-text-muted leading-relaxed">
@@ -364,32 +352,33 @@ function Method() {
           <PlaybookDiagram variant="compact" />
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
           {stages.map((stage, index) => {
             const config = stageConfig[stage.key]
             return (
               <Reveal key={stage.key} delay={index * 0.1}>
-                <Card className="bg-background border-border-subtle h-full">
-                  <CardContent className="pt-6 space-y-4">
-                    <div className="flex items-center gap-3">
-                      <PhaseGlyph phase={stage.key} className="w-8 h-8 shrink-0" />
-                      <div>
-                        <h3
-                          className="text-xl font-semibold"
-                          style={{ color: config.hex }}
-                        >
-                          {stage.title}
-                        </h3>
-                        <p className="text-sm text-text-muted">
-                          {stage.subtitle}
-                        </p>
-                      </div>
+                <div
+                  className="h-full border-t pt-6"
+                  style={{ borderColor: `${config.hex}55` }}
+                >
+                  <div className="flex items-center gap-3">
+                    <PhaseGlyph phase={stage.key} className="w-8 h-8 shrink-0" />
+                    <div>
+                      <h3
+                        className="font-mono text-sm font-semibold uppercase tracking-[0.14em]"
+                        style={{ color: config.hex }}
+                      >
+                        {stage.title}
+                      </h3>
+                      <p className="text-sm text-text-muted">
+                        {stage.subtitle}
+                      </p>
                     </div>
-                    <p className="text-sm text-text-muted leading-relaxed">
-                      {stage.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                  <p className="mt-4 text-sm text-text-muted leading-relaxed">
+                    {stage.description}
+                  </p>
+                </div>
               </Reveal>
             )
           })}
@@ -411,10 +400,8 @@ function PipelineSection() {
     <section id="pipeline" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal className="max-w-3xl mb-14">
-          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            Experiment ledger
-          </p>
-          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+          <Eyebrow>§ 04 — The ledger</Eyebrow>
+          <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
             Current entries, with their track, stage, and status.
           </h2>
           <p className="mt-5 text-text-muted leading-relaxed">
@@ -427,7 +414,7 @@ function PipelineSection() {
         <Reveal id="partner-incubations" className="scroll-mt-24">
           <TrackHeading track="partner" count={partnerVentures.length} />
           {partnerVentures.length === 0 ? (
-            <p className="mt-6 border border-border-subtle bg-surface/70 px-5 py-4 text-sm leading-relaxed text-text-muted">
+            <p className="mt-6 border-y border-border-subtle px-1 py-5 text-sm leading-relaxed text-text-muted">
               No partner incubation is published yet. When one is, it appears
               here with the partner named. Nothing below is a partner product.
             </p>
@@ -453,7 +440,7 @@ function PipelineSection() {
         {archivedVentures.length > 0 && (
           <Reveal className="mt-16" y={0}>
             <div className="max-w-3xl">
-              <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+              <h3 className="font-display text-2xl md:text-3xl font-medium tracking-tight">
                 Stopped and archived
               </h3>
               <p className="mt-3 text-text-muted leading-relaxed">
@@ -476,10 +463,8 @@ function Lessons() {
     <section className="py-24 px-6 bg-surface/40">
       <div className="max-w-6xl mx-auto">
         <Reveal className="max-w-3xl">
-          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            What the work keeps teaching us
-          </p>
-          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+          <Eyebrow>§ 05 — What the work teaches</Eyebrow>
+          <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
             The useful output is the pattern, not the property count.
           </h2>
         </Reveal>
@@ -488,10 +473,10 @@ function Lessons() {
           {lessons.map((lesson, index) => (
             <Reveal key={lesson.title} delay={index * 0.06}>
               <article className="h-full bg-background p-7 md:p-9">
-                <p className="font-mono text-xs text-accent-green">
+                <p className="font-mono text-xs text-chalk-green">
                   0{index + 1}
                 </p>
-                <h3 className="mt-4 text-2xl font-semibold">
+                <h3 className="mt-4 font-display text-2xl font-medium">
                   {lesson.title}
                 </h3>
                 <p className="mt-4 text-text-muted leading-relaxed">
@@ -511,10 +496,8 @@ function CommercialRoutes() {
     <section className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal className="text-center max-w-3xl mx-auto">
-          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            Looking for Sprinter, not the studio?
-          </p>
-          <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">
+          <Eyebrow>§ 06 — Working with Sprinter</Eyebrow>
+          <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
             Start with one executive, not a transformation program.
           </h2>
           <p className="mt-5 text-text-muted leading-relaxed">
@@ -527,28 +510,26 @@ function CommercialRoutes() {
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
           {routes.map((route, index) => (
             <Reveal key={route.href} delay={index * 0.08}>
-              <Card className="h-full bg-surface border-border-subtle">
-                <CardContent className="flex h-full flex-col pt-7">
-                  <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-                    {route.eyebrow}
-                  </p>
-                  <h3 className="mt-4 text-2xl font-semibold leading-snug">
-                    {route.title}
-                  </h3>
-                  <p className="mt-4 text-sm text-text-muted leading-relaxed">
-                    {route.body}
-                  </p>
-                  <a
-                    href={route.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-auto pt-7 text-sm text-accent-green hover:text-accent-green/80 inline-flex items-center gap-1.5"
-                  >
-                    {route.cta}
-                    <ArrowUpRight className="w-4 h-4" />
-                  </a>
-                </CardContent>
-              </Card>
+              <div className="flex h-full flex-col border border-border-subtle bg-surface p-7 md:p-8">
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-chalk-amber">
+                  {route.eyebrow}
+                </p>
+                <h3 className="mt-4 font-display text-2xl font-medium leading-snug">
+                  {route.title}
+                </h3>
+                <p className="mt-4 text-sm text-text-muted leading-relaxed">
+                  {route.body}
+                </p>
+                <a
+                  href={route.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto pt-7 text-sm text-chalk-green underline decoration-hairline-strong underline-offset-4 hover:decoration-chalk-green inline-flex items-center gap-1.5"
+                >
+                  {route.cta}
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
             </Reveal>
           ))}
         </div>
@@ -561,11 +542,11 @@ function BuiltBySection() {
   return (
     <section className="py-24 px-6 bg-surface/40">
       <div className="max-w-3xl mx-auto">
-        <Reveal className="border border-border-subtle bg-background p-8 md:p-10 space-y-5">
-          <p className="font-mono text-xs uppercase tracking-widest text-accent-green">
-            The accountable human
-          </p>
-          <h2 className="text-3xl font-bold">Built under Tyler Dreher&apos;s direction.</h2>
+        <Reveal className="border-y border-border-subtle py-10 space-y-5">
+          <Eyebrow>§ 07 — The builder</Eyebrow>
+          <h2 className="font-display text-3xl font-medium tracking-tight">
+            Built under Tyler Dreher&apos;s direction.
+          </h2>
           <p className="text-text-muted leading-relaxed">
             Tyler is a mechanical engineer turned software founder. Studio makes
             the evolving build system visible: the hypotheses, automation,
@@ -578,7 +559,7 @@ function BuiltBySection() {
               href={outbound.tyler}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-accent-green hover:text-accent-green/80 inline-flex items-center gap-1.5"
+              className="text-sm text-chalk-green underline decoration-hairline-strong underline-offset-4 hover:decoration-chalk-green inline-flex items-center gap-1.5"
             >
               About Tyler <ArrowUpRight className="w-4 h-4" />
             </a>
@@ -602,7 +583,8 @@ function FAQSection() {
     <section className="py-24 px-6">
       <div className="max-w-3xl mx-auto">
         <Reveal className="text-center">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+          <Eyebrow>§ 08 — Questions</Eyebrow>
+          <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight">
             Frequently asked questions
           </h2>
         </Reveal>
@@ -612,7 +594,7 @@ function FAQSection() {
             <details key={item.question} className="group border-b border-border-subtle py-5">
               <summary className="cursor-pointer list-none flex items-start justify-between gap-5 text-lg font-semibold">
                 {item.question}
-                <span className="text-accent-green group-open:rotate-45 transition-transform">+</span>
+                <span className="text-chalk-green group-open:rotate-45 transition-transform">+</span>
               </summary>
               <p className="pt-4 pb-2 text-text-muted leading-relaxed">
                 {item.answer}
@@ -645,11 +627,12 @@ function FAQSection() {
 
 function FinalCta() {
   return (
-    <section className="py-24 px-6 border-t border-border-subtle">
-      <div className="max-w-4xl mx-auto text-center">
+    <section className="relative overflow-hidden py-24 px-6 border-t border-border-subtle">
+      <div className="absolute inset-0 bg-chalk-grid" aria-hidden="true" />
+      <div className="relative max-w-4xl mx-auto text-center">
         <Reveal>
-          <Zap className="w-8 h-8 text-accent-green mx-auto" />
-          <h2 className="mt-5 text-3xl md:text-5xl font-bold tracking-tight">
+          <Eyebrow>§ 09 — Next</Eyebrow>
+          <h2 className="mt-5 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
             Follow the experiments. Start with one executive and real work.
           </h2>
           <p className="mt-5 max-w-2xl mx-auto text-text-muted leading-relaxed">
@@ -665,7 +648,7 @@ function FinalCta() {
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ size: 'lg' }),
-                'bg-accent-green text-background hover:bg-accent-green/90 font-semibold inline-flex items-center gap-2',
+                'font-semibold inline-flex items-center gap-2',
               )}
             >
               Executive AI Accelerator — $2,500
@@ -677,7 +660,7 @@ function FinalCta() {
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ variant: 'outline', size: 'lg' }),
-                'border-border-subtle hover:bg-surface inline-flex items-center gap-2',
+                'border-hairline-strong hover:border-chalk-green inline-flex items-center gap-2',
               )}
             >
               Five-leader portfolio pack — $10,000
@@ -702,7 +685,7 @@ export default function Home() {
   return (
     <main id="main" className="min-h-screen pb-24 lg:pb-0">
       <Hero />
-      <WhatThisIs />
+      <TwoTracks />
       <Separator className="bg-border-subtle" />
       <OperatingRules />
       <Separator className="bg-border-subtle" />
