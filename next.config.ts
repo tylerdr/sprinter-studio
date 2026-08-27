@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
     exposeTestingApiInProductionBuild:
       process.env.NEXT_INSTANT_NAV_TEST === "1",
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.sprinter.studio" }],
+        destination: "https://sprinter.studio/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
