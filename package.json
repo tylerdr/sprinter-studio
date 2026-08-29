@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm quality:seo && pnpm typecheck && next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "quality:seo": "node scripts/seo-contract.mjs",
     "test:e2e": "playwright test"
   },
   "dependencies": {
