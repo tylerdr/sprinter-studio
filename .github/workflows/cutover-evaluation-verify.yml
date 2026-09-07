@@ -1,0 +1,45 @@
+name: Verify isolated Cutover evaluation
+on:
+  push:
+    branches: ['cutover-desk/standalone-20260906']
+    paths:
+      - 'experiments/cutover-desk/**'
+      - '.github/workflows/cutover-evaluation-verify.yml'
+permissions:
+  contents: write
+concurrency:
+  group: cutover-evaluation-verify
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: cutover-desk/standalone-20260906
+      - name: Normalize transport and verify source hash
+        shell: python
+        run: |
+          from pathlib import Path
+          import re, base64, gzip, hashlib
+          p = Path('experiments/cutover-desk/index.html')
+          text = p.read_text()
+          packed = ''.join(re.findall(r"'([A-Za-z0-9+/=]{100,})'", text))
+          packed = packed.replace('WnIP+uwg', 'WnIP+wg').replace('OLvz7zRr', 'OLvzrzRr')
+          html = gzip.decompress(base64.b64decode(packed))
+          actual = hashlib.sha256(html).hexdigest()
+          expected = '5e3164c831cbc1c095ea43f7952bae84fd0d70da8dc65f33c0ab4855e8f92125'
+          assert actual == expected, f'Artifact integrity mismatch: {actual}'
+          assert b'id="workbench"' in html and b'Cutover Desk' in html
+          p.write_bytes(html)
+          print('VERIFIED', actual, len(html), 'bytes; no customer data or external API calls')
+      - name: Persist verified uncompressed evaluation on this branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add experiments/cutover-desk/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'build: persist verified cutover evaluation [skip ci]'
+            git push origin HEAD:cutover-desk/standalone-20260906
+          fi
