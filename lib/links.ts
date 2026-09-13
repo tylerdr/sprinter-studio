@@ -10,6 +10,7 @@ export const outbound = {
   executiveAccelerator: `https://sprinter.ai/executive-ai-accelerator${UTM}`,
   portfolioAccelerator: `https://sprinter.ai/portfolio-executive-ai-accelerator${UTM}`,
   skillsCheck: `https://sprinter.ai/ai-skills-check${UTM}`,
+  productWedgeReview: `https://sprinter.ai/product-wedge-review${UTM}`,
   // Temporary aliases keep older components compiling while copy migrates.
   workshop: `https://sprinter.ai/executive-ai-accelerator${UTM}`,
   portfolioPack: `https://sprinter.ai/portfolio-executive-ai-accelerator${UTM}`,

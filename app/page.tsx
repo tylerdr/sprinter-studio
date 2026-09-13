@@ -404,6 +404,17 @@ function PipelineSection() {
                   hi@sprinter.ai
                 </span>
               </a>
+              <a
+                href={outbound.productWedgeReview}
+                target="_blank"
+                {...trackOutbound('partner-incubation-build')}
+                rel="noopener noreferrer"
+                className="mt-4 flex w-fit items-center gap-1.5 text-sm text-text-muted hover:text-foreground"
+              >
+                Want to fund and own the build instead? sprinter.ai&apos;s
+                Product Wedge Review
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
             </div>
           ) : (
             <div className="mt-6">
@@ -480,7 +491,7 @@ function Lessons() {
 
 function CommercialRoutes() {
   return (
-    <section className="py-24 px-6">
+    <section id="working-with-sprinter" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal className="text-center max-w-3xl mx-auto">
           <Eyebrow>§ 06 — Working with Sprinter</Eyebrow>
@@ -521,6 +532,20 @@ function CommercialRoutes() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal y={0} className="mt-8 text-center">
+          <a
+            href={outbound.productWedgeReview}
+            target="_blank"
+            {...trackOutbound('commercial-routes-build')}
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-foreground"
+          >
+            Funding a product of your own? Product Wedge Review, scoped after
+            fit
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+        </Reveal>
       </div>
     </section>
   )
