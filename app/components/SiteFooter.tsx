@@ -22,7 +22,7 @@ export function SiteFooter() {
           </span>
         </div>
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
-          <Link href="#pipeline" className="hover:text-foreground transition-colors">
+          <Link href="/#pipeline" className="hover:text-foreground transition-colors">
             Experiment ledger
           </Link>
           <Link href="/playbook" className="hover:text-foreground transition-colors">
