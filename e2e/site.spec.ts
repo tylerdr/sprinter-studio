@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { instant } from '@next/playwright'
+import { archivedVentures, ventures } from '../app/data/ventures'
 
 test('home exposes the Studio role without overstating venture proof', async ({ page }) => {
   await page.goto('/')
@@ -56,11 +57,20 @@ test('playbook diagram shows one layout at every width; marker is hidden at rest
 })
 
 test('venture records link only to live destinations', async ({ page }) => {
+  // An entry that links its own domain must be marked live, never archived or offline.
+  for (const venture of ventures.filter((v) => v.url?.includes(v.domain))) {
+    expect(venture.stage, venture.slug).not.toBe('archived')
+    expect(venture.status, venture.slug).not.toMatch(/offline/i)
+  }
+
   await page.goto('/ventures/portcoaudit')
   await expect(page.locator('main a[href="https://portcoaudit.com"]')).toBeVisible()
   await expect(page.locator('main')).not.toContainText(/retired/i)
-  await page.goto('/ventures/aiopsguide')
-  await expect(page.locator('main a[href*="aiopsguide.com"]')).toHaveCount(0)
+
+  for (const venture of archivedVentures) {
+    await page.goto(`/ventures/${venture.slug}`)
+    await expect(page.locator(`main a[href*="${venture.domain}"]`)).toHaveCount(0)
+  }
 })
 
 test('mobile navigation opens and remains usable', async ({ page }, testInfo) => {

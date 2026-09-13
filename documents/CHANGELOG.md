@@ -4,6 +4,19 @@
 
 ---
 
+## 2026-09-13 — Revenue-coherence S3: dead domains leave "Live" (Claude Code session)
+
+**Branch:** fix/revenue-coherence-2026-09-13 → PR (not merged)
+**Prompt:** review-2026-09-13 revenue-coherence S3 — the ledger must not mark dead domains "Live"; re-verify every venture domain.
+
+**Shipped:**
+- `app/data/ventures.ts` — AI Biz Blueprint (HTTPS fails, HTTP serves a parking lander), OG Preview Tool (no DNS), and CIM Reader (HTTPS 200 is a parking lander) → archived with Offline statuses; no outbound link, screenshot, or featured flag (the AI Ops Guide pattern). Every other linked domain serves its own site.
+- `e2e/site.spec.ts` — "live destinations" test now covers every archived record and asserts no entry that links its own domain is archived or offline.
+
+**Open for Tyler:** CIM Reader was a featured Sprint entry; restore it when cimreader.com serves the prototype again. sproutparent.com (Amble, unlinked) returns Vercel DEPLOYMENT_NOT_FOUND.
+
+---
+
 ## 2026-09-13 — Re-review polish + D21 ledger truth (Claude Code session)
 
 **Branch:** polish/review-2026-09-13 → PR (not merged)
