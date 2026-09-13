@@ -1,4 +1,9 @@
-import { ventures, stageConfig, trackConfig } from '@/app/data/ventures'
+import {
+  ventures,
+  stageConfig,
+  standaloneBrandConfig,
+  trackConfig,
+} from '@/app/data/ventures'
 import { Badge } from '@/components/ui/badge'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -94,6 +99,14 @@ export default async function VenturePage({
               >
                 {track.label}
               </Badge>
+              {venture.standaloneBrand && (
+                <Badge
+                  variant="outline"
+                  className="border-border-subtle text-text-muted"
+                >
+                  {standaloneBrandConfig.label}
+                </Badge>
+              )}
             </div>
             <h1 className="font-display text-3xl md:text-4xl font-medium leading-none tracking-tight">
               {venture.name}
@@ -107,6 +120,11 @@ export default async function VenturePage({
                 {venture.status}
               </p>
             </div>
+            {venture.standaloneBrand && (
+              <p className="text-sm leading-relaxed text-text-muted">
+                {standaloneBrandConfig.note}
+              </p>
+            )}
           </CardHeader>
 
           {/* An archived record's thumbnail keeps advertising whatever the

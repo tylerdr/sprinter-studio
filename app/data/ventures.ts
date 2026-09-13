@@ -18,6 +18,8 @@ export interface Venture {
   signal?: string
   featured?: boolean
   screenshot?: string
+  /** D22a: a niche brand with its own offers, backed by Sprinter but not a Sprinter offer. */
+  standaloneBrand?: boolean
 }
 
 export const ventures: Venture[] = [
@@ -38,6 +40,7 @@ export const ventures: Venture[] = [
     signal: 'Public offer and delivery hypothesis exist; repeatable demand still needs evidence.',
     featured: true,
     screenshot: '/ventures/getfoundinchat.webp',
+    standaloneBrand: true,
   },
   {
     slug: 'shreddify',
@@ -98,6 +101,7 @@ export const ventures: Venture[] = [
     monetization: 'Paid workshop qualifier into a fixed-fee portfolio audit.',
     signal: 'A public offer exists; repeatable demand still needs evidence.',
     screenshot: '/ventures/portcoaudit.webp',
+    standaloneBrand: true,
   },
 
   // SPRINT: bounded builds intended to answer a specific question.
@@ -325,6 +329,12 @@ export const trackConfig = {
     definition:
       "Products Sprinter starts on its own bench, published while they are still unproven.",
   },
+} as const
+
+/** D22a §3 copy for entries marked `standaloneBrand`. */
+export const standaloneBrandConfig = {
+  label: 'Standalone brand · backed by Sprinter',
+  note: 'Its offers and prices are its own; they are not Sprinter offers.',
 } as const
 
 /**

@@ -2,13 +2,17 @@ import {
   archivedVentures,
   getVenturesByTrack,
   stageConfig,
+  standaloneBrandConfig,
   trackConfig,
   ventures,
   type Venture,
 } from '@/app/data/ventures'
 
 function entry(venture: Venture) {
-  return `- ${venture.name} (${venture.domain}) — ${venture.description} [${stageConfig[venture.stage].label}: ${venture.status}]`
+  const brand = venture.standaloneBrand
+    ? ` [${standaloneBrandConfig.label}. ${standaloneBrandConfig.note}]`
+    : ''
+  return `- ${venture.name} (${venture.domain}) — ${venture.description} [${stageConfig[venture.stage].label}: ${venture.status}]${brand}`
 }
 
 export function GET() {
@@ -29,6 +33,7 @@ export function GET() {
     '- Executive AI Accelerator, $2,500: https://sprinter.ai/executive-ai-accelerator',
     '- Portfolio Executive AI Accelerator, $10,000 for five individually scheduled leaders: https://sprinter.ai/portfolio-executive-ai-accelerator',
     '- Workflow setup and implementation after the need is proven: https://sprinterconsulting.com',
+    '- Funding a product of your own? Product Wedge Review, scoped after fit: https://sprinter.ai/product-wedge-review',
     '- Founder background and writing: https://tylerdreher.com',
     '',
     'The Executive AI Accelerator is the default first purchase: one executive, two private 60-minute working sessions over one week, and three repeatable Claude Cowork, ChatGPT, Copilot, Gemini, or other approved AI workflows. No workshop cohort, Sprinter platform, integration, or long-term contract is required.',

@@ -73,6 +73,36 @@ test('venture records link only to live destinations', async ({ page }) => {
   }
 })
 
+test('niche ventures are labeled standalone brands, not Sprinter offers', async ({ page }) => {
+  const niche = ventures.filter((v) => v.standaloneBrand).map((v) => v.slug)
+  expect(niche.sort()).toEqual(['getfoundinchat', 'portcoaudit'])
+
+  for (const slug of niche) {
+    await page.goto(`/ventures/${slug}`)
+    const main = page.locator('main')
+    await expect(main.getByText('Standalone brand · backed by Sprinter')).toBeVisible()
+    await expect(
+      main.getByText('Its offers and prices are its own; they are not Sprinter offers.'),
+    ).toBeVisible()
+  }
+})
+
+test('build door routes to the Product Wedge Review; routing block names no niche brand', async ({ page }) => {
+  await page.goto('/')
+  const routes = page.locator('#working-with-sprinter')
+  const door = routes.locator(
+    'a[href="https://sprinter.ai/product-wedge-review?utm_source=studio&utm_medium=site"]',
+  )
+  await expect(door).toBeVisible()
+  await expect(door).toContainText('Funding a product of your own?')
+  await expect(door).toHaveAttribute('data-analytics-event', 'outbound_click')
+  await expect(routes).not.toContainText(/portco|getfoundinchat/i)
+
+  await expect(
+    page.locator('#partner-incubations a[href^="https://sprinter.ai/product-wedge-review"]'),
+  ).toContainText('Want to fund and own the build instead?')
+})
+
 test('mobile navigation opens and remains usable', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'mobile-only menu check')
   await page.goto('/')
