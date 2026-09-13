@@ -174,12 +174,11 @@ body::before {
   outline-offset: 2px;
 }
 
-/* PlaybookDiagram progression (S7). A work marker walks the datum rail
+/* PlaybookDiagram progression (S7). The rail draws (stroke-dashoffset), then a work marker walks the datum rail
    Amble → Gate 01 → Sprint → Gate 02 → Sail; each gate snaps and each
    stage ring swells as it arrives. Transform-only: labels never move, no
    layout shift, and nothing is hidden at rest except the marker itself.
    Plays once per entry into view (data-play); static under reduce. */
-.pd-rail,
 .pd-marker,
 .pd-gate,
 .pd-ring,
@@ -190,11 +189,9 @@ body::before {
 .pd-marker {
   transform: scale(0);
 }
-.pd-rail {
-  transform-origin: left center;
-}
 @media (prefers-reduced-motion: no-preference) {
   [data-play] .pd-rail {
+    stroke-dasharray: 1;
     animation: pd-rail 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   [data-play] .pd-marker {
@@ -223,8 +220,8 @@ body::before {
   100% { transform: translateX(760px) scale(0); }
 }
 @keyframes pd-rail {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
 }
 @keyframes pd-gate {
   0%, 100% { transform: rotate(0) scale(1); }

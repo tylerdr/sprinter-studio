@@ -126,7 +126,7 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
         {/* Datum rail */}
         <text x="40" y={railY - 12} className="font-mono" fontSize="10" letterSpacing="0.2em" fill="#837d70">IDEAS</text>
         <text x="916" y={railY - 12} className="font-mono" fontSize="10" letterSpacing="0.2em" fill="#837d70" textAnchor="end">REVENUE</text>
-        <line className="pd-rail" x1="40" y1={railY} x2="914" y2={railY} stroke="rgba(242, 239, 231, 0.13)" strokeWidth="1" />
+        <line className="pd-rail" pathLength={1} x1="40" y1={railY} x2="914" y2={railY} stroke="rgba(242, 239, 231, 0.13)" strokeWidth="1" />
         <path d={`M914 ${railY - 5}l9 5-9 5Z`} fill="#837d70" />
         {CHEVRON_X.map((x) => (
           <path key={x} d={`M${x} ${railY - 4}l5 4-5 4`} stroke="#837d70" strokeWidth="1" />
