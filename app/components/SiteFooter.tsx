@@ -23,7 +23,7 @@ export function SiteFooter() {
             The venture studio of Sprinter
           </span>
         </div>
-        <nav className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-border-subtle pt-6 text-sm text-text-muted md:justify-start">
+        <nav className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-border-subtle pt-6 text-center text-sm text-text-muted md:justify-start md:text-left">
           <Link href="/#pipeline" className="hover:text-foreground transition-colors">
             Experiment ledger
           </Link>
