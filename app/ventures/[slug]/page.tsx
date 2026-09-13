@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { trackOutbound } from '@/lib/links'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 
@@ -199,6 +200,7 @@ export default async function VenturePage({
               <a
                 href={venture.url}
                 target="_blank"
+                {...trackOutbound('venture-detail')}
                 rel="noopener noreferrer"
                 className={cn(
                   buttonVariants(),

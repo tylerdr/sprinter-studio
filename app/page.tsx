@@ -12,7 +12,7 @@ import {
 } from '@/app/data/ventures'
 import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { outbound } from '@/lib/links'
+import { outbound, trackOutbound } from '@/lib/links'
 import { cn } from '@/lib/utils'
 import { ArrowRight, ArrowUpRight, Github } from 'lucide-react'
 import Link from 'next/link'
@@ -523,6 +523,7 @@ function CommercialRoutes() {
                 <a
                   href={route.href}
                   target="_blank"
+                  {...trackOutbound('commercial-routes')}
                   rel="noopener noreferrer"
                   className="mt-auto pt-7 text-sm text-chalk-green underline decoration-hairline-strong underline-offset-4 hover:decoration-chalk-green inline-flex items-center gap-1.5"
                 >
@@ -558,6 +559,7 @@ function BuiltBySection() {
             <a
               href={outbound.tyler}
               target="_blank"
+              {...trackOutbound('builder')}
               rel="noopener noreferrer"
               className="text-sm text-chalk-green underline decoration-hairline-strong underline-offset-4 hover:decoration-chalk-green inline-flex items-center gap-1.5"
             >
@@ -566,6 +568,7 @@ function BuiltBySection() {
             <a
               href={outbound.github}
               target="_blank"
+              {...trackOutbound('builder')}
               rel="noopener noreferrer"
               className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1.5"
             >
@@ -645,6 +648,7 @@ function FinalCta() {
             <a
               href={outbound.executiveAccelerator}
               target="_blank"
+              {...trackOutbound('final-cta')}
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ size: 'lg' }),
@@ -657,6 +661,7 @@ function FinalCta() {
             <a
               href={outbound.portfolioAccelerator}
               target="_blank"
+              {...trackOutbound('final-cta')}
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ variant: 'outline', size: 'lg' }),
@@ -670,6 +675,7 @@ function FinalCta() {
           <a
             href={outbound.consulting}
             target="_blank"
+            {...trackOutbound('final-cta')}
             rel="noopener noreferrer"
             className="mt-6 inline-flex text-sm text-text-muted hover:text-foreground"
           >

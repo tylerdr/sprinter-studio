@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
+import { OutboundTracker } from "@/app/components/OutboundTracker";
 import { SiteFooter } from "@/app/components/SiteFooter";
 import { SiteHeader } from "@/app/components/SiteHeader";
 
@@ -146,6 +147,7 @@ export default function RootLayout({
         {children}
         <SiteFooter />
         <Analytics />
+        <OutboundTracker />
       </body>
     </html>
   );

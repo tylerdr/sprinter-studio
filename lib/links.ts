@@ -18,3 +18,15 @@ export const outbound = {
   amble: `https://ambleideation.com${UTM}`,
   github: 'https://github.com/tylerdr/sprinter-studio',
 } as const
+
+/**
+ * Marks an outbound anchor for the delegated click tracker mounted in the
+ * root layout (`OutboundTracker`). Spread onto the `<a>`; the href (with its
+ * UTM pair) is left untouched.
+ */
+export function trackOutbound(placement: string) {
+  return {
+    'data-analytics-event': 'outbound_click',
+    'data-placement': placement,
+  } as const
+}

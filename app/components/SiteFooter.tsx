@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Github } from 'lucide-react'
 
-import { outbound } from '@/lib/links'
+import { outbound, trackOutbound } from '@/lib/links'
 
 /**
  * Lives in the root layout, not on the homepage. It used to be a local
@@ -33,6 +33,7 @@ export function SiteFooter() {
           <a
             href={outbound.executiveAccelerator}
             target="_blank"
+            {...trackOutbound('footer')}
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
@@ -41,6 +42,7 @@ export function SiteFooter() {
           <a
             href={outbound.portfolioAccelerator}
             target="_blank"
+            {...trackOutbound('footer')}
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
@@ -49,6 +51,7 @@ export function SiteFooter() {
           <a
             href={outbound.consulting}
             target="_blank"
+            {...trackOutbound('footer')}
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
@@ -57,6 +60,7 @@ export function SiteFooter() {
           <a
             href={outbound.amble}
             target="_blank"
+            {...trackOutbound('footer')}
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
@@ -65,6 +69,7 @@ export function SiteFooter() {
           <a
             href={outbound.tyler}
             target="_blank"
+            {...trackOutbound('footer')}
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
@@ -73,6 +78,7 @@ export function SiteFooter() {
           <a
             href={outbound.github}
             target="_blank"
+            {...trackOutbound('footer')}
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors flex items-center gap-1"
           >
