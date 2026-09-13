@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Github } from 'lucide-react'
 
-import { outbound } from '@/lib/links'
+import { outbound, siblings, trackOutbound } from '@/lib/links'
 
 /**
  * Lives in the root layout, not on the homepage. It used to be a local
@@ -12,17 +12,19 @@ import { outbound } from '@/lib/links'
 export function SiteFooter() {
   return (
     <footer className="border-t border-border-subtle py-12 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-2">
+      {/* Identity and sibling nav sit on separate rows: sharing one flex row
+          squeezed the descriptor into a four-line column beside the nav. */}
+      <div className="max-w-6xl mx-auto flex flex-col items-center gap-6 md:items-start">
+        <div className="flex shrink-0 flex-wrap items-baseline justify-center gap-x-3 gap-y-1 md:justify-start">
           <span className="font-semibold">
             sprinter<span className="text-chalk-green">.</span>studio
           </span>
-          <span className="text-text-muted text-sm ml-2">
+          <span className="text-text-muted text-sm">
             The venture studio of Sprinter
           </span>
         </div>
-        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
-          <Link href="#pipeline" className="hover:text-foreground transition-colors">
+        <nav className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-border-subtle pt-6 text-center text-sm text-text-muted md:justify-start md:text-left">
+          <Link href="/#pipeline" className="hover:text-foreground transition-colors">
             Experiment ledger
           </Link>
           <Link href="/playbook" className="hover:text-foreground transition-colors">
@@ -31,6 +33,7 @@ export function SiteFooter() {
           <a
             href={outbound.executiveAccelerator}
             target="_blank"
+            {...trackOutbound('footer')}
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
@@ -39,44 +42,40 @@ export function SiteFooter() {
           <a
             href={outbound.portfolioAccelerator}
             target="_blank"
+            {...trackOutbound('footer')}
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
           >
             Portfolio accelerator
           </a>
           <a
-            href={outbound.consulting}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            Sprinter Consulting — the execution practice of Sprinter
-          </a>
-          <a
-            href={outbound.amble}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            Amble — the company brain, built by Sprinter
-          </a>
-          <a
-            href={outbound.tyler}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            Founded by Tyler Dreher
-          </a>
-          <a
             href={outbound.github}
             target="_blank"
+            {...trackOutbound('footer')}
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors flex items-center gap-1"
           >
             <Github className="w-4 h-4" /> GitHub
           </a>
         </nav>
+        <ul className="grid w-full gap-x-6 gap-y-4 text-center text-sm sm:grid-cols-2 md:text-left lg:grid-cols-4">
+          {siblings.map((sibling) => (
+            <li key={sibling.host}>
+              <a
+                href={sibling.href}
+                target="_blank"
+                {...trackOutbound('footer-roster')}
+                rel="noopener noreferrer"
+                className="group inline-block text-text-muted transition-colors hover:text-foreground"
+              >
+                {sibling.label}
+                <span className="mt-0.5 block font-mono text-xs text-chalk-3 group-hover:text-chalk-green">
+                  {sibling.host}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   )

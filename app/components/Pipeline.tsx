@@ -16,7 +16,7 @@ function VentureCard({ venture, index }: { venture: Venture; index: number }) {
     <Reveal delay={index * 0.05} duration={0.3}>
       <Link href={`/ventures/${venture.slug}`}>
         <div
-          className="group relative rounded-lg border p-3 transition-all hover:scale-[1.02] cursor-pointer bg-card"
+          className="group relative rounded-lg border p-3 transition-[translate,border-color] duration-200 hover:-translate-y-0.5 hover:border-chalk-green! motion-reduce:hover:translate-y-0 cursor-pointer bg-card"
           style={{ borderColor: `${config.hex}30` }}
         >
           <div className="flex items-start justify-between gap-2">

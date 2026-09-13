@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { trackOutbound } from '@/lib/links'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 
@@ -68,21 +69,6 @@ export default async function VenturePage({
           Back to experiment ledger
         </Link>
 
-        <div className="mb-5 border-y border-border-subtle px-1 py-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-chalk-green">
-            Experiment record
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-text-muted">
-            Stage and status describe the current evidence, not the maturity or
-            value of a company. A public URL may be a prototype, tool, content
-            property, or active product.
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-text-muted">
-            <span className="text-foreground">{track.label}:</span>{' '}
-            {track.definition}
-          </p>
-        </div>
-
         <Card className="bg-surface border-border-subtle">
           <CardHeader className="space-y-4">
             <div className="flex flex-wrap items-center gap-2">
@@ -113,6 +99,14 @@ export default async function VenturePage({
               {venture.name}
             </h1>
             <p className="font-mono text-sm text-text-muted">{venture.domain}</p>
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-text-muted mb-1">
+                Current status
+              </p>
+              <p className="font-mono text-sm" style={{ color: config.hex }}>
+                {venture.status}
+              </p>
+            </div>
           </CardHeader>
 
           {/* An archived record's thumbnail keeps advertising whatever the
@@ -137,17 +131,6 @@ export default async function VenturePage({
           )}
 
           <CardContent className="space-y-6">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-text-muted mb-1">
-                Current status
-              </p>
-              <p className="font-mono text-sm" style={{ color: config.hex }}>
-                {venture.status}
-              </p>
-            </div>
-
-            <Separator className="bg-border-subtle" />
-
             <div>
               <h2 className="text-lg font-semibold mb-3">
                 About this experiment
@@ -199,6 +182,7 @@ export default async function VenturePage({
               <a
                 href={venture.url}
                 target="_blank"
+                {...trackOutbound('venture-detail')}
                 rel="noopener noreferrer"
                 className={cn(
                   buttonVariants(),
@@ -213,6 +197,21 @@ export default async function VenturePage({
             )}
           </CardContent>
         </Card>
+
+        <div className="mt-8 border-y border-border-subtle px-1 py-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-chalk-green">
+            About this record
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-text-muted">
+            Stage and status describe the current evidence, not the maturity or
+            value of a company. A public URL may be a prototype, tool, content
+            property, or active product.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-text-muted">
+            <span className="text-foreground">{track.label}:</span>{' '}
+            {track.definition}
+          </p>
+        </div>
 
         <div className="flex items-center justify-between mt-8 gap-4">
           {previous ? (

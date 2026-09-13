@@ -12,7 +12,7 @@ import {
 } from '@/app/data/ventures'
 import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { outbound } from '@/lib/links'
+import { outbound, trackOutbound } from '@/lib/links'
 import { cn } from '@/lib/utils'
 import { ArrowRight, ArrowUpRight, Github } from 'lucide-react'
 import Link from 'next/link'
@@ -42,10 +42,6 @@ const stages = [
 ] as const
 
 const operatingRules = [
-  {
-    title: 'Client work and validated products come first.',
-    body: 'An experiment earns attention by supporting delivery, building reusable capability, meeting qualified demand, or answering a valuable question cheaply — and hands it back when it stops.',
-  },
   {
     title: 'AI accelerates the work; humans remain accountable.',
     body: 'Agents can research, draft, code, test, and operate bounded workflows. Product judgment, safety, prioritization, customer relationships, and the decision to ship or stop remain human responsibilities.',
@@ -79,13 +75,13 @@ const routes = [
   {
     eyebrow: 'One executive · $2,500',
     title: 'Turn three recurring executive tasks into reliable AI workflows.',
-    body: 'The Executive AI Accelerator is two private 60-minute working sessions over one week using Claude Cowork, ChatGPT, Copilot, Gemini, or another approved tool. No workshop, new platform, or integration project.',
+    body: 'The Executive AI Accelerator is two private 60-minute working sessions over one week using Claude Cowork, ChatGPT, Copilot, Gemini, or another approved tool.',
     href: outbound.executiveAccelerator,
     cta: 'See the Executive AI Accelerator',
   },
   {
     eyebrow: 'Five leaders · $10,000',
-    title: 'Give five leaders private AI acceleration without organizing a workshop.',
+    title: 'Give five leaders private AI acceleration.',
     body: 'Each management-company or operating-company executive schedules individually and works on the responsibilities they actually own. The sponsor receives an aggregate opportunity readout, not employee surveillance.',
     href: outbound.portfolioAccelerator,
     cta: 'See the five-leader portfolio pack',
@@ -93,7 +89,7 @@ const routes = [
   {
     eyebrow: 'Implementation-ready workflow',
     title: 'Has real use already revealed a workflow worth setting up or building?',
-    body: 'Sprinter Consulting is the execution backend for a named workflow with a real owner, repeated demand, suitable access, clear human-review boundaries, and defensible implementation economics.',
+    body: 'Sprinter Consulting is the execution practice for a named workflow with a real owner, repeated demand, suitable access, clear human-review boundaries, and defensible implementation economics.',
     href: outbound.consulting,
     cta: 'See the execution practice',
   },
@@ -103,7 +99,7 @@ const faqItems = [
   {
     question: 'What is the difference between the two tracks?',
     answer:
-      'A partner incubation is a new product Sprinter incubates with a named partner who brings the domain and the demand. An internal experiment is a product Sprinter starts on its own bench, published while it is still unproven. Every entry on this site sits in exactly one track and is labeled with it. No partner incubation is published yet, so everything currently in the ledger is an internal experiment.',
+      'A partner incubation is a new product Sprinter incubates with a named partner who brings the domain and the demand. An internal experiment is a product Sprinter starts on its own bench, published while it is still unproven. Every entry on this site sits in exactly one track and is labeled with it.',
   },
   {
     question: 'Is every ledger entry a company?',
@@ -155,8 +151,11 @@ function Hero() {
       <div className="relative max-w-5xl mx-auto text-center py-20">
         <Reveal immediate duration={0.6} y={28}>
           <Eyebrow className="mb-6">
-            The venture studio of Sprinter · partner incubations · internal
-            experiments
+            The venture studio of Sprinter
+            <span className="hidden sm:inline">
+              {' '}
+              · partner incubations · internal experiments
+            </span>
           </Eyebrow>
           <h1 className="font-display text-4xl md:text-6xl font-medium tracking-tight text-balance leading-[1.08]">
             <span className="text-chalk-green">Two tracks, one bench:</span>{' '}
@@ -182,11 +181,8 @@ function Hero() {
           delay={0.26}
           className="mt-6 text-base md:text-lg text-text-muted max-w-3xl mx-auto leading-relaxed"
         >
-          Sprinter Studio incubates products with partners, runs internal
-          experiments, and says plainly which track each one is in — including
-          the ones that get stopped. Entries range from raw hypotheses to live
-          properties. They are not all companies, and shipping one is not proof
-          of demand.
+          Entries range from raw hypotheses to live properties. They are not
+          all companies, and shipping one is not proof of demand.
         </Reveal>
 
         <Reveal
@@ -210,18 +206,6 @@ function Hero() {
           >
             Read the build method
           </Link>
-        </Reveal>
-
-        <Reveal
-          as="p"
-          immediate
-          duration={0.6}
-          delay={0.5}
-          y={0}
-          className="mt-10 text-sm text-text-muted"
-        >
-          Client work and validated products come first — studio experiments
-          earn their place.
         </Reveal>
       </div>
     </section>
@@ -278,17 +262,13 @@ function OperatingRules() {
     <section className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal className="max-w-3xl">
-          <Eyebrow>§ 02 — How the studio decides</Eyebrow>
+          <Eyebrow>§ 04 — How the studio decides</Eyebrow>
           <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
-            The Studio is useful only when it makes Sprinter more focused.
+            Two rules hold for every entry.
           </h2>
-          <p className="mt-5 text-lg text-text-muted leading-relaxed">
-            Cheap software makes attention the scarce resource. Three rules
-            decide where it goes.
-          </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-3">
+        <div className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-2">
           {operatingRules.map((rule, index) => (
             <Reveal key={rule.title} delay={index * 0.08}>
               <div className="h-full border-t border-hairline-strong pt-6">
@@ -400,14 +380,13 @@ function PipelineSection() {
     <section id="pipeline" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal className="max-w-3xl mb-14">
-          <Eyebrow>§ 04 — The ledger</Eyebrow>
+          <Eyebrow>§ 02 — The ledger</Eyebrow>
           <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
             Current entries, with their track, stage, and status.
           </h2>
           <p className="mt-5 text-text-muted leading-relaxed">
-            Inclusion means the work is recorded, not endorsed. Open an entry to
-            see the audience, monetization hypothesis, current signal, and what
-            remains unproven.
+            Open an entry to see the audience, monetization hypothesis, current
+            signal, and what remains unproven.
           </p>
         </Reveal>
 
@@ -415,8 +394,7 @@ function PipelineSection() {
           <TrackHeading track="partner" count={partnerVentures.length} />
           {partnerVentures.length === 0 ? (
             <p className="mt-6 border-y border-border-subtle px-1 py-5 text-sm leading-relaxed text-text-muted">
-              No partner incubation is published yet. When one is, it appears
-              here with the partner named. Nothing below is a partner product.
+              None published yet. Nothing below is a partner product.
             </p>
           ) : (
             <div className="mt-6">
@@ -498,7 +476,7 @@ function CommercialRoutes() {
         <Reveal className="text-center max-w-3xl mx-auto">
           <Eyebrow>§ 06 — Working with Sprinter</Eyebrow>
           <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
-            Start with one executive, not a transformation program.
+            Start with one executive&apos;s recurring work.
           </h2>
           <p className="mt-5 text-text-muted leading-relaxed">
             The Studio makes the build method visible. Sprinter is where that
@@ -523,6 +501,7 @@ function CommercialRoutes() {
                 <a
                   href={route.href}
                   target="_blank"
+                  {...trackOutbound('commercial-routes')}
                   rel="noopener noreferrer"
                   className="mt-auto pt-7 text-sm text-chalk-green underline decoration-hairline-strong underline-offset-4 hover:decoration-chalk-green inline-flex items-center gap-1.5"
                 >
@@ -550,14 +529,13 @@ function BuiltBySection() {
           <p className="text-text-muted leading-relaxed">
             Tyler is a mechanical engineer turned software founder. Studio makes
             the evolving build system visible: the hypotheses, automation,
-            product judgment, and decisions to continue or stop. AI expands the
-            amount of work the system can do; it does not replace responsibility
-            for the result.
+            product judgment, and decisions to continue or stop.
           </p>
           <div className="flex flex-wrap items-center gap-5 pt-2">
             <a
               href={outbound.tyler}
               target="_blank"
+              {...trackOutbound('builder')}
               rel="noopener noreferrer"
               className="text-sm text-chalk-green underline decoration-hairline-strong underline-offset-4 hover:decoration-chalk-green inline-flex items-center gap-1.5"
             >
@@ -566,6 +544,7 @@ function BuiltBySection() {
             <a
               href={outbound.github}
               target="_blank"
+              {...trackOutbound('builder')}
               rel="noopener noreferrer"
               className="text-sm text-text-muted hover:text-foreground inline-flex items-center gap-1.5"
             >
@@ -645,6 +624,7 @@ function FinalCta() {
             <a
               href={outbound.executiveAccelerator}
               target="_blank"
+              {...trackOutbound('final-cta')}
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ size: 'lg' }),
@@ -657,6 +637,7 @@ function FinalCta() {
             <a
               href={outbound.portfolioAccelerator}
               target="_blank"
+              {...trackOutbound('final-cta')}
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ variant: 'outline', size: 'lg' }),
@@ -670,6 +651,7 @@ function FinalCta() {
           <a
             href={outbound.consulting}
             target="_blank"
+            {...trackOutbound('final-cta')}
             rel="noopener noreferrer"
             className="mt-6 inline-flex text-sm text-text-muted hover:text-foreground"
           >
@@ -687,11 +669,11 @@ export default function Home() {
       <Hero />
       <TwoTracks />
       <Separator className="bg-border-subtle" />
-      <OperatingRules />
+      <PipelineSection />
       <Separator className="bg-border-subtle" />
       <Method />
       <Separator className="bg-border-subtle" />
-      <PipelineSection />
+      <OperatingRules />
       <Separator className="bg-border-subtle" />
       <Lessons />
       <Separator className="bg-border-subtle" />

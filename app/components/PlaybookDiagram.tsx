@@ -1,4 +1,7 @@
+'use client'
+
 import { pipelineVentures, stageConfig } from '@/app/data/ventures'
+import { useEffect, useRef } from 'react'
 
 /**
  * Hand-authored SVG diagram of the Amble → Sprint → Sail methodology.
@@ -64,9 +67,35 @@ export function PhaseGlyph({ phase, className }: { phase: Phase; className?: str
 
 const NODE_X: Record<Phase, number> = { amble: 160, sprint: 480, sail: 800 }
 const GATES = [
-  { x: 320, id: 'GATE 01', label: 'BUILD-READY' },
-  { x: 640, id: 'GATE 02', label: 'LAUNCH' },
+  { x: 320, id: 'GATE 01', label: 'BUILD-READY', at: 1.85 },
+  { x: 640, id: 'GATE 02', label: 'LAUNCH', at: 3.6 },
 ]
+/** Seconds into the 4.8s `pd-walk` when the marker reaches each stage. */
+const NODE_AT: Record<Phase, number> = { amble: 0.9, sprint: 2.6, sail: 4.45 }
+
+/**
+ * Sets data-play while the diagram is on screen, so the progression runs
+ * each time it scrolls into view. The keyframes in globals.css only exist
+ * under prefers-reduced-motion: no-preference; without JS or with reduce
+ * the diagram is the static drawing.
+ */
+function usePlayInView() {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.dataset.play = ''
+        else delete el.dataset.play
+      },
+      { threshold: 0.6 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+  return ref
+}
 const CHEVRON_X = [252, 390, 572, 710]
 
 export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'compact' }) {
@@ -77,6 +106,7 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
   const ringR = full ? 56 : 39
   const glyphScale = full ? 1.75 : 1.25
   const phases: Phase[] = ['amble', 'sprint', 'sail']
+  const ref = usePlayInView()
 
   // The 960-unit viewBox needs min-w-[560px] for its 10px labels to be legible,
   // so at 390px only ~61% of the rail is in view and Sail — the third stage of
@@ -86,7 +116,7 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
   // restate all three stages in text immediately below, so it starts at sm.
   // Restoring it on phones needs a stacked mobile layout, not a width tweak.
   return (
-    <div className="hidden overflow-x-auto sm:block" role="img" aria-label="The Amble, Sprint, Sail decision framework: a question enters at Amble, passes Gate 1 (build-ready) into Sprint for a bounded test, and passes Gate 2 (launch) into Sail only when the evidence justifies continued investment. A stage is a confidence label, not a trophy; work can also revise, pause, or stop.">
+    <div ref={ref} className="hidden overflow-x-auto sm:block" role="img" aria-label="The Amble, Sprint, Sail decision framework: a question enters at Amble, passes Gate 1 (build-ready) into Sprint for a bounded test, and passes Gate 2 (launch) into Sail only when the evidence justifies continued investment. A stage is a confidence label, not a trophy; work can also revise, pause, or stop.">
       <svg
         viewBox={`0 0 960 ${height}`}
         fill="none"
@@ -96,22 +126,28 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
         {/* Datum rail */}
         <text x="40" y={railY - 12} className="font-mono" fontSize="10" letterSpacing="0.2em" fill="#837d70">IDEAS</text>
         <text x="916" y={railY - 12} className="font-mono" fontSize="10" letterSpacing="0.2em" fill="#837d70" textAnchor="end">REVENUE</text>
-        <line x1="40" y1={railY} x2="914" y2={railY} stroke="rgba(242, 239, 231, 0.13)" strokeWidth="1" />
+        <line className="pd-rail" x1="40" y1={railY} x2="914" y2={railY} stroke="rgba(242, 239, 231, 0.13)" strokeWidth="1" />
         <path d={`M914 ${railY - 5}l9 5-9 5Z`} fill="#837d70" />
         {CHEVRON_X.map((x) => (
           <path key={x} d={`M${x} ${railY - 4}l5 4-5 4`} stroke="#837d70" strokeWidth="1" />
         ))}
 
+        {/* Work marker: walks the rail behind the filled gates and nodes, so
+            it visibly passes through each checkpoint. Static state is scale(0). */}
+        <circle className="pd-marker" cx="40" cy={railY} r="5" fill="#8fd8ab" />
+
         {/* Gate checkpoints */}
         {GATES.map((gate) => (
           <g key={gate.id}>
-            <path
-              d={`M${gate.x} ${railY - 12}l12 12-12 12-12-12Z`}
-              fill="#0e0d0b"
-              stroke="#b9b3a6"
-              strokeWidth="1.5"
-            />
-            <path d={`M${gate.x - 4} ${railY}l3 3 5.5-6`} stroke="#b9b3a6" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+            <g className="pd-gate" style={{ '--pd-at': `${gate.at}s` } as React.CSSProperties}>
+              <path
+                d={`M${gate.x} ${railY - 12}l12 12-12 12-12-12Z`}
+                fill="#0e0d0b"
+                stroke="#b9b3a6"
+                strokeWidth="1.5"
+              />
+              <path d={`M${gate.x - 4} ${railY}l3 3 5.5-6`} stroke="#b9b3a6" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
             <text x={gate.x} y={railY - 26} className="font-mono" fontSize={full ? 10 : 9} letterSpacing="0.2em" fill="#b9b3a6" textAnchor="middle">{gate.id}</text>
             <text x={gate.x} y={railY + 32} className="font-mono" fontSize={full ? 9 : 8} letterSpacing="0.15em" fill="#837d70" textAnchor="middle">{gate.label}</text>
           </g>
@@ -133,8 +169,8 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
                   </text>
                 </>
               )}
-              <circle cx={x} cy={railY} r={ringR} stroke={hex} strokeWidth="1" strokeDasharray="2 5" opacity="0.35" />
-              <circle cx={x} cy={railY} r={nodeR} fill="#0e0d0b" stroke={hex} strokeWidth="1.5" />
+              <circle className="pd-ring" style={{ '--pd-at': `${NODE_AT[phase]}s` } as React.CSSProperties} cx={x} cy={railY} r={ringR} stroke={hex} strokeWidth="1" strokeDasharray="2 5" opacity="0.35" />
+              <circle className="pd-node" style={{ '--pd-at': `${NODE_AT[phase]}s` } as React.CSSProperties} cx={x} cy={railY} r={nodeR} fill="#0e0d0b" stroke={hex} strokeWidth="1.5" />
               <g
                 transform={`translate(${x - glyphOffset} ${railY - glyphOffset}) scale(${glyphScale})`}
                 stroke={hex}

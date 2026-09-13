@@ -1,6 +1,6 @@
 'use client'
 
-import { outbound } from '@/lib/links'
+import { outbound, siblings, trackOutbound } from '@/lib/links'
 import Link from 'next/link'
 import { ArrowUpRight, Github, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -74,6 +74,7 @@ export function SiteHeader() {
           <a
             href={outbound.github}
             target="_blank"
+            {...trackOutbound('header-nav')}
             rel="noopener noreferrer"
             className="text-text-muted hover:text-foreground transition-colors flex items-center gap-1.5"
           >
@@ -85,6 +86,7 @@ export function SiteHeader() {
           <a
             href={outbound.executiveAccelerator}
             target="_blank"
+            {...trackOutbound('header-cta')}
             rel="noopener noreferrer"
             className="hidden sm:inline-flex min-h-11 items-center gap-1.5 rounded-sm bg-chalk-green px-4 text-sm font-semibold text-background hover:bg-chalk-green/85 transition-colors"
           >
@@ -106,7 +108,7 @@ export function SiteHeader() {
       {menuOpen && (
         <nav
           id="studio-mobile-nav"
-          className="lg:hidden fixed inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-t border-border-subtle px-6 py-2"
+          className="drawer-in lg:hidden fixed inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-t border-border-subtle px-6 py-2"
         >
           <Link
             href="/#pipeline"
@@ -125,6 +127,7 @@ export function SiteHeader() {
           <a
             href={outbound.github}
             target="_blank"
+            {...trackOutbound('mobile-menu')}
             rel="noopener noreferrer"
             className="flex min-h-[48px] items-center text-sm text-text-muted hover:text-foreground"
             onClick={() => setMenuOpen(false)}
@@ -135,6 +138,7 @@ export function SiteHeader() {
             <a
               href={outbound.executiveAccelerator}
               target="_blank"
+              {...trackOutbound('mobile-menu')}
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center gap-2 rounded-sm bg-chalk-green px-5 text-sm font-semibold text-background"
               onClick={() => setMenuOpen(false)}
@@ -145,6 +149,7 @@ export function SiteHeader() {
             <a
               href={outbound.portfolioAccelerator}
               target="_blank"
+              {...trackOutbound('mobile-menu')}
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center rounded-sm border border-hairline-strong px-5 text-sm text-foreground"
               onClick={() => setMenuOpen(false)}
@@ -154,6 +159,7 @@ export function SiteHeader() {
             <a
               href={outbound.consulting}
               target="_blank"
+              {...trackOutbound('mobile-menu')}
               rel="noopener noreferrer"
               className="flex min-h-12 items-center justify-center text-sm text-text-muted"
               onClick={() => setMenuOpen(false)}
@@ -161,6 +167,25 @@ export function SiteHeader() {
               Workflow setup and implementation
             </a>
           </div>
+          <ul className="mt-5 space-y-3 border-t border-border-subtle pt-5 pb-8">
+            {siblings.map((sibling) => (
+              <li key={sibling.host}>
+                <a
+                  href={sibling.href}
+                  target="_blank"
+                  {...trackOutbound('mobile-menu-roster')}
+                  rel="noopener noreferrer"
+                  className="block text-sm text-text-muted hover:text-foreground"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {sibling.label}
+                  <span className="mt-0.5 block font-mono text-xs text-chalk-3">
+                    {sibling.host}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
       )}
     </header>
