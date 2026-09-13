@@ -139,7 +139,7 @@ export const ventures: Venture[] = [
     stage: 'sprint',
     track: 'internal',
     archetype: 'infra',
-    status: 'Repositioning · credibility and focus pass',
+    status: 'Live public record · in active build',
     url: 'https://sprinter.studio',
     icp: 'Builders, potential incubation partners, and prospects evaluating how Sprinter experiments and learns.',
     monetization: 'Trust and learning surface that routes commercial demand to the focused Sprinter sites.',
