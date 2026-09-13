@@ -12,16 +12,18 @@ import { outbound } from '@/lib/links'
 export function SiteFooter() {
   return (
     <footer className="border-t border-border-subtle py-12 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-2">
+      {/* Identity and sibling nav sit on separate rows: sharing one flex row
+          squeezed the descriptor into a four-line column beside the nav. */}
+      <div className="max-w-6xl mx-auto flex flex-col items-center gap-6 md:items-start">
+        <div className="flex shrink-0 flex-wrap items-baseline justify-center gap-x-3 gap-y-1 md:justify-start">
           <span className="font-semibold">
             sprinter<span className="text-chalk-green">.</span>studio
           </span>
-          <span className="text-text-muted text-sm ml-2">
+          <span className="text-text-muted text-sm">
             The venture studio of Sprinter
           </span>
         </div>
-        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
+        <nav className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-border-subtle pt-6 text-sm text-text-muted md:justify-start">
           <Link href="/#pipeline" className="hover:text-foreground transition-colors">
             Experiment ledger
           </Link>
