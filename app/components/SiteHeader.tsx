@@ -1,6 +1,6 @@
 'use client'
 
-import { outbound, trackOutbound } from '@/lib/links'
+import { outbound, siblings, trackOutbound } from '@/lib/links'
 import Link from 'next/link'
 import { ArrowUpRight, Github, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -108,7 +108,7 @@ export function SiteHeader() {
       {menuOpen && (
         <nav
           id="studio-mobile-nav"
-          className="lg:hidden fixed inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-t border-border-subtle px-6 py-2"
+          className="drawer-in lg:hidden fixed inset-x-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-t border-border-subtle px-6 py-2"
         >
           <Link
             href="/#pipeline"
@@ -167,6 +167,25 @@ export function SiteHeader() {
               Workflow setup and implementation
             </a>
           </div>
+          <ul className="mt-5 space-y-3 border-t border-border-subtle pt-5 pb-8">
+            {siblings.map((sibling) => (
+              <li key={sibling.host}>
+                <a
+                  href={sibling.href}
+                  target="_blank"
+                  {...trackOutbound('mobile-menu-roster')}
+                  rel="noopener noreferrer"
+                  className="block text-sm text-text-muted hover:text-foreground"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {sibling.label}
+                  <span className="mt-0.5 block font-mono text-xs text-chalk-3">
+                    {sibling.host}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
       )}
     </header>

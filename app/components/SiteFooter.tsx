@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Github } from 'lucide-react'
 
-import { outbound, trackOutbound } from '@/lib/links'
+import { outbound, siblings, trackOutbound } from '@/lib/links'
 
 /**
  * Lives in the root layout, not on the homepage. It used to be a local
@@ -49,33 +49,6 @@ export function SiteFooter() {
             Portfolio accelerator
           </a>
           <a
-            href={outbound.consulting}
-            target="_blank"
-            {...trackOutbound('footer')}
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            Sprinter Consulting — the execution practice of Sprinter
-          </a>
-          <a
-            href={outbound.amble}
-            target="_blank"
-            {...trackOutbound('footer')}
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            Amble — the company brain, built by Sprinter
-          </a>
-          <a
-            href={outbound.tyler}
-            target="_blank"
-            {...trackOutbound('footer')}
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            Founded by Tyler Dreher
-          </a>
-          <a
             href={outbound.github}
             target="_blank"
             {...trackOutbound('footer')}
@@ -85,6 +58,24 @@ export function SiteFooter() {
             <Github className="w-4 h-4" /> GitHub
           </a>
         </nav>
+        <ul className="grid w-full gap-x-6 gap-y-4 text-center text-sm sm:grid-cols-2 md:text-left lg:grid-cols-4">
+          {siblings.map((sibling) => (
+            <li key={sibling.host}>
+              <a
+                href={sibling.href}
+                target="_blank"
+                {...trackOutbound('footer-roster')}
+                rel="noopener noreferrer"
+                className="group inline-block text-text-muted transition-colors hover:text-foreground"
+              >
+                {sibling.label}
+                <span className="mt-0.5 block font-mono text-xs text-chalk-3 group-hover:text-chalk-green">
+                  {sibling.host}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   )
