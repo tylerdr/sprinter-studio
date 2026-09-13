@@ -110,10 +110,9 @@ export default async function VenturePage({
           </CardHeader>
 
           {/* An archived record's thumbnail keeps advertising whatever the
-              site last shipped — PortCo Audit's still shows a "Buy Workshop"
-              button for a retired offer. Don't show it. */}
+              site last served, which may no longer exist. Don't show it. */}
           {venture.screenshot && venture.stage !== 'archived' && (
-            <div className="px-4">
+            <figure className="px-4">
               <div className="relative w-full aspect-[16/10] rounded-lg border border-border-subtle overflow-hidden">
                 <div
                   className="absolute inset-x-0 top-0 h-1 z-10"
@@ -127,7 +126,11 @@ export default async function VenturePage({
                   className="object-cover"
                 />
               </div>
-            </div>
+              <figcaption className="mt-2 text-xs leading-relaxed text-chalk-3">
+                Screenshot of the public property. Any figures shown are that
+                site&apos;s own marketing claims, not Studio-verified results.
+              </figcaption>
+            </figure>
           )}
 
           <CardContent className="space-y-6">

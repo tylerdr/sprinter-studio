@@ -18,6 +18,8 @@ export const outbound = {
   tyler: `https://tylerdreher.com${UTM}`,
   amble: `https://ambleideation.com${UTM}`,
   github: 'https://github.com/tylerdr/sprinter-studio',
+  // Not a site, so no UTM pair; the tracker records the address as destination.
+  partnerInquiry: 'mailto:hi@sprinter.ai?subject=Partner%20incubation%20proposal',
 } as const
 
 /**

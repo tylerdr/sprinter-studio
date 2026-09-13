@@ -67,7 +67,6 @@ Supporting contract:
 - Near-zero marginal-cost or 24/7 autonomous-operation claims
 - Pipeline count as proof of business scale
 - A public URL as proof of demand, revenue, reliability, or a standalone company
-- PortCo Audit as a standalone offer or brand
 - The team workshop as Sprinter's commercial front door
 - Sprinter AI leading with a broad operating-partner mandate
 
@@ -106,15 +105,7 @@ A recorded experiment, offer, or property that no longer deserves active attenti
 
 ## PortCo Audit decision
 
-The standalone PortCo Audit offer is retired.
-
-The concept required a sponsor to understand and purchase a new diagnostic too early. Relevant demand now routes to:
-
-- one $2,500 Executive AI Accelerator;
-- the $10,000 five-leader portfolio pack;
-- or Sprinter Consulting after a specific workflow has earned implementation.
-
-The property may remain in the ledger as an archived decision but must not compete with the current offer.
+Superseded 2026-09-13 (D21, Tyler): PortCo Audit is not retired. PortCoAudit AI is a live offer at portcoaudit.com and sits in the ledger at Sail as an internal experiment, with status "Live offer · validating demand". Repeatable demand is still unproven. Open for Tyler: portcoaudit.com sells a $2,500 workshop qualifier, which competes with the Executive AI Accelerator as a front door.
 
 ## Operating priority
 
@@ -148,7 +139,7 @@ Do not use generic “Work with Sprinter” copy when the exact destination can 
 - [x] Header routes commercial visitors to the Executive AI Accelerator
 - [x] Mobile navigation exposes the single-executive and five-leader offers
 - [x] Commercial route cards point to accelerator, portfolio pack, and Consulting
-- [x] PortCo Audit remains archived and does not compete with the funnel
+- [x] PortCo Audit is recorded at Sail as a live offer with honest status language (D21, 2026-09-13)
 - [x] Every ledger record uses honest stage and status language
 - [x] `ambleideation.com` remains the canonical Amble link
 - [ ] Run browser QA on mobile and desktop

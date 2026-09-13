@@ -108,15 +108,13 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
   const phases: Phase[] = ['amble', 'sprint', 'sail']
   const ref = usePlayInView()
 
-  // The 960-unit viewBox needs min-w-[560px] for its 10px labels to be legible,
-  // so at 390px only ~61% of the rail is in view and Sail — the third stage of
-  // the model this diagram exists to explain — is always off-screen, inside an
-  // overflow-x-auto with no scroll affordance. No min-width scales out of that:
-  // fitting 960 units into 342px puts the labels at ~3.6px. Both call sites
-  // restate all three stages in text immediately below, so it starts at sm.
-  // Restoring it on phones needs a stacked mobile layout, not a width tweak.
+  // The 960-unit horizontal drawing cannot fit a phone: at 342px its labels
+  // shrink to ~3.6px. Below sm the same rail runs downward instead, drawn at
+  // ~1:1 so its 12px labels stay legible. One wrapper, one accessible name.
   return (
-    <div ref={ref} className="hidden overflow-x-auto sm:block" role="img" aria-label="The Amble, Sprint, Sail decision framework: a question enters at Amble, passes Gate 1 (build-ready) into Sprint for a bounded test, and passes Gate 2 (launch) into Sail only when the evidence justifies continued investment. A stage is a confidence label, not a trophy; work can also revise, pause, or stop.">
+    <div ref={ref} role="img" aria-label="The Amble, Sprint, Sail decision framework: a question enters at Amble, passes Gate 1 (build-ready) into Sprint for a bounded test, and passes Gate 2 (launch) into Sail only when the evidence justifies continued investment. A stage is a confidence label, not a trophy; work can also revise, pause, or stop.">
+      <VerticalDiagram full={full} />
+      <div className="hidden overflow-x-auto sm:block">
       <svg
         viewBox={`0 0 960 ${height}`}
         fill="none"
@@ -205,6 +203,68 @@ export function PlaybookDiagram({ variant = 'full' }: { variant?: 'full' | 'comp
           </>
         )}
       </svg>
+      </div>
     </div>
+  )
+}
+
+/** Stacked layout for phones, in a 342-unit box that renders ~1:1 at 390px. */
+const V_RAIL_X = 36
+const V_NODE_Y: Record<Phase, number> = { amble: 84, sprint: 264, sail: 444 }
+const V_GATE_Y = [174, 354]
+const V_CHEVRON_Y = [129, 219, 309, 399]
+
+function VerticalDiagram({ full }: { full: boolean }) {
+  const phases: Phase[] = ['amble', 'sprint', 'sail']
+  const x = V_RAIL_X
+  const labelX = 84
+  return (
+    <svg viewBox="0 0 342 510" fill="none" className="w-full h-auto sm:hidden" aria-hidden="true">
+      <text x={labelX} y="28" className="font-mono" fontSize="12" letterSpacing="0.2em" fill="#837d70">IDEAS</text>
+      <line className="pd-rail" pathLength={1} x1={x} y1="20" x2={x} y2="486" stroke="rgba(242, 239, 231, 0.3)" strokeWidth="1" />
+      <path d={`M${x - 5} 486l5 9 5-9Z`} fill="#837d70" />
+      <text x={labelX} y="495" className="font-mono" fontSize="12" letterSpacing="0.2em" fill="#837d70">REVENUE</text>
+      {V_CHEVRON_Y.map((y) => (
+        <path key={y} d={`M${x - 4} ${y - 2}l4 4 4-4`} stroke="#837d70" strokeWidth="1" />
+      ))}
+
+      {GATES.map((gate, i) => {
+        const y = V_GATE_Y[i]
+        return (
+          <g key={gate.id}>
+            <g className="pd-gate" style={{ '--pd-at': `${gate.at}s` } as React.CSSProperties}>
+              <path d={`M${x} ${y - 10}l10 10-10 10-10-10Z`} fill="#0e0d0b" stroke="#b9b3a6" strokeWidth="1.5" />
+              <path d={`M${x - 3.5} ${y}l2.5 2.5 4.5-5`} stroke="#b9b3a6" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <text x={labelX} y={y + 4} className="font-mono" fontSize="12" letterSpacing="0.15em" fill="#b9b3a6">
+              {gate.id} · {gate.label}
+            </text>
+          </g>
+        )
+      })}
+
+      {phases.map((phase) => {
+        const y = V_NODE_Y[phase]
+        const hex = stageConfig[phase].hex
+        const count = pipelineVentures.filter((v) => v.stage === phase).length
+        const at = { '--pd-at': `${NODE_AT[phase]}s` } as React.CSSProperties
+        return (
+          <g key={phase}>
+            <circle className="pd-ring" style={at} cx={x} cy={y} r="31" stroke={hex} strokeWidth="1" strokeDasharray="2 5" opacity="0.35" />
+            <circle className="pd-node" style={at} cx={x} cy={y} r="25" fill="#0e0d0b" stroke={hex} strokeWidth="1.5" />
+            <g transform={`translate(${x - 12} ${y - 12})`} stroke={hex} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+              <GlyphPaths phase={phase} />
+            </g>
+            {full && (
+              <text x={labelX} y={y - 22} className="font-mono" fontSize="12" letterSpacing="0.15em" fill="#837d70">
+                {phaseMeta[phase].phase} · {count} {count === 1 ? 'VENTURE' : 'VENTURES'}
+              </text>
+            )}
+            <text x={labelX} y={y + 4} className="font-mono" fontSize="18" fontWeight="600" letterSpacing="0.15em" fill={hex}>{phaseMeta[phase].name}</text>
+            <text x={labelX} y={y + 24} className="font-mono" fontSize="12" letterSpacing="0.15em" fill="#b9b3a6">{phaseMeta[phase].sub}</text>
+          </g>
+        )
+      })}
+    </svg>
   )
 }

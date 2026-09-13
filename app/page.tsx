@@ -14,7 +14,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { outbound, trackOutbound } from '@/lib/links'
 import { cn } from '@/lib/utils'
-import { ArrowRight, ArrowUpRight, Github } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Github, Mail } from 'lucide-react'
 import Link from 'next/link'
 
 const stages = [
@@ -170,19 +170,9 @@ function Hero() {
           delay={0.18}
           className="mt-7 text-lg md:text-xl text-foreground max-w-3xl mx-auto leading-relaxed"
         >
-          Published while unproven — a public record of what we are testing,
-          shipping, and stopping.
-        </Reveal>
-
-        <Reveal
-          as="p"
-          immediate
-          duration={0.6}
-          delay={0.26}
-          className="mt-6 text-base md:text-lg text-text-muted max-w-3xl mx-auto leading-relaxed"
-        >
-          Entries range from raw hypotheses to live properties. They are not
-          all companies, and shipping one is not proof of demand.
+          Published while unproven: a public record of what we are testing,
+          shipping, and stopping, from raw hypotheses to live properties, none
+          of which counts as proof of demand.
         </Reveal>
 
         <Reveal
@@ -393,9 +383,28 @@ function PipelineSection() {
         <Reveal id="partner-incubations" className="scroll-mt-24">
           <TrackHeading track="partner" count={partnerVentures.length} />
           {partnerVentures.length === 0 ? (
-            <p className="mt-6 border-y border-border-subtle px-1 py-5 text-sm leading-relaxed text-text-muted">
-              None published yet. Nothing below is a partner product.
-            </p>
+            <div className="mt-6 border-y border-border-subtle px-1 py-5">
+              <p className="text-sm leading-relaxed text-text-muted">
+                Nothing below is a partner product. Worth proposing if you bring
+                domain access, a clear owner, credible distribution, and aligned
+                economics.
+              </p>
+              <a
+                href={outbound.partnerInquiry}
+                {...trackOutbound('partner-incubation-inquiry')}
+                className="group mt-4 inline-block text-sm"
+              >
+                <span className="inline-flex items-center gap-1.5 text-chalk-green">
+                  <span className="underline decoration-hairline-strong underline-offset-4 group-hover:decoration-chalk-green">
+                    Propose a partner incubation
+                  </span>
+                  <Mail className="w-4 h-4" />
+                </span>
+                <span className="mt-0.5 block font-mono text-xs text-chalk-3 group-hover:text-chalk-green">
+                  hi@sprinter.ai
+                </span>
+              </a>
+            </div>
           ) : (
             <div className="mt-6">
               <VentureList ventures={partnerVentures} />

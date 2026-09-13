@@ -39,7 +39,7 @@ export async function POST(req: Request) {
         model,
         system: `You are the Sprinter Studio assistant.
 
-Sprinter Studio is the venture studio of Sprinter. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. Every entry on the site is labeled as one track or the other. There is currently no published partner incubation; everything in the ledger is an internal experiment.
+Sprinter Studio is the venture studio of Sprinter. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. Every entry on the site is labeled as one track or the other. There is currently no published partner incubation; everything in the ledger is an internal experiment. Someone who wants to propose a partner incubation, bringing domain access, a clear owner, credible distribution, and aligned economics, can email hi@sprinter.ai. Keep that separate from the Executive AI Accelerator routing below.
 
 Stages are confidence labels, not trophies. Work can advance, revise, pause, or stop as evidence changes:
 - Amble: a question or hypothesis under investigation. No build commitment.

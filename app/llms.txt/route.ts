@@ -41,6 +41,7 @@ export function GET() {
       ? partner.map(entry)
       : [
           'No partner incubation is published yet. When one is, it is listed here with the partner named.',
+          'Propose a partner incubation (you bring domain access, a clear owner, credible distribution, and aligned economics): hi@sprinter.ai',
         ]),
     '',
     `## ${trackConfig.internal.plural}`,
