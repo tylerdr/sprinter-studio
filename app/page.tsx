@@ -151,8 +151,11 @@ function Hero() {
       <div className="relative max-w-5xl mx-auto text-center py-20">
         <Reveal immediate duration={0.6} y={28}>
           <Eyebrow className="mb-6">
-            The venture studio of Sprinter · partner incubations · internal
-            experiments
+            The venture studio of Sprinter
+            <span className="hidden sm:inline">
+              {' '}
+              · partner incubations · internal experiments
+            </span>
           </Eyebrow>
           <h1 className="font-display text-4xl md:text-6xl font-medium tracking-tight text-balance leading-[1.08]">
             <span className="text-chalk-green">Two tracks, one bench:</span>{' '}
