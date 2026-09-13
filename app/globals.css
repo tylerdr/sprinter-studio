@@ -173,3 +173,57 @@ body::before {
   outline: 2px solid var(--color-chalk-green);
   outline-offset: 2px;
 }
+
+/* PlaybookDiagram progression (S7). A work marker walks the datum rail
+   Amble → Gate 01 → Sprint → Gate 02 → Sail; each gate snaps and each
+   stage ring swells as it arrives. Transform-only: labels never move, no
+   layout shift, and nothing is hidden at rest except the marker itself.
+   Plays once per entry into view (data-play); static under reduce. */
+.pd-marker,
+.pd-gate,
+.pd-ring,
+.pd-node {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.pd-marker {
+  transform: scale(0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-play] .pd-marker {
+    animation: pd-walk 4.8s cubic-bezier(0.6, 0, 0.3, 1) both;
+  }
+  [data-play] .pd-gate {
+    animation: pd-gate 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) var(--pd-at) both;
+  }
+  [data-play] .pd-ring {
+    animation: pd-ring 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.2) var(--pd-at) both;
+  }
+  [data-play] .pd-node {
+    animation: pd-node 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--pd-at) both;
+  }
+}
+@keyframes pd-walk {
+  0% { transform: translateX(0) scale(0); }
+  6% { transform: translateX(0) scale(1); }
+  20%, 30% { transform: translateX(120px) scale(1); }
+  40% { transform: translateX(280px) scale(1.5, 0.7); }
+  44% { transform: translateX(280px) scale(1); }
+  56%, 63% { transform: translateX(440px) scale(1); }
+  76% { transform: translateX(600px) scale(1.5, 0.7); }
+  80% { transform: translateX(600px) scale(1); }
+  94% { transform: translateX(760px) scale(1); }
+  100% { transform: translateX(760px) scale(0); }
+}
+@keyframes pd-gate {
+  0%, 100% { transform: rotate(0) scale(1); }
+  45% { transform: rotate(90deg) scale(1.35); }
+}
+@keyframes pd-ring {
+  0%, 100% { transform: scale(1) rotate(0); }
+  40% { transform: scale(1.22) rotate(25deg); }
+}
+@keyframes pd-node {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+}
