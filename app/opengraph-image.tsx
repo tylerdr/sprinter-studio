@@ -1,3 +1,4 @@
+import { loadOgFonts } from '@/lib/og-fonts'
 import { ImageResponse } from 'next/og'
 
 export const alt = 'Sprinter Studio — the venture studio of Sprinter'
@@ -10,7 +11,7 @@ const CHALK_2 = '#b9b3a6'
 const CHALK_3 = '#837d70'
 const ACCENT = '#8fd8ab'
 
-export default function Image() {
+export default async function Image() {
   return new ImageResponse(
     (
       <div
@@ -20,7 +21,7 @@ export default function Image() {
           display: 'flex',
           backgroundColor: BOARD,
           color: CHALK,
-          fontFamily: 'sans-serif',
+          fontFamily: 'Geist',
         }}
       >
         <div
@@ -37,7 +38,7 @@ export default function Image() {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div
               style={{
-                fontFamily: 'monospace',
+                fontFamily: 'Geist Mono',
                 fontSize: 24,
                 letterSpacing: '0.14em',
                 color: ACCENT,
@@ -48,6 +49,7 @@ export default function Image() {
             </div>
             <div
               style={{
+                fontFamily: 'Fraunces',
                 fontSize: 68,
                 lineHeight: 1.06,
                 fontWeight: 500,
@@ -83,7 +85,7 @@ export default function Image() {
               justifyContent: 'space-between',
               alignItems: 'center',
               color: CHALK_3,
-              fontFamily: 'monospace',
+              fontFamily: 'Geist Mono',
               fontSize: 24,
               borderTop: `1px solid rgba(242, 239, 231, 0.3)`,
               paddingTop: 28,
@@ -95,6 +97,6 @@ export default function Image() {
         </div>
       </div>
     ),
-    size,
+    { ...size, fonts: [...(await loadOgFonts())] },
   )
 }

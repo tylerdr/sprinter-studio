@@ -1,4 +1,5 @@
 import { stageConfig, trackConfig, ventures } from '@/app/data/ventures'
+import { loadOgFonts } from '@/lib/og-fonts'
 import { ImageResponse } from 'next/og'
 
 export const alt = 'Sprinter Studio venture'
@@ -32,7 +33,7 @@ export default async function Image({ params }: Props) {
           display: 'flex',
           backgroundColor: '#0e0d0b',
           color: '#f2efe7',
-          fontFamily: 'sans-serif',
+          fontFamily: 'Geist',
         }}
       >
         <div
@@ -63,6 +64,7 @@ export default async function Image({ params }: Props) {
             />
             <div
               style={{
+                fontFamily: 'Fraunces',
                 fontSize: 84,
                 lineHeight: 0.94,
                 fontWeight: 500,
@@ -90,7 +92,7 @@ export default async function Image({ params }: Props) {
               justifyContent: 'space-between',
               alignItems: 'center',
               color: '#837d70',
-              fontFamily: 'monospace',
+              fontFamily: 'Geist Mono',
               fontSize: 24,
             }}
           >
@@ -100,6 +102,6 @@ export default async function Image({ params }: Props) {
         </div>
       </div>
     ),
-    size,
+    { ...size, fonts: [...(await loadOgFonts())] },
   )
 }
