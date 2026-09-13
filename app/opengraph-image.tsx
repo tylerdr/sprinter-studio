@@ -61,7 +61,7 @@ export default async function Image() {
               {/* Satori trims whitespace between spans — the nbsp is load-bearing. */}
               <span>
                 <span style={{ color: ACCENT }}>Two tracks,</span>
-                {' one bench.'}
+                {'\u00a0one bench.'}
               </span>
               <span>Partner incubations.</span>
               <span>Internal experiments.</span>
