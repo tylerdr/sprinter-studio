@@ -80,7 +80,7 @@ export function GET() {
     '## Related properties',
     '',
     '- Sprinter — AI-native product building for multi-entity operators: https://sprinter.ai',
-    '- Sprinter Consulting — implementation after a workflow earns it: https://sprinterconsulting.com',
+    '- Sprinter Consulting — the execution practice of Sprinter: https://sprinterconsulting.com',
     '- Amble — the company brain, built by Sprinter: https://ambleideation.com',
     '- Tyler Dreher — founder, writing, and selected work: https://tylerdreher.com',
     '',
