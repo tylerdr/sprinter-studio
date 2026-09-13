@@ -156,17 +156,8 @@ export function SiteHeader() {
             >
               Five-leader portfolio pack — $10,000
             </a>
-            <a
-              href={outbound.consulting}
-              target="_blank"
-              {...trackOutbound('mobile-menu')}
-              rel="noopener noreferrer"
-              className="flex min-h-12 items-center justify-center text-sm text-text-muted"
-              onClick={() => setMenuOpen(false)}
-            >
-              Workflow setup and implementation
-            </a>
           </div>
+          {/* Consulting lives in the roster below, under the footer's label. */}
           <ul className="mt-5 space-y-3 border-t border-border-subtle pt-5 pb-8">
             {siblings.map((sibling) => (
               <li key={sibling.host}>

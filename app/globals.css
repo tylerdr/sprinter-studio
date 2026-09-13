@@ -186,8 +186,11 @@ body::before {
   transform-box: fill-box;
   transform-origin: center;
 }
+/* The marker only means something while it walks. visibility (not opacity)
+   keeps it off the static drawing even where SVG CSS transforms are ignored. */
 .pd-marker {
   transform: scale(0);
+  visibility: hidden;
 }
 @media (prefers-reduced-motion: no-preference) {
   [data-play] .pd-rail {
@@ -195,6 +198,7 @@ body::before {
     animation: pd-rail 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   [data-play] .pd-marker {
+    visibility: visible;
     animation: pd-walk 4.8s cubic-bezier(0.6, 0, 0.3, 1) both;
   }
   [data-play] .pd-gate {

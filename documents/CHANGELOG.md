@@ -4,6 +4,25 @@
 
 ---
 
+## 2026-09-13 — Re-review polish + D21 ledger truth (Claude Code session)
+
+**Branch:** polish/review-2026-09-13 → PR (not merged)
+**Tyler's prompt:** D21 — add a partner-incubation inquiry route; PortCo Audit is not retired; clean up venture entries whose screenshots contradict their status.
+
+**Shipped:**
+- `app/components/PlaybookDiagram.tsx` — vertical mobile layout; the rail draws downward (stroke-dashoffset), gates/nodes pop in order, static under reduce
+- `app/globals.css` — walking marker hidden at rest (visibility), so it never shows as a stray dot
+- `app/page.tsx` — one hero caveat sentence; §02 partner empty state carries "Propose a partner incubation" (mailto hi@sprinter.ai, `outbound_click`, placement `partner-incubation-inquiry`) instead of repeating §01
+- `app/components/SiteHeader.tsx` — drawer drops the duplicate Consulting link; the roster keeps the footer's label
+- `app/data/ventures.ts` — PortCo Audit → Sail, live offer at portcoaudit.com; AI Ops Guide → archived, "Offline · domain parked" (HTTPS fails, HTTP serves a parking lander), no outbound link or screenshot
+- `app/ventures/[slug]/page.tsx` — screenshots carry a caption: figures are the property's own marketing claims
+- `app/llms.txt/route.ts`, `app/api/chat/route.ts` — partner inquiry route
+- `e2e/site.spec.ts` — partner CTA, diagram layout + hidden marker, live-only venture links
+
+**Open for Tyler:** portcoaudit.com sells a $2,500 workshop qualifier (competes with the Accelerator); aiopsguide.com is registered (Namecheap, expires 2027-08-29) but parked.
+
+---
+
 ## 2026-08-20 — Builder's board rebrand (Claude Code session)
 
 **Branch:** brand/builders-board-2026-08-20 — NOT merged, NOT pushed (main auto-deploys to sprinter.studio; orchestrator runs gates and merge)

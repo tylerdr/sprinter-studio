@@ -40,22 +40,6 @@ export const ventures: Venture[] = [
     screenshot: '/ventures/getfoundinchat.webp',
   },
   {
-    slug: 'aiopsguide',
-    name: 'AI Ops Guide',
-    domain: 'aiopsguide.com',
-    description: 'A public guide to AI operations, governance, and deployment workflows.',
-    stage: 'sail',
-    track: 'internal',
-    archetype: 'content',
-    status: 'Live content property',
-    url: 'https://aiopsguide.com',
-    icp: 'Technical leaders learning how to operate and govern AI systems.',
-    monetization: 'Content-led acquisition into relevant services, products, or tools.',
-    signal: 'Useful authority asset; traffic and conversion must determine continued investment.',
-    featured: true,
-    screenshot: '/ventures/aiopsguide.webp',
-  },
-  {
     slug: 'aibizblueprint',
     name: 'AI Biz Blueprint',
     domain: 'aibizblueprint.com',
@@ -129,6 +113,21 @@ export const ventures: Venture[] = [
     monetization: 'Free utility into a paid design or optimization workflow.',
     signal: 'Utility is clear; a credible paid path has not yet been proven.',
   },
+  {
+    slug: 'portcoaudit',
+    name: 'PortCo Audit',
+    domain: 'portcoaudit.com',
+    description: 'PortCoAudit AI: board-ready AI EBITDA roadmaps for private-equity operating teams, across portfolio companies in 10 business days.',
+    stage: 'sail',
+    track: 'internal',
+    archetype: 'service',
+    status: 'Live offer · validating demand',
+    url: 'https://portcoaudit.com',
+    icp: 'Private equity firms, family offices, holding companies, and portfolio operators.',
+    monetization: 'Paid workshop qualifier into a fixed-fee portfolio audit.',
+    signal: 'A public offer exists; repeatable demand still needs evidence.',
+    screenshot: '/ventures/portcoaudit.webp',
+  },
 
   // SPRINT: bounded builds intended to answer a specific question.
   {
@@ -193,21 +192,6 @@ export const ventures: Venture[] = [
     signal: 'The workflow is costly and document-heavy; accuracy, trust, and willingness to pay must be tested.',
     featured: true,
     screenshot: '/ventures/cimreader.webp',
-  },
-  {
-    slug: 'portcoaudit',
-    name: 'PortCo Audit',
-    domain: 'portcoaudit.com',
-    description: 'A retired standalone offer concept for assessing AI opportunities inside portfolio companies.',
-    stage: 'archived',
-    track: 'internal',
-    archetype: 'service',
-    status: 'Retired offer · consolidated into the Sprinter executive-enablement funnel',
-    url: 'https://sprinter.ai/portfolio-executive-ai-accelerator?utm_source=studio&utm_medium=site',
-    icp: 'Private equity firms, family offices, holding companies, and portfolio operators.',
-    monetization: 'No standalone monetization path; relevant demand starts with the $2,500 Executive AI Accelerator or the $10,000 five-leader portfolio pack.',
-    signal: 'The original concept asked the buyer to understand a new diagnostic too early. The simpler path starts with one executive, gives the sponsor aggregate evidence, and routes only earned workflows into implementation.',
-    screenshot: '/ventures/portcoaudit.webp',
   },
   {
     slug: 'hireagentbuilders',
@@ -312,6 +296,22 @@ export const ventures: Venture[] = [
     icp: 'Parents seeking organization and age-appropriate reference material.',
     monetization: 'Consumer subscription or membership hypothesis.',
     signal: 'Personal relevance is not market evidence; safety, trust, and demand must be validated first.',
+  },
+
+  // ARCHIVED: recorded, no longer an active path.
+  {
+    slug: 'aiopsguide',
+    name: 'AI Ops Guide',
+    domain: 'aiopsguide.com',
+    description: 'An AI operations audit offer: map a company’s processes, score its automation opportunities, and deliver a prioritized roadmap.',
+    stage: 'archived',
+    track: 'internal',
+    archetype: 'service',
+    // Verified 2026-09-13: HTTPS fails and HTTP serves a domain-parking lander.
+    status: 'Offline · domain parked, offer not served',
+    icp: 'Operating leaders deciding where AI automation should start.',
+    monetization: 'Fixed-fee audit hypothesis, not currently offered.',
+    signal: 'The offer page is not being served, so there is no current demand signal to read.',
   },
 ]
 

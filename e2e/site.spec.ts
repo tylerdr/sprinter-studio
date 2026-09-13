@@ -38,6 +38,31 @@ test('home to playbook is instant on client navigation', async ({ page }, testIn
   })
 })
 
+test('partner incubations have their own tracked inquiry route', async ({ page }) => {
+  await page.goto('/')
+  const cta = page.locator('#partner-incubations a[href^="mailto:"]')
+  await expect(cta).toBeVisible()
+  await expect(cta).toHaveAttribute('data-analytics-event', 'outbound_click')
+})
+
+test('playbook diagram shows one layout at every width; marker is hidden at rest', async ({ page }) => {
+  await page.goto('/playbook')
+  const diagram = page.getByRole('img', { name: /decision framework/i })
+  await expect(diagram.locator('svg:visible')).toHaveCount(1)
+  // Playwright runs with reducedMotion: 'reduce'
+  for (const marker of await page.locator('.pd-marker').all()) {
+    await expect(marker).toBeHidden()
+  }
+})
+
+test('venture records link only to live destinations', async ({ page }) => {
+  await page.goto('/ventures/portcoaudit')
+  await expect(page.locator('main a[href="https://portcoaudit.com"]')).toBeVisible()
+  await expect(page.locator('main')).not.toContainText(/retired/i)
+  await page.goto('/ventures/aiopsguide')
+  await expect(page.locator('main a[href*="aiopsguide.com"]')).toHaveCount(0)
+})
+
 test('mobile navigation opens and remains usable', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'mobile-only menu check')
   await page.goto('/')
