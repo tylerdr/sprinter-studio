@@ -23,3 +23,6 @@
 
 ## Completed
 - [x] T000: [Task] — done YYYY-MM-DD
+
+- [x] Refresh portfolio stages and cross-site links per Tyler’s 2026-10-23 direction.
+- [ ] Restore CIM Reader custom-domain DNS; current working destination is cimreader.vercel.app.

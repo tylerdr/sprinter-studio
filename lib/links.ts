@@ -7,13 +7,13 @@
 const UTM = '?utm_source=studio&utm_medium=site'
 
 export const outbound = {
-  executiveAccelerator: `https://sprinter.ai/executive-ai-accelerator${UTM}`,
-  portfolioAccelerator: `https://sprinter.ai/portfolio-executive-ai-accelerator${UTM}`,
+  executiveAccelerator: `https://sprinterconsulting.com/executive-ai-accelerator${UTM}`,
+  portfolioAccelerator: `https://sprinterconsulting.com/portfolio-executive-ai-accelerator${UTM}`,
   skillsCheck: `https://sprinter.ai/ai-skills-check${UTM}`,
   productWedgeReview: `https://sprinter.ai/product-wedge-review${UTM}`,
   // Temporary aliases keep older components compiling while copy migrates.
-  workshop: `https://sprinter.ai/executive-ai-accelerator${UTM}`,
-  portfolioPack: `https://sprinter.ai/portfolio-executive-ai-accelerator${UTM}`,
+  workshop: `https://sprinterconsulting.com/executive-ai-accelerator${UTM}`,
+  portfolioPack: `https://sprinterconsulting.com/portfolio-executive-ai-accelerator${UTM}`,
   sprinterAi: `https://sprinter.ai${UTM}`,
   consulting: `https://sprinterconsulting.com${UTM}`,
   tyler: `https://tylerdreher.com${UTM}`,

@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/ventures/ogpreviewtool", destination: "/ventures/ogfixer", permanent: true },
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.sprinter.studio" }],

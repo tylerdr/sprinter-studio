@@ -51,3 +51,6 @@ Unresolved product decisions. Agents should NOT unilaterally resolve these.
 | Date | Input | Status |
 |------|-------|--------|
 | YYYY-MM-DD | "[Tyler's words]" | pending / incorporated |
+
+## 2026-10-23 portfolio refresh
+Retired entries retain a public historical record. Current product names and destinations follow the verified public product; legacy OG Preview Tool links redirect to OG Fixer. Peaked Labs is included in Sail. Executive enablement belongs to sprinterconsulting.com; product-building links belong to sprinter.ai.
