@@ -439,7 +439,7 @@ function PipelineSection() {
           <Reveal className="mt-16" y={0}>
             <div className="max-w-3xl">
               <h3 className="font-display text-2xl md:text-3xl font-medium tracking-tight">
-                Stopped and archived
+                Retired projects
               </h3>
               <p className="mt-3 text-text-muted leading-relaxed">
                 Recorded decisions that are no longer an active commercial path.
