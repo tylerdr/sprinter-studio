@@ -75,3 +75,11 @@ Refreshed project stages, restored four products, added Peaked Labs, retired Ohi
 Added ten current ventures, accurate live-product descriptions, project-specific Twitter cards and long-title handling. Audited 36 project URLs through OG Fixer and 36 BrandKit contracts; documented approval gaps.
 
 Production verification: all 30 Studio detail pages and both share-image declarations pass. Expanded product audits to 38 URLs including Studio and Sprinter Agent.
+
+## 2026-10-23 — three recent-launch listings (local preparation)
+
+Added Scope Your SaaS, ClosePilot SOP and CloseKit as internal Sprint records with verified destinations and explicit capability/checkout limitations from the approved coordinating-task packet. Preserved all 30 previous records; the ledger now contains 33 entries, 32 active. Shared page, metadata and sitemap rendering required no changes.
+
+Lint, typecheck, SEO contract, record-preservation checks and independent source review pass. The normal build is blocked locally by Google Fonts network access; a clearly labeled build using bundled-font test responses passed. Desktop/mobile checks passed for the ledger, three detail pages, navigation, copy, links and metadata; six declared social-image responses are valid 1200×630 PNGs; sitemap contains 35 URLs. See `HANDOFF.md` for validation limits and local artifacts.
+
+Prepared on `chore/recent-venture-listings-20261023`; not remotely published, merged or deployed by this task. Normal Vercel build and exact-deployment verification remain with the coordinating task.
