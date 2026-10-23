@@ -25,3 +25,6 @@
 **Spec impact:** [Did this update SPEC.md? Which section?]
 
 ---
+
+## 2026-10-23 — live links and current portfolio
+Tyler: Update sprinter.studio to reflect project status using taidurden.com. Move Ohio to Retired; restore OG Fixer, AI Biz Blueprint, AI Ops Guide, and CIM Reader to Sail; add Peaked Labs to Sail. Update cross-site links to the correct live domains.
