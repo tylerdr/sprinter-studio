@@ -73,3 +73,5 @@ Refreshed project stages, restored four products, added Peaked Labs, retired Ohi
 ## 2026-10-23 — portfolio expansion and share cards
 
 Added ten current ventures, accurate live-product descriptions, project-specific Twitter cards and long-title handling. Audited 36 project URLs through OG Fixer and 36 BrandKit contracts; documented approval gaps.
+
+Production verification: all 30 Studio detail pages and both share-image declarations pass. Expanded product audits to 38 URLs including Studio and Sprinter Agent.
