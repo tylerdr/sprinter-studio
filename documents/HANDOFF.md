@@ -1,11 +1,10 @@
 # Session Handoff
 
-2026-10-23 — current portfolio and live-domain links
+2026-10-23 — expanded portfolio and social shares
 
-- Ohio Electricity Rates is Retired at Tyler’s direction.
-- OG Fixer, AI Biz Blueprint, AI Ops Guide, and CIM Reader return to Sail; Peaked Labs is added to Sail.
-- OG Fixer uses ogfixer.com with a permanent redirect from the former Studio entry. CIM Reader uses its working cimreader.vercel.app address; its custom domain does not resolve.
-- Corrected Shreddify (fitness), ProtocolRank (health protocol research), WinemakerOS and Roofing Reels descriptions against taidurden.com. Removed mismatched old thumbnails for Shreddify and ProtocolRank.
-- Accelerator links in navigation, copy, llms.txt, and chat now point directly to sprinterconsulting.com, retaining UTM attribution.
-- Source: Tyler’s explicit stage decisions and https://taidurden.com/ventures/ with individual project profiles. Direct HTTPS checks confirmed the five Sail destinations. Stage does not assert revenue.
-- Lint, typecheck, SEO contract, GitHub checks, and Vercel preview build passed. Preview reviewed: nine Sail entries and Ohio alone in Retired; canonical offer links verified. PR #16 is ready to publish; production verification follows the merge.
+- Added ten current projects, bringing Studio to 30 entries; Ohio remains the only retired entry. Nine additions Sail; Hybrid Marks Sprint with custom domain pending.
+- Current live product descriptions override stale Tai profiles, especially SpecSprint, AdsInChat and SurveyClose.
+- Added project-specific Twitter metadata and reduced OG title size for long names.
+- Ran OG Fixer across 36 sites and BrandKit across 36 contracts; see portfolio-share-audit-2026-10-23.md. Brand approvals remain unknown where no approval evidence exists.
+- Lint, typecheck, SEO contract and production build pass. Publishing and live card verification follow this PR.
+- Existing Consulting/Tyler/Sprinter domain links remain verified; no DNS/email edits.

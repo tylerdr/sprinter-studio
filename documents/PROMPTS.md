@@ -28,3 +28,6 @@
 
 ## 2026-10-23 — live links and current portfolio
 Tyler: Update sprinter.studio to reflect project status using taidurden.com. Move Ohio to Retired; restore OG Fixer, AI Biz Blueprint, AI Ops Guide, and CIM Reader to Sail; add Peaked Labs to Sail. Update cross-site links to the correct live domains.
+
+## 2026-10-23 — expand live portfolio and share assets
+Tyler: Add other Tai Durden projects that are live on real domains, including recoverywellnesslongevity.com, Hybrid Marks and recent launches. Run OG Fixer and BrandKit on all of them and ensure valid share images.

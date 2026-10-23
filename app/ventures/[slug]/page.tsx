@@ -39,6 +39,12 @@ export async function generateMetadata({
       url: `https://sprinter.studio/ventures/${venture.slug}`,
       type: 'website',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${venture.name} experiment | Sprinter Studio`,
+      description: venture.description,
+      images: [{ url: `https://sprinter.studio/ventures/${venture.slug}/opengraph-image`, alt: `${venture.name} — ${venture.description}` }],
+    },
   }
 }
 

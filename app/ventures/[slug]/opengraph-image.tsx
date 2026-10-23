@@ -65,7 +65,7 @@ export default async function Image({ params }: Props) {
             <div
               style={{
                 fontFamily: 'Fraunces',
-                fontSize: 84,
+                fontSize: name.length > 24 ? 62 : 84,
                 lineHeight: 0.94,
                 fontWeight: 500,
                 letterSpacing: 0,
