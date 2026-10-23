@@ -1,6 +1,6 @@
 # Portfolio and share audit — 2026-10-23
 
-Compared all 32 public Tai Durden project profiles with their linked sites, then checked Recovery Wellness Longevity, Hybrid Marks, AdsInChat and SurveyClose. Ran the production OG Fixer /api/preview audit for all 36 URLs and BrandKit's contract audit for the 32 public reference contracts plus four source-observed drafts. Raw audit evidence lives in the local 2026-10-23/portfolio-share-audit task folder.
+Compared all 32 public Tai Durden project profiles with their linked sites, then checked Recovery Wellness Longevity, Hybrid Marks, AdsInChat and SurveyClose. Ran the production OG Fixer /api/preview audit for all 38 product/root URLs, including Studio and Sprinter Agent and BrandKit's contract audit for the 32 public reference contracts plus six source-observed drafts. Raw audit evidence lives in the local 2026-10-23/portfolio-share-audit task folder.
 
 ## Portfolio changes
 
@@ -16,10 +16,14 @@ Studio project pages use project-specific Twitter images and descriptions. Long 
 
 ## BrandKit findings
 
-All 36 contracts are structurally valid. Public reference contracts and newly observed contracts do not establish owner-approved identity, logo rights, palette, typography or contrast evidence. Those remain explicit unknowns, not approved brand kits. New observed drafts retain first-party source URLs and the OG Fixer observations. Tai/BrandKit's SpecSprint description is stale relative to the industrial homepage; live product copy takes precedence.
+All 38 contracts are structurally valid. Public reference contracts and newly observed contracts do not establish owner-approved identity, logo rights, palette, typography or contrast evidence. Those remain explicit unknowns, not approved brand kits. New observed drafts retain first-party source URLs and the OG Fixer observations. Tai/BrandKit's SpecSprint description is stale relative to the industrial homepage; live product copy takes precedence.
 
 CreditLatch has missing metadata but only a Vercel address and is not being added to Studio. Brighter Postpartum also uses a Vercel address and an unusually wide share image. These are outside the custom-domain additions. Existing reachable non-1200×630 images elsewhere are reported at their actual dimensions; validity does not mean full brand approval.
 
 ## Validation
 
 Studio lint, TypeScript, SEO contract and production build passed. React review: metadata remains server-side, no client dependencies or effects added, card text stays accessible via metadata alt text. Individual site build/tests and production OG Fixer rechecks accompany the deployment. No DNS or mail configuration changes.
+
+## Published verification
+
+All 30 Studio detail pages return HTTP 200 and reachable, decodable 1200×630 Open Graph and Twitter images. Studio root also passes. SpecSprint, HireAgentBuilders and SurveyClose card repairs are live and re-audited. AdsInChat and Hybrid Marks fixes are merged and locally built with production settings, but their prebuilt Vercel deployments remain queued; paid queue overrides await Tyler’s response. Sprinter Agent was also found without a card and its repair is being completed. Raw evidence and current release status are recorded in the local portfolio-share-audit/REPORT.md.
