@@ -26,3 +26,8 @@
 
 - [x] Refresh portfolio stages and cross-site links per Tyler’s 2026-10-23 direction.
 - [ ] Restore CIM Reader custom-domain DNS; current working destination is cimreader.vercel.app.
+
+- [x] Restore live custom-domain projects from Tai and add Recovery Wellness Longevity / Hybrid Marks / recent launches.
+- [x] Audit share images and BrandKit reference contracts; repair missing social cards in project repositories.
+- [ ] Record owner-approved identities, asset rights and brand tokens in BrandKit; source-observed contracts remain drafts.
+- [ ] Hybrid Marks custom domain remains pending; purchase/connection is separate scope.

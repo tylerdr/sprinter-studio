@@ -69,3 +69,7 @@
 
 ## 2026-10-23
 Refreshed project stages, restored four products, added Peaked Labs, retired Ohio, corrected obsolete project descriptions, and routed accelerator links to the live Consulting domain.
+
+## 2026-10-23 — portfolio expansion and share cards
+
+Added ten current ventures, accurate live-product descriptions, project-specific Twitter cards and long-title handling. Audited 36 project URLs through OG Fixer and 36 BrandKit contracts; documented approval gaps.
