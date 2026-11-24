@@ -41,3 +41,10 @@ Tyler: Add other Tai Durden projects that are live on real domains, including re
 **Context:** Isolated branch `chore/recent-venture-listings-20261023`, based on `8e84884fc1aaec506cdd37de299bfdccb7aa26f4`. Root confirmed one implementer and no active competing writer. Existing site-owner work is recorded in merged PRs #17 and #18.
 **Action:** Add only the three verified missing Studio records: Scope Your SaaS, ClosePilot SOP and CloseKit. Preserve all 30 existing records, the current design and runtime settings. Root owns independent review and any remote publication.
 **Spec impact:** Record these as Sprint experiments with current capability and checkout limitations; a public listing does not establish paid fulfillment or demand.
+
+## 2026-11-23 — Sprinter web family, Phase 1 (Studio = Prove)
+
+**Source:** Tyler, via the coordinating session for the four-site Sprinter web family. Shared brief: `SprinterVault/35-Sources/processed/2026-11-23-sprinter-web-family-brief.md` (authoritative).
+**Direction:** Make sprinter.ai, sprinterconsulting.com, sprinterdataworks.com and sprinter.studio read as one credible AI-leader brand family. Phase 1 keeps each site's visual identity (no logo, palette or font changes) and fixes copy, SEO/AEO/GEO and cross-linking, then ships to production. Studio's role is **Prove**: the venture studio and public experiment ledger, not a commercial offer.
+**Studio scope:** shorter first screen that says what this is in one read; "Work with Sprinter" routing to the right family offer instead of only the Executive AI Accelerator; shared "The Sprinter family" footer with the canonical one-liners; entity graph per the brief; llms.txt with Sprinter Dataworks; explicit AI-crawler robots rules; breadcrumbs and per-page OG. Ledger entries keep their evidence and boundaries; no new claims.
+**Spec impact:** Commercial routing revision recorded in `site-role-and-guardrails-2026-08-15.md`.
