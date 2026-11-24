@@ -65,8 +65,28 @@ export default async function VenturePage({
   const next =
     ventureIndex < ventures.length - 1 ? ventures[ventureIndex + 1] : null
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Sprinter Studio', item: 'https://sprinter.studio/' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: venture.name,
+        item: `https://sprinter.studio/ventures/${venture.slug}`,
+      },
+    ],
+  }
+
   return (
     <main id="main" className="min-h-screen px-6 pt-28 pb-24 lg:pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <div className="max-w-3xl mx-auto">
         <Link
           href="/#pipeline"

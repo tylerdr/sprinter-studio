@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Github } from 'lucide-react'
 
-import { outbound, siblings, trackOutbound } from '@/lib/links'
+import { family, outbound, related, trackOutbound } from '@/lib/links'
 
 /**
  * Lives in the root layout, not on the homepage. It used to be a local
@@ -23,31 +23,22 @@ export function SiteFooter() {
             The venture studio of Sprinter
           </span>
         </div>
-        <nav className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-border-subtle pt-6 text-center text-sm text-text-muted md:justify-start md:text-left">
+        <nav
+          aria-label="Footer"
+          className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-border-subtle pt-6 text-center text-sm text-text-muted md:justify-start md:text-left"
+        >
           <Link href="/#pipeline" className="hover:text-foreground transition-colors">
             Experiment ledger
           </Link>
           <Link href="/playbook" className="hover:text-foreground transition-colors">
             Playbook
           </Link>
-          <a
-            href={outbound.executiveAccelerator}
-            target="_blank"
-            {...trackOutbound('footer')}
-            rel="noopener noreferrer"
+          <Link
+            href="/#working-with-sprinter"
             className="hover:text-foreground transition-colors"
           >
-            Executive AI Accelerator
-          </a>
-          <a
-            href={outbound.portfolioAccelerator}
-            target="_blank"
-            {...trackOutbound('footer')}
-            rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors"
-          >
-            Portfolio accelerator
-          </a>
+            Work with Sprinter
+          </Link>
           <a
             href={outbound.github}
             target="_blank"
@@ -55,23 +46,65 @@ export function SiteFooter() {
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors flex items-center gap-1"
           >
-            <Github className="w-4 h-4" /> GitHub
+            <Github className="w-4 h-4" aria-hidden="true" /> GitHub
           </a>
         </nav>
-        <ul className="grid w-full gap-x-6 gap-y-4 text-center text-sm sm:grid-cols-2 md:text-left lg:grid-cols-4">
-          {siblings.map((sibling) => (
-            <li key={sibling.host}>
+
+        <section aria-labelledby="sprinter-family" className="w-full border-t border-border-subtle pt-6">
+          <h2
+            id="sprinter-family"
+            className="text-center font-mono text-[11px] uppercase tracking-[0.14em] text-text-muted md:text-left"
+          >
+            The Sprinter family
+          </h2>
+          <ul className="mt-4 grid w-full gap-x-6 gap-y-5 text-center text-sm sm:grid-cols-2 md:text-left lg:grid-cols-4">
+            {family.map((member) => {
+              const isHere = member.href === '/'
+              const body = (
+                <>
+                  <span className={isHere ? 'text-chalk-green' : 'text-foreground'}>
+                    {member.name}
+                  </span>
+                  <span className="mt-1 block text-text-muted">{member.line}</span>
+                  <span className="mt-1 block font-mono text-xs text-chalk-3 group-hover:text-chalk-green">
+                    {member.host}
+                  </span>
+                </>
+              )
+              return (
+                <li key={member.host}>
+                  {isHere ? (
+                    <Link href="/" className="group inline-block">
+                      {body}
+                    </Link>
+                  ) : (
+                    <a
+                      href={member.href}
+                      target="_blank"
+                      {...trackOutbound('footer-family')}
+                      rel="noopener noreferrer"
+                      className="group inline-block"
+                    >
+                      {body}
+                    </a>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+
+        <ul className="flex w-full flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-chalk-3 md:justify-start">
+          {related.map((item) => (
+            <li key={item.host}>
               <a
-                href={sibling.href}
+                href={item.href}
                 target="_blank"
-                {...trackOutbound('footer-roster')}
+                {...trackOutbound('footer-related')}
                 rel="noopener noreferrer"
-                className="group inline-block text-text-muted transition-colors hover:text-foreground"
+                className="hover:text-foreground transition-colors"
               >
-                {sibling.label}
-                <span className="mt-0.5 block font-mono text-xs text-chalk-3 group-hover:text-chalk-green">
-                  {sibling.host}
-                </span>
+                {item.label} <span className="font-mono">· {item.host}</span>
               </a>
             </li>
           ))}

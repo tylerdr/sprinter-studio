@@ -8,11 +8,35 @@ import { ArrowRight, Check, CircleStop, RotateCcw, ShieldCheck } from 'lucide-re
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+const playbookTitle = 'The Amble → Sprint → Sail Playbook'
+const playbookDescription =
+  'The evidence-gated method Sprinter Studio uses to question, test, ship, continue, pause, or stop AI product experiments while keeping humans accountable.'
+
 export const metadata: Metadata = {
-  title: 'The Amble → Sprint → Sail Playbook',
-  description:
-    'The evidence-gated method Sprinter Studio uses to question, test, ship, continue, pause, or stop AI product experiments while keeping humans accountable.',
+  title: playbookTitle,
+  description: playbookDescription,
   alternates: { canonical: '/playbook' },
+  openGraph: {
+    title: `${playbookTitle} | Sprinter Studio`,
+    description: playbookDescription,
+    url: 'https://sprinter.studio/playbook',
+    siteName: 'Sprinter Studio',
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${playbookTitle} | Sprinter Studio`,
+    description: playbookDescription,
+  },
+}
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Sprinter Studio', item: 'https://sprinter.studio/' },
+    { '@type': 'ListItem', position: 2, name: 'Playbook', item: 'https://sprinter.studio/playbook' },
+  ],
 }
 
 function Section({
@@ -97,6 +121,12 @@ const decisions = [
 export default function PlaybookPage() {
   return (
     <main id="main" className="min-h-screen px-6 pt-28 pb-24 lg:pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <div className="max-w-3xl mx-auto">
         <Link
           href="/"

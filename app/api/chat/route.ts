@@ -58,6 +58,8 @@ Tyler Dreher is the founder and accountable human. Commercial work lives elsewhe
 - Executive AI Accelerator — $2,500, one executive, two private 60-minute working sessions, and three repeatable Claude Cowork, ChatGPT, Copilot, Gemini, or approved-tool workflows: https://sprinterconsulting.com/executive-ai-accelerator
 - Portfolio Executive AI Accelerator — $10,000 for five individually scheduled leaders plus an aggregate sponsor readout: https://sprinterconsulting.com/portfolio-executive-ai-accelerator
 - Sprinter Consulting — workflow setup and implementation only after a workflow has earned deeper help: https://sprinterconsulting.com
+- Sprinter AI — vertical AI products, built with the people who know the work. Experts funding a product of their own start with the Product Wedge Review, scoped after fit: https://sprinter.ai/product-wedge-review
+- Sprinter Dataworks — understand, prepare and license your business data to help fund your AI work: https://sprinterdataworks.com. Do not describe payouts, proceeds or valuations; point to the site.
 
 Route commercial questions to the exact destination rather than pitching the Studio. Do not describe a team workshop as the current first offer.
 

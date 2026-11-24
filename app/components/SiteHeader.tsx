@@ -1,8 +1,8 @@
 'use client'
 
-import { outbound, siblings, trackOutbound } from '@/lib/links'
+import { family, outbound, related, trackOutbound, trackRoute } from '@/lib/links'
 import Link from 'next/link'
-import { ArrowUpRight, Github, Menu, X } from 'lucide-react'
+import { ArrowDown, Github, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export function SiteHeader() {
@@ -83,16 +83,14 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href={outbound.executiveAccelerator}
-            target="_blank"
-            {...trackOutbound('header-cta')}
-            rel="noopener noreferrer"
+          <Link
+            href="/#working-with-sprinter"
+            {...trackRoute('header-cta')}
             className="hidden sm:inline-flex min-h-11 items-center gap-1.5 rounded-sm bg-chalk-green px-4 text-sm font-semibold text-background hover:bg-chalk-green/85 transition-colors"
           >
-            Executive AI Accelerator
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
+            Work with Sprinter
+            <ArrowDown className="w-4 h-4" aria-hidden="true" />
+          </Link>
           <button
             className="lg:hidden inline-flex h-11 w-11 items-center justify-center text-text-muted hover:text-foreground"
             onClick={() => setMenuOpen((value) => !value)}
@@ -134,45 +132,56 @@ export function SiteHeader() {
           >
             GitHub
           </a>
-          <div className="mt-5 border-t border-border-subtle pt-5 space-y-3">
-            <a
-              href={outbound.executiveAccelerator}
-              target="_blank"
-              {...trackOutbound('mobile-menu')}
-              rel="noopener noreferrer"
+          <div className="mt-5 border-t border-border-subtle pt-5">
+            <Link
+              href="/#working-with-sprinter"
+              {...trackRoute('mobile-menu-cta')}
               className="flex min-h-12 items-center justify-center gap-2 rounded-sm bg-chalk-green px-5 text-sm font-semibold text-background"
               onClick={() => setMenuOpen(false)}
             >
-              Executive AI Accelerator — $2,500
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-            <a
-              href={outbound.portfolioAccelerator}
-              target="_blank"
-              {...trackOutbound('mobile-menu')}
-              rel="noopener noreferrer"
-              className="flex min-h-12 items-center justify-center rounded-sm border border-hairline-strong px-5 text-sm text-foreground"
-              onClick={() => setMenuOpen(false)}
-            >
-              Five-leader portfolio pack — $10,000
-            </a>
+              Work with Sprinter
+              <ArrowDown className="w-4 h-4" aria-hidden="true" />
+            </Link>
           </div>
-          {/* Consulting lives in the roster below, under the footer's label. */}
-          <ul className="mt-5 space-y-3 border-t border-border-subtle pt-5 pb-8">
-            {siblings.map((sibling) => (
-              <li key={sibling.host}>
+          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.14em] text-text-muted">
+            The Sprinter family
+          </p>
+          <ul className="mt-3 space-y-4 pb-4">
+            {family.map((member) => (
+              <li key={member.host}>
                 <a
-                  href={sibling.href}
-                  target="_blank"
-                  {...trackOutbound('mobile-menu-roster')}
-                  rel="noopener noreferrer"
+                  href={member.href}
+                  {...(member.href === '/'
+                    ? {}
+                    : {
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                        ...trackOutbound('mobile-menu-family'),
+                      })}
                   className="block text-sm text-text-muted hover:text-foreground"
                   onClick={() => setMenuOpen(false)}
                 >
-                  {sibling.label}
+                  <span className="text-foreground">{member.name}</span>
+                  <span className="mt-0.5 block">{member.line}</span>
                   <span className="mt-0.5 block font-mono text-xs text-chalk-3">
-                    {sibling.host}
+                    {member.host}
                   </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <ul className="space-y-3 border-t border-border-subtle pt-4 pb-8">
+            {related.map((item) => (
+              <li key={item.host}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  {...trackOutbound('mobile-menu-related')}
+                  rel="noopener noreferrer"
+                  className="block text-xs text-chalk-3 hover:text-foreground"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label} <span className="font-mono">· {item.host}</span>
                 </a>
               </li>
             ))}

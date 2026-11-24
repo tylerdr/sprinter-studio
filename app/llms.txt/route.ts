@@ -7,6 +7,7 @@ import {
   ventures,
   type Venture,
 } from '@/app/data/ventures'
+import { family } from '@/lib/links'
 
 function entry(venture: Venture) {
   const brand = venture.standaloneBrand
@@ -26,7 +27,14 @@ export function GET() {
   const lines: string[] = [
     '# Sprinter Studio',
     '',
-    '> Sprinter Studio is the venture studio inside the Sprinter ecosystem: products incubated with partners and internal experiments, each clearly labeled as one or the other — a public record of what is being tested, shipped, and stopped. Studio is not itself a fund or commercial offer. The parent system is explained at https://sprinter.ai; focused offers remain on dedicated routes.',
+    '> Sprinter Studio is the venture studio of Sprinter, the applied AI firm founded by Tyler Dreher in 2018: partner incubations and internal experiments, each clearly labeled as one or the other — a public record of what is being tested, shipped, and stopped. Studio is not a fund or a commercial offer. Work with Sprinter happens on the family sites listed below.',
+    '',
+    '## The Sprinter family',
+    '',
+    ...family.map(
+      (member) =>
+        `- ${member.name} — ${member.line} https://${member.host}`,
+    ),
     '',
     '## Current commercial routing',
     '',
@@ -34,6 +42,7 @@ export function GET() {
     '- Portfolio Executive AI Accelerator, $10,000 for five individually scheduled leaders: https://sprinterconsulting.com/portfolio-executive-ai-accelerator',
     '- Workflow setup and implementation after the need is proven: https://sprinterconsulting.com',
     '- Funding a product of your own? Product Wedge Review, scoped after fit: https://sprinter.ai/product-wedge-review',
+    '- Understand, prepare and license your business data to help fund your AI work: https://sprinterdataworks.com',
     '- Founder background and writing: https://tylerdreher.com',
     '',
     'The Executive AI Accelerator is the default first purchase: one executive, two private 60-minute working sessions over one week, and three repeatable Claude Cowork, ChatGPT, Copilot, Gemini, or other approved AI workflows. No workshop cohort, Sprinter platform, integration, or long-term contract is required.',
@@ -84,8 +93,6 @@ export function GET() {
     '',
     '## Related properties',
     '',
-    '- Sprinter — AI-native product building for multi-entity operators: https://sprinter.ai',
-    '- Sprinter Consulting — the execution practice of Sprinter: https://sprinterconsulting.com',
     '- Amble — the company brain, built by Sprinter: https://ambleideation.com',
     '- Tyler Dreher — founder, writing, and selected work: https://tylerdreher.com',
     '',

@@ -4,6 +4,27 @@
 
 ---
 
+## 2026-11-23 — Sprinter web family Phase 1: Studio as "Prove" (Claude Code session)
+
+**Branch:** feature/web-family-phase1 → PR
+**Prompt:** Sprinter web family brief (2026-11-23): one credible brand family across sprinter.ai, sprinterconsulting.com, sprinterdataworks.com and sprinter.studio. Copy, SEO/AEO/GEO and cross-linking only; logo, palette and fonts frozen.
+
+**Shipped:**
+- `app/page.tsx` — hero: "Partner incubations and internal experiments, published while unproven." with a one-sentence lede and "This is a record, not an offer" route line; §06 is now "How do I work with Sprinter?", a router by need (Advise / Build / Data) plus partner incubation as Studio's only door; FAQ adds "What is Sprinter Studio?" and "How do I work with Sprinter?"; final CTA keeps the $2,500 accelerator first and adds "See every Sprinter route".
+- `app/components/SiteHeader.tsx` — header and drawer CTA is "Work with Sprinter" (→ `/#working-with-sprinter`, `route_click` analytics) instead of a single offer; drawer shows the family roster.
+- `app/components/SiteFooter.tsx`, `lib/links.ts` — "The Sprinter family" footer with the brief's four canonical one-liners; Amble and tylerdreher.com in a related row; `dataworks` outbound link.
+- `app/layout.tsx` — new title/description; entity graph: founder `sprinter.ai/#founder`, parent stub `sprinter.ai/#organization`, Studio/Consulting/Dataworks orgs with `parentOrganization` (siblings no longer `sameAs` the parent).
+- `app/playbook/page.tsx`, `app/playbook/opengraph-image.tsx`, `lib/og-card.tsx`, `app/opengraph-image.tsx` — /playbook gets its own OG title/url/image; shared OG card; home card matches the new hero.
+- `app/ventures/[slug]/page.tsx` — BreadcrumbList JSON-LD (also on /playbook).
+- `app/robots.ts` — explicit allow group for GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended; `/api/` still disallowed.
+- `app/llms.txt/route.ts`, `app/api/chat/route.ts` — "The Sprinter family" block, Sprinter Dataworks route, updated summary.
+- `e2e/site.spec.ts` — routing and family-footer tests; "offline kit" no longer misread as an offline site (pre-existing failure from #19 data).
+- No ledger record changed (`app/data/ventures.ts` untouched).
+
+**Deviation:** sitemap still omits `lastmod` — records have no real review date and the SEO contract forbids a deploy-time date.
+
+---
+
 ## 2026-09-13 — Revenue-coherence S3: dead domains leave "Live" (Claude Code session)
 
 **Branch:** fix/revenue-coherence-2026-09-13 → PR (not merged)

@@ -60,7 +60,8 @@ test('venture records link only to live destinations', async ({ page }) => {
   // An entry that links its own domain must be marked live, never archived or offline.
   for (const venture of ventures.filter((v) => v.url?.includes(v.domain))) {
     expect(venture.stage, venture.slug).not.toBe('archived')
-    expect(venture.status, venture.slug).not.toMatch(/offline/i)
+    // "offline kit" describes a downloadable product, not a site that is down.
+    expect(venture.status, venture.slug).not.toMatch(/\boffline\b(?!\s+(?:tool)?kit)/i)
   }
 
   await page.goto('/ventures/portcoaudit')
@@ -109,4 +110,33 @@ test('mobile navigation opens and remains usable', async ({ page }, testInfo) =>
   await page.getByRole('button', { name: /open menu/i }).click()
   await expect(page.locator('#studio-mobile-nav')).toBeVisible()
   await expect(page.locator('#studio-mobile-nav a[href="/playbook"]')).toBeVisible()
+})
+
+test('header routes to the on-page Work with Sprinter router, not a single offer', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'desktop header check')
+  await page.goto('/ventures/closekit')
+  const cta = page.locator('header a', { hasText: 'Work with Sprinter' })
+  await expect(cta).toHaveAttribute('href', '/#working-with-sprinter')
+  await expect(page.locator('header')).not.toContainText('Executive AI Accelerator')
+
+  await page.goto('/')
+  const routes = page.locator('#working-with-sprinter')
+  await expect(routes.locator('a[href^="https://sprinterconsulting.com/executive-ai-accelerator"]')).toBeVisible()
+  await expect(routes.locator('a[href^="https://sprinterdataworks.com"]')).toBeVisible()
+  await expect(routes.locator('a[href^="mailto:hi@sprinter.ai"]')).toBeVisible()
+})
+
+test('footer lists the four-site Sprinter family with the canonical lines', async ({ page }) => {
+  await page.goto('/playbook')
+  const family = page.locator('footer section[aria-labelledby="sprinter-family"]')
+  await expect(family.getByRole('heading', { name: 'The Sprinter family' })).toBeVisible()
+  for (const line of [
+    'Vertical AI products, built with the people who know the work.',
+    'Hands-on AI enablement and workflow implementation for leaders and operating teams.',
+    'Understand, prepare and license your business data to help fund your AI work.',
+    'Our venture studio: partner incubations and internal experiments, published in public.',
+  ]) {
+    await expect(family.getByText(line)).toBeVisible()
+  }
+  await expect(family.locator('li')).toHaveCount(4)
 })
