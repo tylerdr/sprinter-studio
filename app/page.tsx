@@ -12,7 +12,7 @@ import {
 } from '@/app/data/ventures'
 import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { outbound, trackOutbound } from '@/lib/links'
+import { outbound, trackOutbound, trackRoute } from '@/lib/links'
 import { cn } from '@/lib/utils'
 import { ArrowRight, ArrowUpRight, Github, Mail } from 'lucide-react'
 import Link from 'next/link'
@@ -71,31 +71,53 @@ const lessons = [
   },
 ] as const
 
-const routes = [
+type RouteLink = { label: string; href: string; primary?: boolean }
+
+const routes: ReadonlyArray<{
+  eyebrow: string
+  title: string
+  body: string
+  links: ReadonlyArray<RouteLink>
+}> = [
   {
-    eyebrow: 'One executive · $2,500',
-    title: 'Turn three recurring executive tasks into reliable AI workflows.',
-    body: 'The Executive AI Accelerator is two private 60-minute working sessions over one week using Claude Cowork, ChatGPT, Copilot, Gemini, or another approved tool.',
-    href: outbound.executiveAccelerator,
-    cta: 'See the Executive AI Accelerator',
+    eyebrow: 'Advise · for leaders · sprinterconsulting.com',
+    title: 'Turn one executive\u2019s recurring work into reliable AI workflows.',
+    body: 'The Executive AI Accelerator is two private 60-minute working sessions over one week using Claude Cowork, ChatGPT, Copilot, Gemini, or another approved tool. Implementation comes only after real use earns it.',
+    links: [
+      { label: 'Executive AI Accelerator — $2,500', href: outbound.executiveAccelerator, primary: true },
+      { label: 'Five-leader portfolio pack — $10,000', href: outbound.portfolioAccelerator },
+      { label: 'Implementation-ready workflow? Sprinter Consulting', href: outbound.consulting },
+    ],
   },
   {
-    eyebrow: 'Five leaders · $10,000',
-    title: 'Give five leaders private AI acceleration.',
-    body: 'Each management-company or operating-company executive schedules individually and works on the responsibilities they actually own. The sponsor receives an aggregate opportunity readout, not employee surveillance.',
-    href: outbound.portfolioAccelerator,
-    cta: 'See the five-leader portfolio pack',
+    eyebrow: 'Build · for industry experts · sprinter.ai',
+    title: 'Vertical AI products, built with the people who know the work.',
+    body: 'Bring the domain and fund the build yourself. Sprinter AI starts with a Product Wedge Review, scoped after fit.',
+    links: [
+      { label: 'Funding a product of your own? Product Wedge Review', href: outbound.productWedgeReview, primary: true },
+    ],
   },
   {
-    eyebrow: 'Implementation-ready workflow',
-    title: 'Has real use already revealed a workflow worth setting up or building?',
-    body: 'Sprinter Consulting is the execution practice for a named workflow with a real owner, repeated demand, suitable access, clear human-review boundaries, and defensible implementation economics.',
-    href: outbound.consulting,
-    cta: 'See the execution practice',
+    eyebrow: 'Data · for business owners · sprinterdataworks.com',
+    title: 'Understand, prepare and license your business data to help fund your AI work.',
+    body: 'Sprinter Dataworks is the data practice in the Sprinter family. What it does, its terms and its limits are set out on its own site.',
+    links: [
+      { label: 'See Sprinter Dataworks', href: outbound.dataworks, primary: true },
+    ],
   },
-] as const
+]
 
 const faqItems = [
+  {
+    question: 'What is Sprinter Studio?',
+    answer:
+      'Sprinter Studio is the venture studio of Sprinter, the applied AI firm Tyler Dreher founded in 2018. It publishes partner incubations and internal experiments with their stage, status, and what is still unproven, including the decisions to stop. It is a public record, not a commercial offer.',
+  },
+  {
+    question: 'How do I work with Sprinter?',
+    answer:
+      'Start on the Sprinter site built for your need. Leaders start with the $2,500 Executive AI Accelerator, or the $10,000 five-leader portfolio pack, at Sprinter Consulting. Industry experts with a vertical product idea start with the Product Wedge Review at Sprinter AI. Owners who want to understand, prepare and license business data start at Sprinter Dataworks. Partner incubation proposals go to hi@sprinter.ai.',
+  },
   {
     question: 'What is the difference between the two tracks?',
     answer:
@@ -151,15 +173,11 @@ function Hero() {
       <div className="relative max-w-5xl mx-auto text-center py-20">
         <Reveal immediate duration={0.6} y={28}>
           <Eyebrow className="mb-6">
-            The venture studio of Sprinter
-            <span className="hidden sm:inline">
-              {' '}
-              · partner incubations · internal experiments
-            </span>
+            Sprinter Studio · the venture studio of Sprinter
           </Eyebrow>
           <h1 className="font-display text-4xl md:text-6xl font-medium tracking-tight text-balance leading-[1.08]">
-            <span className="text-chalk-green">Two tracks, one bench:</span>{' '}
-            products we build with partners, and experiments we run ourselves.
+            Partner incubations and internal experiments,{' '}
+            <span className="text-chalk-green">published while unproven.</span>
           </h1>
         </Reveal>
 
@@ -170,9 +188,9 @@ function Hero() {
           delay={0.18}
           className="mt-7 text-lg md:text-xl text-foreground max-w-3xl mx-auto leading-relaxed"
         >
-          Published while unproven: a public record of what we are testing,
-          shipping, and stopping, from raw hypotheses to live properties, none
-          of which counts as proof of demand.
+          Sprinter Studio is the public ledger of Sprinter&apos;s AI product
+          experiments. Each entry shows its track, stage, status, and what is
+          still unproven, including the work we stop.
         </Reveal>
 
         <Reveal
@@ -194,7 +212,24 @@ function Hero() {
               'border-hairline-strong hover:border-chalk-green',
             )}
           >
-            Read the build method
+            How we decide what continues
+          </Link>
+        </Reveal>
+
+        <Reveal
+          as="p"
+          immediate
+          duration={0.6}
+          delay={0.46}
+          className="mt-7 text-sm text-text-muted"
+        >
+          This is a record, not an offer.{' '}
+          <Link
+            href="#working-with-sprinter"
+            {...trackRoute('hero')}
+            className="text-chalk-green underline decoration-hairline-strong underline-offset-4 hover:decoration-chalk-green"
+          >
+            Looking to work with Sprinter? Find the right route
           </Link>
         </Reveal>
       </div>
@@ -491,23 +526,23 @@ function Lessons() {
 
 function CommercialRoutes() {
   return (
-    <section id="working-with-sprinter" className="py-24 px-6">
+    <section id="working-with-sprinter" className="scroll-mt-20 py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal className="text-center max-w-3xl mx-auto">
-          <Eyebrow>§ 06 — Working with Sprinter</Eyebrow>
+          <Eyebrow>§ 06 — Work with Sprinter</Eyebrow>
           <h2 className="mt-4 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
-            Start with one executive&apos;s recurring work.
+            How do I work with Sprinter?
           </h2>
           <p className="mt-5 text-text-muted leading-relaxed">
-            The Studio makes the build method visible. Sprinter is where that
-            capability is applied to real executive work and implementation-ready
-            workflows.
+            Sprinter Studio sells nothing. Pick the route that matches what you
+            need; each one lives on its own Sprinter site, with its own price and
+            terms. Most leaders start with the Executive AI Accelerator.
           </p>
         </Reveal>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
           {routes.map((route, index) => (
-            <Reveal key={route.href} delay={index * 0.08}>
+            <Reveal key={route.eyebrow} delay={index * 0.08}>
               <div className="flex h-full flex-col border border-border-subtle bg-surface p-7 md:p-8">
                 <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-chalk-amber">
                   {route.eyebrow}
@@ -518,32 +553,48 @@ function CommercialRoutes() {
                 <p className="mt-4 text-sm text-text-muted leading-relaxed">
                   {route.body}
                 </p>
-                <a
-                  href={route.href}
-                  target="_blank"
-                  {...trackOutbound('commercial-routes')}
-                  rel="noopener noreferrer"
-                  className="mt-auto pt-7 text-sm text-chalk-green underline decoration-hairline-strong underline-offset-4 hover:decoration-chalk-green inline-flex items-center gap-1.5"
-                >
-                  {route.cta}
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
+                <ul className="mt-auto space-y-3 pt-7 text-sm">
+                  {route.links.map((link) => (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        {...trackOutbound('commercial-routes')}
+                        rel="noopener noreferrer"
+                        className={cn(
+                          'inline-flex items-center gap-1.5 underline-offset-4',
+                          link.primary
+                            ? 'text-chalk-green underline decoration-hairline-strong hover:decoration-chalk-green'
+                            : 'text-text-muted hover:text-foreground',
+                        )}
+                      >
+                        {link.label}
+                        <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </Reveal>
           ))}
         </div>
 
-        <Reveal y={0} className="mt-8 text-center">
+        <Reveal
+          y={0}
+          className="mt-8 flex flex-col gap-3 border-y border-border-subtle px-1 py-5 text-sm md:flex-row md:items-center md:justify-between"
+        >
+          <p className="text-text-muted leading-relaxed">
+            <span className="text-foreground">Studio&apos;s only door of its own:</span>{' '}
+            incubate a new product with us as a named partner. You bring domain
+            access, a clear owner, credible distribution, and aligned economics.
+          </p>
           <a
-            href={outbound.productWedgeReview}
-            target="_blank"
-            {...trackOutbound('commercial-routes-build')}
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-text-muted hover:text-foreground"
+            href={outbound.partnerInquiry}
+            {...trackOutbound('commercial-routes-partner')}
+            className="inline-flex shrink-0 items-center gap-1.5 text-chalk-green underline decoration-hairline-strong underline-offset-4 hover:decoration-chalk-green"
           >
-            Funding a product of your own? Product Wedge Review, scoped after
-            fit
-            <ArrowUpRight className="w-4 h-4" />
+            Propose a partner incubation
+            <Mail className="w-4 h-4" aria-hidden="true" />
           </a>
         </Reveal>
       </div>
@@ -646,13 +697,13 @@ function FinalCta() {
         <Reveal>
           <Eyebrow>§ 09 — Next</Eyebrow>
           <h2 className="mt-5 font-display text-3xl md:text-5xl font-medium tracking-tight text-balance">
-            Follow the experiments. Start with one executive and real work.
+            Follow the experiments. Start real work where it fits.
           </h2>
           <p className="mt-5 max-w-2xl mx-auto text-text-muted leading-relaxed">
-            Sprinter.ai explains the wider product-building system. When this
-            focused entry offer fits, the $2,500 Executive AI Accelerator turns
-            one executive&apos;s recurring work into three repeatable workflows.
-            Deeper setup or implementation comes only after real use earns it.
+            The ledger shows how Sprinter tests, ships, and stops. For most
+            leaders the first step is the $2,500 Executive AI Accelerator: one
+            executive&apos;s recurring work turned into three repeatable
+            workflows. Builders and data owners have their own routes.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
@@ -668,29 +719,18 @@ function FinalCta() {
               Executive AI Accelerator — $2,500
               <ArrowRight className="w-4 h-4" />
             </a>
-            <a
-              href={outbound.portfolioAccelerator}
-              target="_blank"
-              {...trackOutbound('final-cta')}
-              rel="noopener noreferrer"
+            <Link
+              href="#working-with-sprinter"
+              {...trackRoute('final-cta')}
               className={cn(
                 buttonVariants({ variant: 'outline', size: 'lg' }),
                 'border-hairline-strong hover:border-chalk-green inline-flex items-center gap-2',
               )}
             >
-              Five-leader portfolio pack — $10,000
-              <ArrowRight className="w-4 h-4" />
-            </a>
+              See every Sprinter route
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
           </div>
-          <a
-            href={outbound.consulting}
-            target="_blank"
-            {...trackOutbound('final-cta')}
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex text-sm text-text-muted hover:text-foreground"
-          >
-            Have an implementation-ready workflow? Sprinter Consulting builds it.
-          </a>
         </Reveal>
       </div>
     </section>

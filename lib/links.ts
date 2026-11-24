@@ -16,6 +16,7 @@ export const outbound = {
   portfolioPack: `https://sprinterconsulting.com/portfolio-executive-ai-accelerator${UTM}`,
   sprinterAi: `https://sprinter.ai${UTM}`,
   consulting: `https://sprinterconsulting.com${UTM}`,
+  dataworks: `https://sprinterdataworks.com${UTM}`,
   tyler: `https://tylerdreher.com${UTM}`,
   amble: `https://ambleideation.com${UTM}`,
   github: 'https://github.com/tylerdr/sprinter-studio',
@@ -24,13 +25,40 @@ export const outbound = {
 } as const
 
 /**
- * Sibling-property roster shared by the footer and the mobile drawer. Labels
- * reuse the existing descriptor strings; the hostname prints in mono under
- * each (BRAND.md OutboundLink pattern).
+ * "The Sprinter family" — the shared footer block on all four Sprinter sites.
+ * Names and one-liners are the canonical wording from the 2026-11-23 web
+ * family brief; keep them identical to the other three sites. Studio's own
+ * row links home rather than out.
  */
-export const siblings = [
-  { label: 'Sprinter — the parent brand and build engine', host: 'sprinter.ai', href: outbound.sprinterAi },
-  { label: 'Sprinter Consulting — the execution practice of Sprinter', host: 'sprinterconsulting.com', href: outbound.consulting },
+export const family = [
+  {
+    name: 'Sprinter AI',
+    line: 'Vertical AI products, built with the people who know the work.',
+    host: 'sprinter.ai',
+    href: outbound.sprinterAi,
+  },
+  {
+    name: 'Sprinter Consulting',
+    line: 'Hands-on AI enablement and workflow implementation for leaders and operating teams.',
+    host: 'sprinterconsulting.com',
+    href: outbound.consulting,
+  },
+  {
+    name: 'Sprinter Dataworks',
+    line: 'Understand, prepare and license your business data to help fund your AI work.',
+    host: 'sprinterdataworks.com',
+    href: outbound.dataworks,
+  },
+  {
+    name: 'Sprinter Studio',
+    line: 'Our venture studio: partner incubations and internal experiments, published in public.',
+    host: 'sprinter.studio',
+    href: '/',
+  },
+] as const
+
+/** Related properties outside the four-site family. */
+export const related = [
   { label: 'Amble — the company brain, built by Sprinter', host: 'ambleideation.com', href: outbound.amble },
   { label: 'Founded by Tyler Dreher', host: 'tylerdreher.com', href: outbound.tyler },
 ] as const
@@ -43,6 +71,17 @@ export const siblings = [
 export function trackOutbound(placement: string) {
   return {
     'data-analytics-event': 'outbound_click',
+    'data-placement': placement,
+  } as const
+}
+
+/**
+ * Marks an on-site link to the "Work with Sprinter" router (`/#working-with-sprinter`)
+ * so the delegated tracker records it separately from true outbound clicks.
+ */
+export function trackRoute(placement: string) {
+  return {
+    'data-analytics-event': 'route_click',
     'data-placement': placement,
   } as const
 }

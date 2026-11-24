@@ -24,13 +24,16 @@ const fraunces = Fraunces({
   axes: ["opsz"],
 });
 
-const title = "Sprinter Studio — the venture studio of Sprinter";
+const title = "Sprinter Studio — venture studio and public AI ledger";
 
 const description =
-  "The venture studio of Sprinter: partner incubations and internal experiments, clearly labeled — a public record of what we test, ship, and stop.";
+  "Sprinter Studio is the venture studio of Sprinter: partner incubations and internal AI experiments, published with their stage, status and stop decisions.";
 
 const longDescription =
-  "Sprinter Studio is the venture studio inside the Sprinter ecosystem. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. It is not itself a fund or commercial offer: Sprinter.ai explains the wider build system, focused offers live on dedicated routes, and implementation-ready workflows move to Sprinter Consulting.";
+  "Sprinter Studio is the venture studio of Sprinter, the applied AI firm founded by Tyler Dreher in 2018. It incubates new products in two clearly separated tracks — products built with partners, and experiments run on Sprinter's own bench — and publishes the record, including what gets stopped. It is not a fund or a commercial offer: leaders work with Sprinter Consulting, vertical product builds start at Sprinter AI, and business data work lives at Sprinter Dataworks.";
+
+const founderId = "https://sprinter.ai/#founder";
+const parentId = "https://sprinter.ai/#organization";
 
 // Matches --background so mobile browser chrome doesn't frame the board-black
 // page in white.
@@ -79,38 +82,53 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Shared Sprinter entity graph (web family brief, 2026-11-23). The parent
+  // and founder are thin references; sprinter.ai owns their full description.
+  // Sibling sites are separate organizations under the same parent, never sameAs.
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "Person",
+        "@id": founderId,
+        name: "Tyler Dreher",
+        url: "https://tylerdreher.com",
+      },
+      {
         "@type": "Organization",
-        "@id": "https://sprinter.ai/#organization",
+        "@id": parentId,
         name: "Sprinter",
         url: "https://sprinter.ai",
-        founder: {
-          "@type": "Person",
-          name: "Tyler Dreher",
-          url: "https://tylerdreher.com",
-        },
-        sameAs: [
-          "https://sprinterconsulting.com",
-          "https://sprinter.studio",
-          "https://github.com/tylerdr/sprinter-studio",
-        ],
+        founder: { "@id": founderId },
       },
       {
         "@type": "Organization",
         "@id": "https://sprinter.studio/#organization",
         name: "Sprinter Studio",
+        alternateName: "sprinter.studio",
         url: "https://sprinter.studio",
         description: longDescription,
-        parentOrganization: { "@id": "https://sprinter.ai/#organization" },
-        founder: {
-          "@type": "Person",
-          name: "Tyler Dreher",
-          url: "https://tylerdreher.com",
-        },
+        parentOrganization: { "@id": parentId },
+        founder: { "@id": founderId },
         sameAs: ["https://github.com/tylerdr/sprinter-studio"],
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://sprinterconsulting.com/#organization",
+        name: "Sprinter Consulting",
+        url: "https://sprinterconsulting.com",
+        description:
+          "Hands-on AI enablement and workflow implementation for leaders and operating teams.",
+        parentOrganization: { "@id": parentId },
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://sprinterdataworks.com/#organization",
+        name: "Sprinter Dataworks",
+        url: "https://sprinterdataworks.com",
+        description:
+          "Understand, prepare and license your business data to help fund your AI work.",
+        parentOrganization: { "@id": parentId },
       },
       {
         "@type": "WebSite",
@@ -118,6 +136,7 @@ export default function RootLayout({
         name: "Sprinter Studio",
         url: "https://sprinter.studio",
         description,
+        inLanguage: "en",
         publisher: { "@id": "https://sprinter.studio/#organization" },
         about: [
           "Partner incubations",
