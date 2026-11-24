@@ -1,6 +1,6 @@
 # Sprinter Studio role and guardrails
 
-**Decision date:** 2026-08-16 (D5 two-track identity, ratified by Tyler) · **Revised:** 2026-08-17 (D17 accelerator routing only — the two-track identity is unchanged and was restored after the PR attempted to rewrite it)
+**Decision date:** 2026-08-16 (D5 two-track identity, ratified by Tyler) · **Revised:** 2026-08-17 (D17 accelerator routing only — the two-track identity is unchanged and was restored after the PR attempted to rewrite it) · **Revised:** 2026-11-23 (web family Phase 1 — routing and family wording only; two tracks and the accelerator-first rule unchanged)
 
 ## One job
 
@@ -28,6 +28,16 @@ Any graduation sentence is scoped to internal experiments only, or omitted: noth
 | Give five leaders individually scheduled AI accelerators | `sprinter.ai/portfolio-executive-ai-accelerator` |
 | Set up or implement a named workflow that has earned deeper help | `sprinterconsulting.com` |
 | Follow public experiments, build method, and stop decisions | `sprinter.studio` |
+
+## Web family revision (2026-11-23)
+
+Per the Sprinter web family brief (Tyler, 2026-11-23), Studio is the **Prove** member of a four-site family: Sprinter AI (Build), Sprinter Consulting (Advise), Sprinter Dataworks (Data), Sprinter Studio (Prove).
+
+- The header and drawer CTA is **Work with Sprinter**, an on-page link to `#working-with-sprinter`. It no longer sells a single offer from the header.
+- `#working-with-sprinter` routes by need: Advise (Executive AI Accelerator first, then the five-leader pack, then Sprinter Consulting implementation), Build (Product Wedge Review at sprinter.ai) and Data (Sprinter Dataworks, canonical one-liner only, no payout or proceeds language). Partner incubation stays Studio's only door of its own.
+- The accelerator remains the default first purchase for leaders. The table below still holds; the accelerator pages now live on sprinterconsulting.com (sprinter.ai's route redirects there).
+- Footer: "The Sprinter family" uses the brief's canonical one-liners verbatim; Amble and tylerdreher.com sit in a separate related row.
+- Entity graph: founder `https://sprinter.ai/#founder`, parent `https://sprinter.ai/#organization`; Studio, Consulting and Dataworks declare `parentOrganization` to it. Siblings are never `sameAs`.
 
 ## The commercial routing rule
 

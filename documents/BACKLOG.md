@@ -35,3 +35,11 @@
 - [x] Prepare the three missing recent-launch records: Scope Your SaaS, ClosePilot SOP and CloseKit; preserve all 30 existing entries. Local branch `chore/recent-venture-listings-20261023`.
 - [ ] Coordinating task: publish the reviewed listing diff, pass the normal Vercel build, and verify the merged deployment's ledger, detail routes, canonical/social metadata and sitemap. Local font-fixture validation does not establish this result.
 - [ ] Product owners: verify future checkout activation and hosted paid fulfillment before changing the three new records' closed-checkout or unverified-delivery wording.
+
+## Web family Phase 1 follow-ups (2026-11-23)
+- [x] Studio Phase 1: hero, Work with Sprinter router, family footer, entity graph, robots AI crawlers, llms.txt Dataworks, breadcrumbs, /playbook OG.
+- [ ] Sitemap `lastmod`: add a real per-record `reviewedAt` to ledger entries before emitting lastmod; the SEO contract currently forbids a deploy-time date.
+- [ ] Repo hooks: `.husky/pre-commit` runs `npx lint-staged` with no config and `.husky/commit-msg` runs commitlint, which is not installed; both fail on every commit. Add `lint-staged` config plus `@commitlint/cli` and `@commitlint/config-conventional`, or remove the hooks.
+- [ ] `package.json` build script calls `pnpm` while the repo locks with npm (`package-lock.json`).
+- [ ] Phase 2: Sprinter masterbrand (logo, palette, type) — separate design track.
+
